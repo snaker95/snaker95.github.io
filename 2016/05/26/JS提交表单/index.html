@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTML,JS,图片懒加载" />
+  <meta name="keywords" content="HTML,JS,表单提交" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
+<meta name="description" content="表单提交的方式从最简单`form`默认提交, 到`JS`提交表单, 避免页面跳转影响体验度...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML图片懒加载">
-<meta property="og:url" content="http://yoursite.com/2016/05/25/图片懒加载/index.html">
+<meta property="og:title" content="JS表单提交">
+<meta property="og:url" content="http://yoursite.com/2016/05/26/JS提交表单/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
-<meta property="og:updated_time" content="2016-05-29T23:22:26.137Z">
+<meta property="og:description" content="表单提交的方式从最简单`form`默认提交, 到`JS`提交表单, 避免页面跳转影响体验度...">
+<meta property="og:updated_time" content="2016-05-30T05:38:06.236Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTML图片懒加载">
-<meta name="twitter:description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
+<meta name="twitter:title" content="JS表单提交">
+<meta name="twitter:description" content="表单提交的方式从最简单`form`默认提交, 到`JS`提交表单, 避免页面跳转影响体验度...">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> HTML图片懒加载 | Snaker95 </title>
+  <title> JS表单提交 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                HTML图片懒加载
+                JS表单提交
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T14:03:06+08:00" content="2016-05-25">
-              2016-05-25
+            <time itemprop="dateCreated" datetime="2016-05-26T14:03:06+08:00" content="2016-05-26">
+              2016-05-26
             </time>
           </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/25/图片懒加载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/25/图片懒加载/" itemprop="commentsCount"></span>
+                <a href="/2016/05/26/JS提交表单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/JS提交表单/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,13 +302,25 @@
       
 
       
-        <p>现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~<br><a id="more"></a></p>
+        <p>表单提交的方式从最简单<code>form</code>默认提交, 到<code>JS</code>提交表单, 避免页面跳转影响体验度…, 以下介绍我的基本思路:<br><a id="more"></a></p>
 <h1 id="一-基本思路"><a href="#一-基本思路" class="headerlink" title="一. 基本思路"></a>一. 基本思路</h1><blockquote>
-<p><strong>1.</strong> 把<code>img</code>标签中的<code>src</code>属性<strong>删掉</strong>, 此时, 添加属性 data_src, 把图片链接放在该属性下</p>
-<p><strong>2.</strong> 通过使用<code>img</code>标签添加背景图片, 充当懒加载前的显示图片</p>
-<p><strong>3.</strong> 当该<code>img</code>标签在浏览器<strong>显示区内</strong>时, 通过<code>js</code>实现把<code>img</code>标签 中的<code>data_src</code>的链接赋值到<code>img</code>标签中的<code>src</code>属性<br><strong>注:</strong> 浏览器显示区如何判断</p>
+<h2 id="1-HTML页面相关"><a href="#1-HTML页面相关" class="headerlink" title="1. HTML页面相关"></a>1. HTML页面相关</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;javascript:void(0)&quot; pre-action=&quot;&quot; methos=&quot;post&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h1 id="二-JS代码"><a href="#二-JS代码" class="headerlink" title="二. JS代码"></a>二. JS代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 页面懒加载</span><br><span class="line">function loadlazy()&#123;</span><br><span class="line">    var itv = setTimeout(function()&#123;</span><br><span class="line">        var winHeight = $(window).height();</span><br><span class="line">        var scrolltop = $(window).scrollTop();</span><br><span class="line">        $(&apos;.lazyload-img&apos;).each(function()&#123;</span><br><span class="line">            var oTop = $(this).offset().top;</span><br><span class="line">            if((oTop-scrolltop) &gt;= 0 &amp;&amp; (oTop-scrolltop)&lt;winHeight)&#123;</span><br><span class="line">                var src = $(this).attr(&quot;data_src&quot;);</span><br><span class="line">                $(this).attr(&quot;src&quot;,src);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,100);</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">// 页面滚动加载</span><br><span class="line">$(window).scroll(function()&#123;</span><br><span class="line">    loadlazy();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// 页面加载完成</span><br><span class="line">$(function() &#123;</span><br><span class="line">    loadlazy();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>注:</strong> <code>form</code>中<code>action</code>设置为<code>javascript:void(0)</code>, 是<strong>阻止</strong>默认表单提交, 而<code>pre-action</code>中为提交表单的<strong>地址</strong>或<strong>接口</strong> </p>
+<blockquote>
+<h2 id="2-JS相关"><a href="#2-JS相关" class="headerlink" title="2. JS相关"></a>2. JS相关</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  $(&apos;form).submit(function() &#123;		</span><br><span class="line">    $this = $(this);</span><br><span class="line">      var ERR = 0;</span><br><span class="line">      // 表单验证代码</span><br><span class="line">	    ...</span><br><span class="line"></span><br><span class="line">    if( ERR == 0 ) &#123;</span><br><span class="line">      $this.attr(&apos;onsubmit&apos;,&apos;return false;&apos;);</span><br><span class="line">      $.post($this.attr(&apos;pre-action&apos;), $this.serialize(),function(data)&#123;</span><br><span class="line">        if(data.status == 1 || data.status == 200) &#123;  // 成功</span><br><span class="line">          var jumpUrl = data.url;</span><br><span class="line">          if(actionjumpUrl)&#123;</span><br><span class="line">	        window.location.href=jumpUrl;</span><br><span class="line">	      &#125;else&#123;</span><br><span class="line">            window.location.reload();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;else &#123; // 失败</span><br><span class="line">	 	  $this.removeAttr(&apos;onsubmit&apos;);</span><br><span class="line">	    &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">	return false;</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>讲解:</strong></p>
+<blockquote>
+<ol>
+<li>通过<code>$this.attr(&#39;pre-action&#39;)</code> 获取提交的url, 这样和默认表单提交很类似.</li>
+<li>通过 <code>$this.serialize()</code> 获取表单中的内容, 是<strong>serialize</strong>函数的用法</li>
+</ol>
+</blockquote>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><blockquote>
+<p>这样即提高了用户体验度, 也实现当JS部分报错造成<code>form</code>表单默认提交, 同时也可以在JS中做表单验证和放置重复提交.</p>
+</blockquote>
+
       
     </div>
 
@@ -340,13 +352,17 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/25/MySql命令导入与导出/" rel="next" title="MySql命令导入导出数据库">
-                <i class="fa fa-chevron-left"></i> MySql命令导入导出数据库
+              <a href="/2016/05/26/图片懒加载/" rel="next" title="HTML图片懒加载">
+                <i class="fa fa-chevron-left"></i> HTML图片懒加载
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/27/Windows安装Hexo/" rel="prev" title="windows Hexo 安装步骤">
+                windows Hexo 安装步骤 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -361,10 +377,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/25/图片懒加载/"
-     data-title="HTML图片懒加载"
+        <div class="ds-share flat" data-thread-key="2016/05/26/JS提交表单/"
+     data-title="JS表单提交"
      data-content=""
-     data-url="http://yoursite.com/2016/05/25/图片懒加载/">
+     data-url="http://yoursite.com/2016/05/26/JS提交表单/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -391,8 +407,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/25/图片懒加载/"
-           data-title="HTML图片懒加载" data-url="http://yoursite.com/2016/05/25/图片懒加载/">
+      <div class="ds-thread" data-thread-key="2016/05/26/JS提交表单/"
+           data-title="JS表单提交" data-url="http://yoursite.com/2016/05/26/JS提交表单/">
       </div>
     
   </div>
@@ -437,7 +453,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -483,7 +499,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-基本思路"><span class="nav-text">一. 基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-JS代码"><span class="nav-text">二. JS代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-基本思路"><span class="nav-text">一. 基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HTML页面相关"><span class="nav-text">1. HTML页面相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-JS相关"><span class="nav-text">2. JS相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-text">3. 总结</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
