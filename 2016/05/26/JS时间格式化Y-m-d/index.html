@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTML,JS,图片懒加载" />
+  <meta name="keywords" content="HTML,JS,时间,时间格式化" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
+<meta name="description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML图片懒加载">
-<meta property="og:url" content="http://yoursite.com/2016/05/26/图片懒加载/index.html">
+<meta property="og:title" content="JS时间格式化Y-m-d">
+<meta property="og:url" content="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
-<meta property="og:updated_time" content="2016-05-30T09:57:34.073Z">
+<meta property="og:description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
+<meta property="og:updated_time" content="2016-05-31T07:36:01.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTML图片懒加载">
-<meta name="twitter:description" content="现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~">
+<meta name="twitter:title" content="JS时间格式化Y-m-d">
+<meta name="twitter:description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> HTML图片懒加载 | Snaker95 </title>
+  <title> JS时间格式化Y-m-d | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                HTML图片懒加载
+                JS时间格式化Y-m-d
               
             
           </h1>
@@ -243,7 +243,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-26T14:03:06+08:00" content="2016-05-26">
+            <time itemprop="dateCreated" datetime="2016-05-26T14:03:07+08:00" content="2016-05-26">
               2016-05-26
             </time>
           </span>
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/26/图片懒加载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/图片懒加载/" itemprop="commentsCount"></span>
+                <a href="/2016/05/26/JS时间格式化Y-m-d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/JS时间格式化Y-m-d/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,13 +302,20 @@
       
 
       
-        <p>现在的网站越来越花哨, 图片加载越来越多, 这样加载速度就会越来越慢了, 因此, 图片懒加载就很流行咯~<br><a id="more"></a></p>
-<h1 id="一-基本思路"><a href="#一-基本思路" class="headerlink" title="一. 基本思路"></a>一. 基本思路</h1><blockquote>
-<p><strong>1.</strong> 把<code>img</code>标签中的<code>src</code>属性<strong>删掉</strong>, 此时, 添加属性 data_src, 把图片链接放在该属性下</p>
-<p><strong>2.</strong> 通过使用<code>img</code>标签添加背景图片, 充当懒加载前的显示图片</p>
-<p><strong>3.</strong> 当该<code>img</code>标签在浏览器<strong>显示区内</strong>时, 通过<code>js</code>实现把<code>img</code>标签 中的<code>data_src</code>的链接赋值到<code>img</code>标签中的<code>src</code>属性<br><strong>注:</strong> 浏览器显示区如何判断</p>
+        <p>JS中获取当前时间然后像<code>PHP</code>中显示成为<code>Y-m-d H:i:s</code>形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能, 不说啥了..直接上代码~<br><a id="more"></a></p>
+<h1 id="一-JS时间格式代码"><a href="#一-JS时间格式代码" class="headerlink" title="一. JS时间格式代码"></a>一. JS时间格式代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// 时间戳转日期格式化</span><br><span class="line">function formatDate(stamptime) &#123;</span><br><span class="line">	var format = arguments[1];</span><br><span class="line">    if( ! format) &#123;</span><br><span class="line">        format = &apos;Y-m-d&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    var myDate = new Date(stamptime*1000);</span><br><span class="line">    if (!isNaN(myDate))</span><br><span class="line">    &#123;</span><br><span class="line">        Year= myDate.getFullYear();//ie火狐下都可以</span><br><span class="line">        Month= myDate.getMonth()+1;</span><br><span class="line">        Month=Month&lt;10?&apos;0&apos;+Month:Month;</span><br><span class="line">        Day = myDate.getDate();</span><br><span class="line">        Day=Day&lt;10?&apos;0&apos;+Day:Day;</span><br><span class="line">        Hour = myDate.getHours();</span><br><span class="line">        Hour=Hour&lt;10?&apos;0&apos;+Hour:Hour;</span><br><span class="line">        Minute = myDate.getMinutes();</span><br><span class="line">        Minute=Minute&lt;10?&apos;0&apos;+Minute:Minute;</span><br><span class="line">        Second = myDate.getSeconds();</span><br><span class="line">        Second=Second&lt;10?&apos;0&apos;+Second:Second;</span><br><span class="line">		</span><br><span class="line">        // 输入格式判断 </span><br><span class="line">        var Newdate = null;</span><br><span class="line">        if( format.indexOf(&apos;Y&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Year;</span><br><span class="line">            Newdate += format.substr(format.indexOf(&apos;Y&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line">        if( format.indexOf(&apos;m&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Month+format.substr(format.indexOf(&apos;m&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line">        if( format.indexOf(&apos;d&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Day+format.substr(format.indexOf(&apos;d&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line">        if( format.indexOf(&apos;H&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Hour+format.substr(format.indexOf(&apos;H&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line">        if( format.indexOf(&apos;i&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Minute+format.substr(format.indexOf(&apos;i&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line">        if( format.indexOf(&apos;s&apos;) &gt; -1 ) &#123;</span><br><span class="line">            Newdate += Second+format.substr(format.indexOf(&apos;s&apos;)+1,1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return Newdate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>讲解</strong></p>
+<blockquote>
+<ol>
+<li>必传参数问题, 默认只传入需要计算的<strong>时间戳</strong> <em>(秒级单位)</em></li>
+<li>选传参数问题, <strong><code>传参二</code></strong>可为<strong>输出格式*</strong>(‘Y-m-d’)*;</li>
+</ol>
 </blockquote>
-<h1 id="二-JS代码"><a href="#二-JS代码" class="headerlink" title="二. JS代码"></a>二. JS代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 页面懒加载</span><br><span class="line">function loadlazy()&#123;</span><br><span class="line">  var itv = setTimeout(function()&#123;</span><br><span class="line">    var winHeight = $(window).height();</span><br><span class="line">    var scrolltop = $(window).scrollTop();</span><br><span class="line">    $(&apos;.lazyload-img&apos;).each(function()&#123;</span><br><span class="line">      // 计算img是否在显示区, 并且 img 没有src属性</span><br><span class="line">      var oTop = $(this).offset().top;</span><br><span class="line">      if( ! $(this).attr(&apos;src&apos;)</span><br><span class="line">          &amp;&amp; (oTop-scrolltop) &gt;= 0</span><br><span class="line">          &amp;&amp; (oTop-scrolltop)&lt;winHeight</span><br><span class="line">        )&#123;</span><br><span class="line">        var src = $(this).attr(&quot;data_src&quot;);</span><br><span class="line">        $(this).attr(&quot;src&quot;,src);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,100);</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">// 页面滚动加载</span><br><span class="line">$(window).scroll(function()&#123;</span><br><span class="line">    loadlazy();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// 页面加载完成</span><br><span class="line">$(function() &#123;</span><br><span class="line">    loadlazy();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>功能虽然已经实现, 个人认为还可以优化, 希望技术牛们帮助改进…</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;~^_^<em>小生有礼了</em>~</p>
+</blockquote>
+
       
     </div>
 
@@ -329,8 +336,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTML/" rel="tag">#HTML</a>
-          
             <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
           
         </div>
@@ -340,16 +345,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/25/MySql命令导入与导出/" rel="next" title="MySql命令导入导出数据库">
-                <i class="fa fa-chevron-left"></i> MySql命令导入导出数据库
+              <a href="/2016/05/26/JS提交表单/" rel="next" title="JS表单提交">
+                <i class="fa fa-chevron-left"></i> JS表单提交
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/26/JS提交表单/" rel="prev" title="JS表单提交">
-                JS表单提交 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/26/JS时间函数补充-getDiff/" rel="prev" title="JS时间函数补充-自定义getDiff()">
+                JS时间函数补充-自定义getDiff() <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -365,10 +370,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/26/图片懒加载/"
-     data-title="HTML图片懒加载"
+        <div class="ds-share flat" data-thread-key="2016/05/26/JS时间格式化Y-m-d/"
+     data-title="JS时间格式化Y-m-d"
      data-content=""
-     data-url="http://yoursite.com/2016/05/26/图片懒加载/">
+     data-url="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -395,8 +400,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/26/图片懒加载/"
-           data-title="HTML图片懒加载" data-url="http://yoursite.com/2016/05/26/图片懒加载/">
+      <div class="ds-thread" data-thread-key="2016/05/26/JS时间格式化Y-m-d/"
+           data-title="JS时间格式化Y-m-d" data-url="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/">
       </div>
     
   </div>
@@ -487,7 +492,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-基本思路"><span class="nav-text">一. 基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-JS代码"><span class="nav-text">二. JS代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-JS时间格式代码"><span class="nav-text">一. JS时间格式代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
