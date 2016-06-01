@@ -1548,7 +1548,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fff;
+  background: #ffff5b;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2401,7 +2401,7 @@ hr {
 }
 .pagination {
   margin: 120px 0 0;
-  text-align: left;
+  text-align: right;
 }
 @media (max-width: 767px) {
   .pagination {
