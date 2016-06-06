@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Mysql,导入,导出" />
+  <meta name="keywords" content="PHP,字符串长度,汉英" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="MySql命令行导入与导出数据库,并且可以重新编码">
+<meta name="description" content="在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySql命令导入导出数据库">
-<meta property="og:url" content="http://yoursite.com/2016/05/25/MySql命令导入与导出/index.html">
+<meta property="og:title" content="PHP 汉英混排计算字符串长度">
+<meta property="og:url" content="http://yoursite.com/2016/06/03/PHP-汉英混排计算字符串长度/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="MySql命令行导入与导出数据库,并且可以重新编码">
-<meta property="og:updated_time" content="2016-05-29T23:22:26.190Z">
+<meta property="og:description" content="在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了">
+<meta property="og:updated_time" content="2016-06-03T01:23:33.246Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySql命令导入导出数据库">
-<meta name="twitter:description" content="MySql命令行导入与导出数据库,并且可以重新编码">
+<meta name="twitter:title" content="PHP 汉英混排计算字符串长度">
+<meta name="twitter:description" content="在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> MySql命令导入导出数据库 | Snaker95 </title>
+  <title> PHP 汉英混排计算字符串长度 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                MySql命令导入导出数据库
+                PHP 汉英混排计算字符串长度
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T14:02:12+08:00" content="2016-05-25">
-              2016-05-25
+            <time itemprop="dateCreated" datetime="2016-06-03T08:37:04+08:00" content="2016-06-03">
+              2016-06-03
             </time>
           </span>
 
@@ -257,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index">
-                    <span itemprop="name">MySql</span>
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
                   </a>
                 </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/25/MySql命令导入与导出/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/25/MySql命令导入与导出/" itemprop="commentsCount"></span>
+                <a href="/2016/06/03/PHP-汉英混排计算字符串长度/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/03/PHP-汉英混排计算字符串长度/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,12 +302,15 @@
       
 
       
-        <p>数据库备份和恢复是工作中不可缺少的, 虽然现在已经有很多图像工具可以帮助我们很容易的实现, 但当在对原有数据库进行<strong>重新编码</strong>导入导出的场景下 ,工具就显得很捉襟见肘, 其实, 命令行的导入导出很容易就解决了…<br><a id="more"></a></p>
-<h1 id="1-数据库导出"><a href="#1-数据库导出" class="headerlink" title="1. 数据库导出"></a>1. 数据库导出</h1><blockquote>
-<p>[root@host~]$  mysqldmp -uroot -p -R -default-character-set=utf8 DATABASENAME &gt; /path/Sqlname</p>
+        <p>在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了, 但是PHP中已提供了相关函数</p>
+<h1 id="一-函数介绍"><a href="#一-函数介绍" class="headerlink" title="一. 函数介绍"></a>一. 函数介绍</h1><blockquote>
+<p><code>strlen()</code> 和 <code>mb_srelen()</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$str=<span class="string">"中文a字1符"</span>;</span><br><span class="line"><span class="keyword">echo</span> strlen($str);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br /&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> mb_strlen($str,<span class="string">"UTF8"</span>);</span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line">    <span class="comment">//14</span></span><br><span class="line">    <span class="comment">//6</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h1 id="2-数据库导入"><a href="#2-数据库导入" class="headerlink" title="2. 数据库导入"></a>2. 数据库导入</h1><blockquote>
-<p>[root@host~]$  mysql -uroot -p –default-character-set=utf8 DATABASENAME &lt; /path/Sqlname</p>
+<h1 id="二-计算字符串占位"><a href="#二-计算字符串占位" class="headerlink" title="二. 计算字符串占位"></a>二. 计算字符串占位</h1><blockquote>
+<p>中英混排占位 <em>(一个中文字符的占位是2，英文字符是1)</em><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$str=<span class="string">'中文a字1符'</span>;</span><br><span class="line"><span class="comment">//计算如下</span></span><br><span class="line"><span class="keyword">echo</span> ( strlen($str) + mb_strlen($str,<span class="string">'UTF8'</span>) ) / <span class="number">2</span>;</span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line">  <span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="三-数据库中存储长度"><a href="#三-数据库中存储长度" class="headerlink" title="三. 数据库中存储长度"></a>三. 数据库中存储长度</h1><blockquote>
+<p><code>varchar</code>、<code>char</code> 中文字符占位为1 </p>
 </blockquote>
 
       
@@ -330,7 +333,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySql/" rel="tag">#MySql</a>
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
           
         </div>
       
@@ -339,17 +342,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/25/Mysql获取时间的函数/" rel="next" title="MySql时间相关函数">
-                <i class="fa fa-chevron-left"></i> MySql时间相关函数
+              <a href="/2016/06/01/PHP-写日志方法/" rel="next" title="PHP 写日志方法">
+                <i class="fa fa-chevron-left"></i> PHP 写日志方法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/26/JS提交表单/" rel="prev" title="JS表单提交">
-                JS表单提交 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -364,10 +363,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/25/MySql命令导入与导出/"
-     data-title="MySql命令导入导出数据库"
+        <div class="ds-share flat" data-thread-key="2016/06/03/PHP-汉英混排计算字符串长度/"
+     data-title="PHP 汉英混排计算字符串长度"
      data-content=""
-     data-url="http://yoursite.com/2016/05/25/MySql命令导入与导出/">
+     data-url="http://yoursite.com/2016/06/03/PHP-汉英混排计算字符串长度/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -394,8 +393,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/25/MySql命令导入与导出/"
-           data-title="MySql命令导入导出数据库" data-url="http://yoursite.com/2016/05/25/MySql命令导入与导出/">
+      <div class="ds-thread" data-thread-key="2016/06/03/PHP-汉英混排计算字符串长度/"
+           data-title="PHP 汉英混排计算字符串长度" data-url="http://yoursite.com/2016/06/03/PHP-汉英混排计算字符串长度/">
       </div>
     
   </div>
@@ -486,7 +485,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-数据库导出"><span class="nav-text">1. 数据库导出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据库导入"><span class="nav-text">2. 数据库导入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-函数介绍"><span class="nav-text">一. 函数介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-计算字符串占位"><span class="nav-text">二. 计算字符串占位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-数据库中存储长度"><span class="nav-text">三. 数据库中存储长度</span></a></li></ol></div>
             
           </div>
         </section>
