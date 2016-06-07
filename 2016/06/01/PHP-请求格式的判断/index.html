@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTML,JS,Ajax" />
+  <meta name="keywords" content="PHP,post,get,put,delete,ajax" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="JQuery中的Ajax请求非常好的, 既支持`get`也 支持`post`, 很方便; 但是如果页面中有很多Ajax请求, 需要书写多次Ajax格式, 实话是说 - 有点不方便">
+<meta name="description" content="在TP框架中,有很多判断请求的方法,例如:IS_AJAX()等..">
 <meta property="og:type" content="article">
-<meta property="og:title" content="封装Ajax请求的回调函数">
-<meta property="og:url" content="http://yoursite.com/2016/05/26/封装Ajax为回调函数/index.html">
+<meta property="og:title" content="PHP 请求格式的判断">
+<meta property="og:url" content="http://yoursite.com/2016/06/01/PHP-请求格式的判断/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="JQuery中的Ajax请求非常好的, 既支持`get`也 支持`post`, 很方便; 但是如果页面中有很多Ajax请求, 需要书写多次Ajax格式, 实话是说 - 有点不方便">
-<meta property="og:updated_time" content="2016-06-06T06:16:01.318Z">
+<meta property="og:description" content="在TP框架中,有很多判断请求的方法,例如:IS_AJAX()等..">
+<meta property="og:updated_time" content="2016-06-06T07:32:52.426Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="封装Ajax请求的回调函数">
-<meta name="twitter:description" content="JQuery中的Ajax请求非常好的, 既支持`get`也 支持`post`, 很方便; 但是如果页面中有很多Ajax请求, 需要书写多次Ajax格式, 实话是说 - 有点不方便">
+<meta name="twitter:title" content="PHP 请求格式的判断">
+<meta name="twitter:description" content="在TP框架中,有很多判断请求的方法,例如:IS_AJAX()等..">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> 封装Ajax请求的回调函数 | Snaker95 </title>
+  <title> PHP 请求格式的判断 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                封装Ajax请求的回调函数
+                PHP 请求格式的判断
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-26T14:04:06+08:00" content="2016-05-26">
-              2016-05-26
+            <time itemprop="dateCreated" datetime="2016-06-01T08:34:35+08:00" content="2016-06-01">
+              2016-06-01
             </time>
           </span>
 
@@ -257,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
                   </a>
                 </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/26/封装Ajax为回调函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/封装Ajax为回调函数/" itemprop="commentsCount"></span>
+                <a href="/2016/06/01/PHP-请求格式的判断/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/01/PHP-请求格式的判断/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,10 +302,9 @@
       
 
       
-        <p>JQuery中的Ajax请求非常好的, 既支持<code>get</code> 也 支持 <code>post</code>, 很方便; 但是如果页面中有很多Ajax请求, 需要书写多次Ajax格式, 实话是说: 有点不方便, 所以, 借助<code>老王</code>思想,重新封装了新的方法.<br><a id="more"></a></p>
-<h1 id="一-源码"><a href="#一-源码" class="headerlink" title="一. 源码"></a>一. 源码</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">$.send = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    linkstatus = <span class="literal">true</span>; <span class="comment">// 全局变量, 防止重复重复提交</span></span><br><span class="line">    <span class="keyword">var</span> default_config = &#123;</span><br><span class="line">        <span class="string">'type'</span>      :   <span class="string">'post'</span></span><br><span class="line">        ,<span class="string">'url'</span>       :   <span class="string">''</span></span><br><span class="line">        ,<span class="string">'data'</span>      :   &#123;&#125;</span><br><span class="line">        ,<span class="string">'dataType'</span>  :   <span class="string">'json'</span></span><br><span class="line">        ,<span class="string">'async'</span>     :   <span class="literal">true</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"> config , func </span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( ! linkstatus ) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 合并参数</span></span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> config) &#123;</span><br><span class="line">            default_config[i] = config[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                type            :   default_config[<span class="string">'type'</span>]</span><br><span class="line">                ,url            :   default_config[<span class="string">'url'</span>]</span><br><span class="line">                ,data           :   default_config[<span class="string">'data'</span>]</span><br><span class="line">                ,dataType       :   default_config[<span class="string">'dataType'</span>]</span><br><span class="line">                ,<span class="keyword">async</span>          :   default_config[<span class="string">'async'</span>]</span><br><span class="line">                ,beforeSend     :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">                    linkstatus = <span class="literal">false</span>;</span><br><span class="line">                    $(<span class="string">'body'</span>).css(<span class="string">'cursor'</span>, <span class="string">'wait'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                ,success        :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">                    func(e); <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ,complete       :   <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    linkstatus = <span class="literal">true</span>;</span><br><span class="line">                    $(<span class="string">'body'</span>).css(<span class="string">'cursor'</span>, <span class="string">'default'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<p><strong>讲解:</strong> 使用前必须引入<code>JQuery</code>;</p>
-<h1 id="二-使用"><a href="#二-使用" class="headerlink" title="二. 使用"></a>二. 使用</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入以上代码</span></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">'http://127.0.0.1/pc-jxgj/DbDrivers/driver'</span>; <span class="comment">//请求地址</span></span><br><span class="line"><span class="keyword">var</span> config = &#123;</span><br><span class="line">	<span class="string">'url'</span>: url </span><br><span class="line">&#125;</span><br><span class="line">$.send(config, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+        <p>在TP框架中, 有很多判断请求的方法, 例如: IS_AJAX()等.., 可是在其他框架中就不一定有这样的方法了.<br><a id="more"></a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'NOW_TIME'</span>,  $_SERVER[<span class="string">'REQUEST_TIME'</span>]);</span><br><span class="line">define(<span class="string">'REQUEST_METHOD'</span>, $_SERVER[<span class="string">'REQUEST_METHOD'</span>]);</span><br><span class="line">define(<span class="string">'IS_GET'</span>,    REQUEST_METHOD ==<span class="string">'GET'</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">define(<span class="string">'IS_POST'</span>,   REQUEST_METHOD ==<span class="string">'POST'</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">define(<span class="string">'IS_PUT'</span>,    REQUEST_METHOD ==<span class="string">'PUT'</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">define(<span class="string">'IS_DELETE'</span>, REQUEST_METHOD ==<span class="string">'DELETE'</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">define(<span class="string">'IS_AJAX'</span>,  ((<span class="keyword">isset</span>($_SERVER[<span class="string">'HTTP_X_REQUESTED_WITH'</span>]) &amp;&amp; </span><br><span class="line">                     strtolower($_SERVER[<span class="string">'HTTP_X_REQUESTED_WITH'</span>]) == <span class="string">'xmlhttprequest'</span>) ||</span><br><span class="line">                     !<span class="keyword">empty</span>($_POST[C(<span class="string">'VAR_AJAX_SUBMIT'</span>)]) ||</span><br><span class="line">                     !<span class="keyword">empty</span>($_GET[C(<span class="string">'VAR_AJAX_SUBMIT'</span>)])</span><br><span class="line">                   ) ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>讲解:</strong> 需要把这些常量放在入口文件中</p>
+
       
     </div>
 
@@ -326,9 +325,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
-          
-            <a href="/tags/HTML/" rel="tag">#HTML</a>
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
           
         </div>
       
@@ -337,16 +334,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/26/JS时间函数补充-getDiff/" rel="next" title="JS时间函数补充-自定义getDiff()">
-                <i class="fa fa-chevron-left"></i> JS时间函数补充-自定义getDiff()
+              <a href="/2016/06/01/PHP-写日志方法/" rel="next" title="PHP 写日志方法">
+                <i class="fa fa-chevron-left"></i> PHP 写日志方法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/27/Windows安装Hexo/" rel="prev" title="windows Hexo 安装步骤">
-                windows Hexo 安装步骤 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/01/PHP-中文正则匹配/" rel="prev" title="PHP 中文正则和文件路径正则">
+                PHP 中文正则和文件路径正则 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -362,10 +359,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/26/封装Ajax为回调函数/"
-     data-title="封装Ajax请求的回调函数"
+        <div class="ds-share flat" data-thread-key="2016/06/01/PHP-请求格式的判断/"
+     data-title="PHP 请求格式的判断"
      data-content=""
-     data-url="http://yoursite.com/2016/05/26/封装Ajax为回调函数/">
+     data-url="http://yoursite.com/2016/06/01/PHP-请求格式的判断/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -392,8 +389,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/26/封装Ajax为回调函数/"
-           data-title="封装Ajax请求的回调函数" data-url="http://yoursite.com/2016/05/26/封装Ajax为回调函数/">
+      <div class="ds-thread" data-thread-key="2016/06/01/PHP-请求格式的判断/"
+           data-title="PHP 请求格式的判断" data-url="http://yoursite.com/2016/06/01/PHP-请求格式的判断/">
       </div>
     
   </div>
@@ -484,7 +481,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-源码"><span class="nav-text">一. 源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-使用"><span class="nav-text">二. 使用</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
