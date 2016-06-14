@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="PHP,中文,正则" />
+  <meta name="keywords" content="Redis,zset" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="在数据验证中, 匹配中文">
+<meta name="description" content="Redis的数据类型-zset(有序列表)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP 中文正则和文件路径正则">
-<meta property="og:url" content="http://yoursite.com/2016/06/01/PHP-中文正则匹配/index.html">
+<meta property="og:title" content="Redis-数据类型-有序列表">
+<meta property="og:url" content="http://yoursite.com/2016/06/14/Redis-数据类型-有序列表/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="在数据验证中, 匹配中文">
-<meta property="og:updated_time" content="2016-06-06T08:09:37.136Z">
+<meta property="og:description" content="Redis的数据类型-zset(有序列表)">
+<meta property="og:updated_time" content="2016-06-14T09:10:14.883Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP 中文正则和文件路径正则">
-<meta name="twitter:description" content="在数据验证中, 匹配中文">
+<meta name="twitter:title" content="Redis-数据类型-有序列表">
+<meta name="twitter:description" content="Redis的数据类型-zset(有序列表)">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> PHP 中文正则和文件路径正则 | Snaker95 </title>
+  <title> Redis-数据类型-有序列表 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                PHP 中文正则和文件路径正则
+                Redis-数据类型-有序列表
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-01T08:34:37+08:00" content="2016-06-01">
-              2016-06-01
+            <time itemprop="dateCreated" datetime="2016-06-14T11:28:03+08:00" content="2016-06-14">
+              2016-06-14
             </time>
           </span>
 
@@ -257,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/01/PHP-中文正则匹配/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/01/PHP-中文正则匹配/" itemprop="commentsCount"></span>
+                <a href="/2016/06/14/Redis-数据类型-有序列表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/14/Redis-数据类型-有序列表/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,18 +302,27 @@
       
 
       
-        <p>在数据验证中, 匹配常见中文, 路径匹配<br><a id="more"></a></p>
-<h1 id="一-PHP-中文"><a href="#一-PHP-中文" class="headerlink" title="一. PHP (中文)"></a>一. PHP (中文)</h1><blockquote>
-<p>php中utf-8编码下用正则表达式匹配汉字的最终正确表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^[\x&#123;4e00&#125;-\x&#123;9fa5&#125;]+$/u</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="二-JS-中文"><a href="#二-JS-中文" class="headerlink" title="二. JS (中文)"></a>二. JS (中文)</h1><blockquote>
-<p>JS中正则表达式匹配汉字的最终正确表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^[\u4e00-\u9fa5]+$/</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="三-PHP、JS-文件路径"><a href="#三-PHP、JS-文件路径" class="headerlink" title="三. PHP、JS (文件路径)"></a>三. PHP、JS (文件路径)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^(([A-Za-z]:[\\\|\/])|\/)([^\\\\?\/\*\|&lt;&gt;:&quot;]+[\\\|\/])*([^\\\\?\/\*\|&lt;&gt;:&quot;]+\.[^.\\\\?\/\*\|&lt;&gt;:&quot;]+)*$/</span><br></pre></td></tr></table></figure>
-<p><strong>讲解:</strong></p>
-<blockquote>
-<p>文件的所在磁盘  :  (([A-Za-z]:[\|\/])|\/)<br>文件的基本路径  :  ([^\\?\/*|&lt;&gt;:”]+[\|\/])<em><br>文件名称及后缀  :  ([^\\?\/\</em>|&lt;&gt;:”]+.[^.\\?\/*|&lt;&gt;:”]+)*$/</p>
-</blockquote>
+        <p>  Redis 数据库是key-value类型存储方式, 支持的数据类型有 <code>字符串</code>(string)、 <code>哈希</code>(Hash)、 <code>列表</code>(list)、 <code>集合</code>(set)、 <code>有序集合</code>(Zset). </p>
+<p>  现在学习一下<strong>有序列表</strong>类型的相关操作<br><strong>1. 在列表中添加或者更新成员 <code>zadd</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZADD key score member [ score1 member1 score2 member2 ... ]</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 获取有序集合的成员数 <code>scard</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZCARD key  # 返回有序集合的数量</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. 计算在有序集合中指定区间分数的成员数 <code>zcount</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZCOUNT key min max  # 获取score分数min/max之间的成员数</span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 有序集合中对指定成员的分数加上增量 N <code>zincrby</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZINCRBY key N member  # member成员</span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 计算有序集合的交集并将结果存储在新的有序集合key中 <code>zinterstore</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZINTERSTORE destination numkeys key [key1 ...]</span><br></pre></td></tr></table></figure></p>
+<p><strong>6. 获取有序集合中计算指定字典区间内成员数量 <code>zlexcount</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZLEXCOUNT key min max  # 获取key中min-max间的成员数量</span><br></pre></td></tr></table></figure></p>
+<p><strong>7. 获取索引区间返回有序集合指定区间内的数量 <code>zrangebylex</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANGE key start stop [WITHSCORES]</span><br></pre></td></tr></table></figure></p>
+<p><strong>8. 获取字典区间有序集合的成员 <code>ZRANGEBYLEX</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYLEX key min max [LIMIT offset count]</span><br></pre></td></tr></table></figure></p>
+<p><strong>9. 通过分数返回有序集合指定区间内的成员 <code>ZRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]</span><br></pre></td></tr></table></figure></p>
+<p><strong>10. 获取有序集合中指定成员的索引 <code>ZRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANK key member</span><br></pre></td></tr></table></figure></p>
+<p><strong>11. 移除有序集合中成员 <code>zrem</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREM key member [member1 member2 ... ]</span><br></pre></td></tr></table></figure></p>
+<p><strong>12. 移除有序集合中给定的字典区间的所有成员 <code>zremrangebylex</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREMRANGEBYLEX key min max</span><br></pre></td></tr></table></figure></p>
+<p><strong>13. 移除有序集合中给定的排名区间的所有成员 <code>zremrangebyrank</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREMRANGEBYRANK key start stop</span><br></pre></td></tr></table></figure></p>
+<p><strong>14. 移除有序集合中给定的分数区间的所有成员 <code>zremrangebyscore</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREMRANGEBYSCORE key min max</span><br></pre></td></tr></table></figure></p>
+<p><strong>15. 返回有序集中指定区间内的成员，通过索引，分数从高到底 <code>ZREVRANGE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREVRANGE key start stop [WITHSCORES]</span><br></pre></td></tr></table></figure></p>
+<p><strong>16. 返回有序集中指定分数区间内的成员，分数从高到低排序 <code>ZREVRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREVRANGEBYSCORE key max min [WITHSCORES]</span><br></pre></td></tr></table></figure></p>
+<p><strong>17. 获取有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序 <code>ZREVRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREVRANK key member</span><br></pre></td></tr></table></figure></p>
+<p><strong>18. 获取成员的分数值 <code>ZSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZSCORE key member</span><br></pre></td></tr></table></figure></p>
+<p><strong>19. 给定的一个或多个有序集的并集，并存储在新的 key 中 <code>ZUNIONSTORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZUNIONSTORE destination numkeys key [key1 ...]</span><br></pre></td></tr></table></figure></p>
+<p><strong>20. 迭代有序集合中的元素（包括元素成员和元素分值）<code>ZSCAN</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZSCAN key cursor [MATCH pattern] [COUNT count]</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -335,9 +344,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
-          
-            <a href="/tags/PHP/" rel="tag">#PHP</a>
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
           
         </div>
       
@@ -346,16 +353,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/01/PHP-请求格式的判断/" rel="next" title="PHP 请求格式的判断">
-                <i class="fa fa-chevron-left"></i> PHP 请求格式的判断
+              <a href="/2016/06/14/Redis-数据类型-字符串/" rel="next" title="Redis-数据类型-字符串">
+                <i class="fa fa-chevron-left"></i> Redis-数据类型-字符串
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/03/PHP-汉英混排计算字符串长度/" rel="prev" title="PHP 汉英混排计算字符串长度">
-                PHP 汉英混排计算字符串长度 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/14/Redis-数据类型-哈希/" rel="prev" title="Redis-数据类型-哈希">
+                Redis-数据类型-哈希 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -371,10 +378,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/06/01/PHP-中文正则匹配/"
-     data-title="PHP 中文正则和文件路径正则"
+        <div class="ds-share flat" data-thread-key="2016/06/14/Redis-数据类型-有序列表/"
+     data-title="Redis-数据类型-有序列表"
      data-content=""
-     data-url="http://yoursite.com/2016/06/01/PHP-中文正则匹配/">
+     data-url="http://yoursite.com/2016/06/14/Redis-数据类型-有序列表/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -401,8 +408,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/01/PHP-中文正则匹配/"
-           data-title="PHP 中文正则和文件路径正则" data-url="http://yoursite.com/2016/06/01/PHP-中文正则匹配/">
+      <div class="ds-thread" data-thread-key="2016/06/14/Redis-数据类型-有序列表/"
+           data-title="Redis-数据类型-有序列表" data-url="http://yoursite.com/2016/06/14/Redis-数据类型-有序列表/">
       </div>
     
   </div>
@@ -493,7 +500,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-PHP-中文"><span class="nav-text">一. PHP (中文)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-JS-中文"><span class="nav-text">二. JS (中文)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-PHP、JS-文件路径"><span class="nav-text">三. PHP、JS (文件路径)</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
