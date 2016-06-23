@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="PHP,中文,正则" />
+  <meta name="keywords" content="Redis,keys命令" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="在数据验证中, 匹配中文">
+<meta name="description" content="Redis的keys命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP 中文正则和文件路径正则">
-<meta property="og:url" content="http://yoursite.com/2016/06/01/PHP-中文正则匹配/index.html">
+<meta property="og:title" content="Redis-keys命令">
+<meta property="og:url" content="http://yoursite.com/2016/06/15/Redis-keys命令/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="在数据验证中, 匹配中文">
-<meta property="og:updated_time" content="2016-06-06T08:09:37.136Z">
+<meta property="og:description" content="Redis的keys命令">
+<meta property="og:updated_time" content="2016-06-15T01:16:07.323Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP 中文正则和文件路径正则">
-<meta name="twitter:description" content="在数据验证中, 匹配中文">
+<meta name="twitter:title" content="Redis-keys命令">
+<meta name="twitter:description" content="Redis的keys命令">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> PHP 中文正则和文件路径正则 | Snaker95 </title>
+  <title> Redis-keys命令 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                PHP 中文正则和文件路径正则
+                Redis-keys命令
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-01T08:34:37+08:00" content="2016-06-01">
-              2016-06-01
+            <time itemprop="dateCreated" datetime="2016-06-15T11:28:03+08:00" content="2016-06-15">
+              2016-06-15
             </time>
           </span>
 
@@ -257,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/01/PHP-中文正则匹配/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/01/PHP-中文正则匹配/" itemprop="commentsCount"></span>
+                <a href="/2016/06/15/Redis-keys命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/15/Redis-keys命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,18 +302,23 @@
       
 
       
-        <p>在数据验证中, 匹配常见中文, 路径匹配<br><a id="more"></a></p>
-<h1 id="一-PHP-中文"><a href="#一-PHP-中文" class="headerlink" title="一. PHP (中文)"></a>一. PHP (中文)</h1><blockquote>
-<p>php中utf-8编码下用正则表达式匹配汉字的最终正确表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^[\x&#123;4e00&#125;-\x&#123;9fa5&#125;]+$/u</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="二-JS-中文"><a href="#二-JS-中文" class="headerlink" title="二. JS (中文)"></a>二. JS (中文)</h1><blockquote>
-<p>JS中正则表达式匹配汉字的最终正确表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^[\u4e00-\u9fa5]+$/</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="三-PHP、JS-文件路径"><a href="#三-PHP、JS-文件路径" class="headerlink" title="三. PHP、JS (文件路径)"></a>三. PHP、JS (文件路径)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^(([A-Za-z]:[\\\|\/])|\/)([^\\\\?\/\*\|&lt;&gt;:&quot;]+[\\\|\/])*([^\\\\?\/\*\|&lt;&gt;:&quot;]+\.[^.\\\\?\/\*\|&lt;&gt;:&quot;]+)*$/</span><br></pre></td></tr></table></figure>
-<p><strong>讲解:</strong></p>
-<blockquote>
-<p>文件的所在磁盘  :  (([A-Za-z]:[\|\/])|\/)<br>文件的基本路径  :  ([^\\?\/*|&lt;&gt;:”]+[\|\/])<em><br>文件名称及后缀  :  ([^\\?\/\</em>|&lt;&gt;:”]+.[^.\\?\/*|&lt;&gt;:”]+)*$/</p>
-</blockquote>
+        <p>  Redis 数据库是key-value类型存储方式, 支持的数据类型有 <code>字符串</code>(string)、 <code>哈希</code>(Hash)、 <code>列表</code>(list)、 <code>集合</code>(set)、 <code>有序集合</code>(Zset). </p>
+<p>  现在学习一下<strong>keys相关命令</strong>的相关操作<br><strong>1. 删除key</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del key</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 序列化key并返回</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump key</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. 检测key是否存在</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exists key</span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 设置过期时间, 单位为秒</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expire key seconds</span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 设置过期时间, 为秒时间戳</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expireat key timestamp</span><br></pre></td></tr></table></figure></p>
+<p><strong>6. 设置过期时间, 单位为毫秒</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpire key milliseconds</span><br></pre></td></tr></table></figure></p>
+<p><strong>7. 设置过期时间, 为毫秒时间戳</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpireat key milliseconds-timestamp</span><br></pre></td></tr></table></figure></p>
+<p><strong>8. 查找所有符合给定模式(pattern)的key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys pattern  # pattern 类是正则</span><br></pre></td></tr></table></figure></p>
+<p><strong>9. 将key移动到指定数据库db</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">move key db</span><br></pre></td></tr></table></figure></p>
+<p><strong>10. 移除key的过期时间,持久保持</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">persist key</span><br></pre></td></tr></table></figure></p>
+<p><strong>11. 获取key的剩余的过期时间, 单位为毫秒</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pttl key</span><br></pre></td></tr></table></figure></p>
+<p><strong>12. 获取key的生存时间, 单位为秒</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ttl key</span><br></pre></td></tr></table></figure></p>
+<p><strong>13. 从数据库中随机返回一个key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">randomkey</span><br></pre></td></tr></table></figure></p>
+<p><strong>14. 修改key的名称</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename key newkey</span><br></pre></td></tr></table></figure></p>
+<p><strong>15. 仅当newkey不存在,才能修改</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renamenx key newkey</span><br></pre></td></tr></table></figure></p>
+<p><strong>16. 获取key存储值的类型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type key</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -335,9 +340,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
-          
-            <a href="/tags/PHP/" rel="tag">#PHP</a>
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
           
         </div>
       
@@ -346,17 +349,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/01/PHP-请求格式的判断/" rel="next" title="PHP 请求格式的判断">
-                <i class="fa fa-chevron-left"></i> PHP 请求格式的判断
+              <a href="/2016/06/14/Redis-数据类型-列表/" rel="next" title="Redis-数据类型-列表">
+                <i class="fa fa-chevron-left"></i> Redis-数据类型-列表
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/03/PHP-汉英混排计算字符串长度/" rel="prev" title="PHP 汉英混排计算字符串长度">
-                PHP 汉英混排计算字符串长度 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -371,10 +370,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/06/01/PHP-中文正则匹配/"
-     data-title="PHP 中文正则和文件路径正则"
+        <div class="ds-share flat" data-thread-key="2016/06/15/Redis-keys命令/"
+     data-title="Redis-keys命令"
      data-content=""
-     data-url="http://yoursite.com/2016/06/01/PHP-中文正则匹配/">
+     data-url="http://yoursite.com/2016/06/15/Redis-keys命令/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -401,8 +400,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/01/PHP-中文正则匹配/"
-           data-title="PHP 中文正则和文件路径正则" data-url="http://yoursite.com/2016/06/01/PHP-中文正则匹配/">
+      <div class="ds-thread" data-thread-key="2016/06/15/Redis-keys命令/"
+           data-title="Redis-keys命令" data-url="http://yoursite.com/2016/06/15/Redis-keys命令/">
       </div>
     
   </div>
@@ -493,7 +492,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-PHP-中文"><span class="nav-text">一. PHP (中文)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-JS-中文"><span class="nav-text">二. JS (中文)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-PHP、JS-文件路径"><span class="nav-text">三. PHP、JS (文件路径)</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
