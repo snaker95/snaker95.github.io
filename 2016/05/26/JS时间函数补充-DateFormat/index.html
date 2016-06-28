@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
+<meta name="description" content="在js中, 获取时间的方法已经很多了, 但是作为PHP程序猿早已习惯了PHP中的时间函数`date(&apos;Y-m-d H:i:s)`">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS时间格式化Y-m-d">
-<meta property="og:url" content="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/index.html">
+<meta property="og:title" content="JS时间函数补充-自定义DateFormat()">
+<meta property="og:url" content="http://yoursite.com/2016/05/26/JS时间函数补充-DateFormat/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
-<meta property="og:updated_time" content="2016-06-01T01:12:04.038Z">
+<meta property="og:description" content="在js中, 获取时间的方法已经很多了, 但是作为PHP程序猿早已习惯了PHP中的时间函数`date(&apos;Y-m-d H:i:s)`">
+<meta property="og:updated_time" content="2016-06-27T01:34:59.363Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS时间格式化Y-m-d">
-<meta name="twitter:description" content="JS中获取当前时间然后像`PHP`中显示成为`Y-m-d H:i:s`形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能">
+<meta name="twitter:title" content="JS时间函数补充-自定义DateFormat()">
+<meta name="twitter:description" content="在js中, 获取时间的方法已经很多了, 但是作为PHP程序猿早已习惯了PHP中的时间函数`date(&apos;Y-m-d H:i:s)`">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> JS时间格式化Y-m-d | Snaker95 </title>
+  <title> JS时间函数补充-自定义DateFormat() | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                JS时间格式化Y-m-d
+                JS时间函数补充-自定义DateFormat()
               
             
           </h1>
@@ -243,7 +243,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-26T14:03:07+08:00" content="2016-05-26">
+            <time itemprop="dateCreated" datetime="2016-05-26T14:03:08+08:00" content="2016-05-26">
               2016-05-26
             </time>
           </span>
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/26/JS时间格式化Y-m-d/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/JS时间格式化Y-m-d/" itemprop="commentsCount"></span>
+                <a href="/2016/05/26/JS时间函数补充-DateFormat/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/26/JS时间函数补充-DateFormat/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,13 +302,21 @@
       
 
       
-        <p>JS中获取当前时间然后像<code>PHP</code>中显示成为<code>Y-m-d H:i:s</code>形式不是非常方便, 由于习惯问题, 自己封装函数方法实现该功能, 不说啥了..直接上代码~<br><a id="more"></a></p>
-<h1 id="一-JS时间格式代码"><a href="#一-JS时间格式代码" class="headerlink" title="一. JS时间格式代码"></a>一. JS时间格式代码</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 时间戳转日期格式化</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatDate</span>(<span class="params">stamptime</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> format = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>( ! format) &#123;</span><br><span class="line">        format = <span class="string">'Y-m-d'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> myDate = <span class="keyword">new</span> <span class="built_in">Date</span>(stamptime*<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(myDate))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> Year= myDate.getFullYear();<span class="comment">//ie火狐下都可以</span></span><br><span class="line">        <span class="keyword">var</span> Month= myDate.getMonth()+<span class="number">1</span>;</span><br><span class="line">        Month=Month&lt;<span class="number">10</span>?<span class="string">'0'</span>+Month:Month;</span><br><span class="line">        <span class="keyword">var</span> Day = myDate.getDate();</span><br><span class="line">        Day=Day&lt;<span class="number">10</span>?<span class="string">'0'</span>+Day:Day;</span><br><span class="line">        <span class="keyword">var</span> Hour = myDate.getHours();</span><br><span class="line">        Hour=Hour&lt;<span class="number">10</span>?<span class="string">'0'</span>+Hour:Hour;</span><br><span class="line">        <span class="keyword">var</span> Minute = myDate.getMinutes();</span><br><span class="line">        Minute=Minute&lt;<span class="number">10</span>?<span class="string">'0'</span>+Minute:Minute;</span><br><span class="line">        <span class="keyword">var</span> Second = myDate.getSeconds();</span><br><span class="line">        Second=Second&lt;<span class="number">10</span>?<span class="string">'0'</span>+Second:Second;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 输入格式判断 </span></span><br><span class="line">        <span class="keyword">var</span> Newdate = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'Y'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Year;</span><br><span class="line">            Newdate += format.substr(format.indexOf(<span class="string">'Y'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'m'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Month+format.substr(format.indexOf(<span class="string">'m'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'d'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Day+format.substr(format.indexOf(<span class="string">'d'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'H'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Hour+format.substr(format.indexOf(<span class="string">'H'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'i'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Minute+format.substr(format.indexOf(<span class="string">'i'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'s'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Second+format.substr(format.indexOf(<span class="string">'s'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Newdate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>在js中, 获取时间的方法已经很多了, 但是作为PHP程序猿早已习惯了PHP中的时间函数<code>date(&#39;Y-m-d H:i:s)</code>, 在这里, 自己封装一个js中的类是PHP中的<code>date()</code>函数<br><a id="more"></a></p>
+<h1 id="一-使用方法"><a href="#一-使用方法" class="headerlink" title="一. 使用方法"></a>一. 使用方法</h1><blockquote>
+<ol>
+<li>写入活引入下面的JS代码</li>
+<li>实例化时间对象, <code>var date = new Date();</code></li>
+<li>获取时间格式, <code>var showDate = date.DateFormat(格式化,时间戳)</code></li>
+</ol>
+</blockquote>
+<h1 id="二-JS代码-实现"><a href="#二-JS代码-实现" class="headerlink" title="二. JS代码 实现"></a>二. JS代码 实现</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 时间戳转日期格式化</span></span><br><span class="line"><span class="built_in">Date</span>.prototype.DateFormat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> format = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> stamptime = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> today = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">    <span class="keyword">if</span>( ! format ) &#123;</span><br><span class="line">        format = <span class="string">'Y-m-d'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    stamptime = stamptime*<span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">if</span>( ! stamptime ) &#123;</span><br><span class="line">        stamptime = <span class="built_in">Date</span>.parse(today);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> myDate = <span class="keyword">new</span> <span class="built_in">Date</span>(stamptime);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(myDate))</span><br><span class="line">    &#123;</span><br><span class="line">        Year= myDate.getFullYear();<span class="comment">//ie火狐下都可以</span></span><br><span class="line">        Month= myDate.getMonth()+<span class="number">1</span>;</span><br><span class="line">        Month=Month&lt;<span class="number">10</span>?<span class="string">'0'</span>+Month:Month;</span><br><span class="line">        Day = myDate.getDate();</span><br><span class="line">        Day=Day&lt;<span class="number">10</span>?<span class="string">'0'</span>+Day:Day;</span><br><span class="line">        Hour = myDate.getHours();</span><br><span class="line">        Hour=Hour&lt;<span class="number">10</span>?<span class="string">'0'</span>+Hour:Hour;</span><br><span class="line">        Minute = myDate.getMinutes();</span><br><span class="line">        Minute=Minute&lt;<span class="number">10</span>?<span class="string">'0'</span>+Minute:Minute;</span><br><span class="line">        Second = myDate.getSeconds();</span><br><span class="line">        Second=Second&lt;<span class="number">10</span>?<span class="string">'0'</span>+Second:Second;</span><br><span class="line">        <span class="keyword">var</span> Newdate = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'Y'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Year;</span><br><span class="line">            Newdate += format.substr(format.indexOf(<span class="string">'Y'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'m'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Month+format.substr(format.indexOf(<span class="string">'m'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'d'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Day+format.substr(format.indexOf(<span class="string">'d'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'H'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Hour+format.substr(format.indexOf(<span class="string">'H'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'i'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Minute+format.substr(format.indexOf(<span class="string">'i'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( format.indexOf(<span class="string">'s'</span>) &gt; <span class="number">-1</span> ) &#123;</span><br><span class="line">            Newdate += Second+format.substr(format.indexOf(<span class="string">'s'</span>)+<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Newdate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> oo = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="built_in">console</span>.log(oo.DateFormat(<span class="string">'Y年m月'</span>));</span><br></pre></td></tr></table></figure>
 <p><strong>讲解</strong></p>
 <blockquote>
 <ol>
-<li>必传参数问题, 默认只传入需要计算的<strong>时间戳</strong> <em>(秒级单位)</em></li>
-<li>选传参数问题, <strong><code>传参二</code></strong>可为<strong>输出格式*</strong>(‘Y-m-d’)*;</li>
+<li><strong>参数一</strong> : 时间格式化方式, 支持Y/m/d/H/i/s (年月日时分秒)</li>
+<li><strong>参数二</strong> : 时间戳 (秒级)</li>
+<li>默认不传任何参数, 获取本地时间,Y-m-d形式</li>
 </ol>
 </blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
@@ -345,16 +353,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/26/图片懒加载/" rel="next" title="HTML图片懒加载和加载就绪获取图片尺寸">
-                <i class="fa fa-chevron-left"></i> HTML图片懒加载和加载就绪获取图片尺寸
+              <a href="/2016/05/26/JS时间函数补充-getDiff/" rel="next" title="JS时间函数补充-自定义getDiff()">
+                <i class="fa fa-chevron-left"></i> JS时间函数补充-自定义getDiff()
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/26/JS时间函数补充-getDiff/" rel="prev" title="JS时间函数补充-自定义getDiff()">
-                JS时间函数补充-自定义getDiff() <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/26/封装Ajax为回调函数/" rel="prev" title="封装Ajax请求的回调函数">
+                封装Ajax请求的回调函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -370,10 +378,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/26/JS时间格式化Y-m-d/"
-     data-title="JS时间格式化Y-m-d"
+        <div class="ds-share flat" data-thread-key="2016/05/26/JS时间函数补充-DateFormat/"
+     data-title="JS时间函数补充-自定义DateFormat()"
      data-content=""
-     data-url="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/">
+     data-url="http://yoursite.com/2016/05/26/JS时间函数补充-DateFormat/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -400,8 +408,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/26/JS时间格式化Y-m-d/"
-           data-title="JS时间格式化Y-m-d" data-url="http://yoursite.com/2016/05/26/JS时间格式化Y-m-d/">
+      <div class="ds-thread" data-thread-key="2016/05/26/JS时间函数补充-DateFormat/"
+           data-title="JS时间函数补充-自定义DateFormat()" data-url="http://yoursite.com/2016/05/26/JS时间函数补充-DateFormat/">
       </div>
     
   </div>
@@ -446,7 +454,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -492,7 +500,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-JS时间格式代码"><span class="nav-text">一. JS时间格式代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-使用方法"><span class="nav-text">一. 使用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-JS代码-实现"><span class="nav-text">二. JS代码 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
