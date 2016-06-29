@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Redis,hash" />
+  <meta name="keywords" content="Redis,string" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="Redis的数据类型-Hash(哈希)">
+<meta name="description" content="Redis的数据类型-String(字符串)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis-数据类型-哈希">
-<meta property="og:url" content="http://yoursite.com/2016/06/14/Redis-数据类型-哈希/index.html">
+<meta property="og:title" content="Redis-数据类型-字符串">
+<meta property="og:url" content="http://yoursite.com/2016/06/08/Redis-数据类型-字符串/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="Redis的数据类型-Hash(哈希)">
-<meta property="og:updated_time" content="2016-06-14T08:23:19.064Z">
+<meta property="og:description" content="Redis的数据类型-String(字符串)">
+<meta property="og:updated_time" content="2016-06-29T02:17:27.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis-数据类型-哈希">
-<meta name="twitter:description" content="Redis的数据类型-Hash(哈希)">
+<meta name="twitter:title" content="Redis-数据类型-字符串">
+<meta name="twitter:description" content="Redis的数据类型-String(字符串)">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> Redis-数据类型-哈希 | Snaker95 </title>
+  <title> Redis-数据类型-字符串 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                Redis-数据类型-哈希
+                Redis-数据类型-字符串
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-14T11:28:03+08:00" content="2016-06-14">
-              2016-06-14
+            <time itemprop="dateCreated" datetime="2016-06-08T11:28:10+08:00" content="2016-06-08">
+              2016-06-08
             </time>
           </span>
 
@@ -273,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/14/Redis-数据类型-哈希/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/14/Redis-数据类型-哈希/" itemprop="commentsCount"></span>
+                <a href="/2016/06/08/Redis-数据类型-字符串/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/08/Redis-数据类型-字符串/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -303,20 +303,32 @@
 
       
         <p>  Redis 数据库是key-value类型存储方式, 支持的数据类型有 <code>字符串</code>(string)、 <code>哈希</code>(Hash)、 <code>列表</code>(list)、 <code>集合</code>(set)、 <code>有序集合</code>(Zset). </p>
-<p>  现在学习一下<strong>哈希</strong>类型的相关操作<br><strong>1. 删除哈希表字段 <code>hdel</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HDEL key field1 [field2 ... ] 	# 删除key中的fields</span><br></pre></td></tr></table></figure></p>
-<p><strong>2. 查看字段是否存在 <code>hexists</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HEXISTS key field	# 哈希表key中是否存在field</span><br></pre></td></tr></table></figure></p>
-<p><strong>3. 获取哈希表中指定字段的值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HGET key field  # 获取哈希表中指定字段field</span><br></pre></td></tr></table></figure></p>
-<p><strong>4. 获取哈希表中指定key的所有字段和值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HGETALL key  # 获取哈希表中指定key所有字段和值</span><br></pre></td></tr></table></figure></p>
-<p><strong>5. 哈希表中指定key中指定字段的整数新增N <code>hincrby</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HINCRBY key field N  # 在field值上新增N</span><br></pre></td></tr></table></figure></p>
-<p><strong>6. 哈希表中指定key中指定字段的浮点数新增N.M <code>hincrbyfloat</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HINCRBYFLOAT key field N.M  # 在field值上新增N.M</span><br></pre></td></tr></table></figure></p>
-<p><strong>7. 获取哈希表中key的所有字段 <code>hkeys</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEYS key  # 获取key中所有字段fields</span><br></pre></td></tr></table></figure></p>
-<p><strong>8. 获取哈希表中字段长度 <code>hlen</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HLEN key  # 获取哈希中字段fields的长度</span><br></pre></td></tr></table></figure></p>
-<p><strong>9. 获取哈希表中字段的值 <code>hmget</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HMGET key field [field1 ... ]  # 获取key中fields的值</span><br></pre></td></tr></table></figure></p>
-<p><strong>10. 设置哈希表中多个字段和值 <code>hmset</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HMSET key field value [field1 value1 ... ]</span><br></pre></td></tr></table></figure></p>
-<p><strong>11. 设置哈希表中单个字段和值 <code>hset</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HSET key field value</span><br></pre></td></tr></table></figure></p>
-<p><strong>12. 只有字段不存在才可设置 <code>hsetnx</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HSETNX key field value  # 只有field不存在才可设置</span><br></pre></td></tr></table></figure></p>
-<p><strong>13. 获取哈希表中的所有值 <code>hvals</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HVALS key  # 获取key 所有值</span><br></pre></td></tr></table></figure></p>
-<p><strong>14. 迭代哈希表中的键值对 <code>hscan</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HSCAN key cursor [MATCH pattern] [COUNT count]</span><br></pre></td></tr></table></figure></p>
+<p>  现在学习一下<strong>字符串</strong>类型的相关操作<br><strong>1. 设置数据 <code>set</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value  <span class="comment"># 设置指定key的值</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 获取数据 <code>get</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET key	<span class="comment"># 获取指定key的值</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>3. 获取字符串中的一段 <code>getrange</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GETRANGE key start end 	<span class="comment"># 获取指定key从start到end的字符串</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 设置并获取数据 <code>getset</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GETSET key value 	<span class="comment"># 设置指定key的值为value, 并返回key的旧值</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 获取指定偏移量上的位 <code>getbit</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GETBIT key offset 	<span class="comment"># 获取指定key中字符串指定偏移量上的位(bit)</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> <strong>注:</strong>当 offset 比字符串值的长度大，或者 key 不存在时，返回 0</p>
+</blockquote>
+<p><strong>6. 设置或清除指定偏移量上的位 <code>setbit</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETBIT key offset value  <span class="comment"># 设置或清除指定key中字符串指定偏移量的位(bit)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>7. 获取所有给定key的值 <code>mget</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MGET key1 [key2...] 	<span class="comment"># 获取所有(一个或多个)给定 key 的值。</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>8. 设置带过期时间的数据(单位:<em>秒</em>) <code>setex</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETEX key seconds value <span class="comment"># 设置key的值,并指定过期时间seconds(秒)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>9. 不存在key时设置数据 <code>setnx</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETNX key value 	<span class="comment"># 只有key不存在时,设置key的值</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>10. 覆盖key中的数据(类是字符串替换) <code>setrange</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETRANGE key offset value 	<span class="comment"># 用value覆盖key中从offset偏移之后的数据</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> <strong>注:</strong>超过部分直接显示</p>
+</blockquote>
+<p><strong>11. 获取key中字符串长度 <code>strlen</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STRLEN key</span><br></pre></td></tr></table></figure></p>
+<p><strong>12. 设置多个key-value数据 <code>mset</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSET key value [key1 value1 ...]</span><br></pre></td></tr></table></figure></p>
+<p><strong>13. 设置多个ke-value数据,仅当key不存在 <code>msetnx</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSETNX key value [key1 value1 ...]</span><br></pre></td></tr></table></figure></p>
+<p><strong>14. 设置带过期时间的数据(单位:<em>毫秒</em>) <code>psetex</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PSETEX key milliseconds value 	<span class="comment"># (毫秒)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>15. 数字自增一 <code>incr</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INCR key 	<span class="comment"># key中储存的数字值增加1</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>16. 数字自增N <code>incrby</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INCRBY key N 	<span class="comment"># key中储存的数字值增加N</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>17. 数字自增浮点型 <code>incrbyfloat</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INCRBYFLOAT key N.M 	<span class="comment"># key中储存的数字增加 N.M</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>18. 数字自减一 <code>decr</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DECR key 	<span class="comment"># key中储存的数字值自减1</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>19. 数字自增N <code>decrby</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DECRBY key N 	<span class="comment"># key中储存的数字值减N</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>20. 追加数据 <code>append</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">APPEND key value 	<span class="comment"># 在key值末尾追加value</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -347,16 +359,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/14/Redis-数据类型-字符串/" rel="next" title="Redis-数据类型-字符串">
-                <i class="fa fa-chevron-left"></i> Redis-数据类型-字符串
+              <a href="/2016/06/08/Redis-keys命令/" rel="next" title="Redis-keys命令">
+                <i class="fa fa-chevron-left"></i> Redis-keys命令
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/14/Redis-数据类型-有序列表/" rel="prev" title="Redis-数据类型-有序列表">
-                Redis-数据类型-有序列表 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/08/Redis-数据类型-列表/" rel="prev" title="Redis-数据类型-列表">
+                Redis-数据类型-列表 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -372,10 +384,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/06/14/Redis-数据类型-哈希/"
-     data-title="Redis-数据类型-哈希"
+        <div class="ds-share flat" data-thread-key="2016/06/08/Redis-数据类型-字符串/"
+     data-title="Redis-数据类型-字符串"
      data-content=""
-     data-url="http://yoursite.com/2016/06/14/Redis-数据类型-哈希/">
+     data-url="http://yoursite.com/2016/06/08/Redis-数据类型-字符串/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -402,8 +414,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/14/Redis-数据类型-哈希/"
-           data-title="Redis-数据类型-哈希" data-url="http://yoursite.com/2016/06/14/Redis-数据类型-哈希/">
+      <div class="ds-thread" data-thread-key="2016/06/08/Redis-数据类型-字符串/"
+           data-title="Redis-数据类型-字符串" data-url="http://yoursite.com/2016/06/08/Redis-数据类型-字符串/">
       </div>
     
   </div>
@@ -448,7 +460,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
