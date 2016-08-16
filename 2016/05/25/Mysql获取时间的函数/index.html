@@ -302,12 +302,12 @@
       
 
       
-        <p>Mysql是大多程序猿选择的数据库,在查询的时候可能需要对时间进行获取或者时间格式化<br><a id="more"></a></p>
-<h3 id="1-获取当前时间"><a href="#1-获取当前时间" class="headerlink" title="1. 获取当前时间:"></a>1. 获取当前时间:</h3><pre><code>`SELECT CURDATE()` : 仅获取 YYYY-MM-DD
+        <p>Mysql&#x662F;&#x5927;&#x591A;&#x7A0B;&#x5E8F;&#x733F;&#x9009;&#x62E9;&#x7684;&#x6570;&#x636E;&#x5E93;,&#x5728;&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5BF9;&#x65F6;&#x95F4;&#x8FDB;&#x884C;&#x83B7;&#x53D6;&#x6216;&#x8005;&#x65F6;&#x95F4;&#x683C;&#x5F0F;&#x5316;<br><a id="more"></a></p>
+<h3 id="1-&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;"><a href="#1-&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;" class="headerlink" title="1. &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;:"></a>1. &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;:</h3><pre><code>`SELECT CURDATE()` : &#x4EC5;&#x83B7;&#x53D6; YYYY-MM-DD
 `SELECT NOW()`    :    YYYY-MM-DD HH:ii:ss
-</code></pre><h3 id="2-转化单个年-月-日-日"><a href="#2-转化单个年-月-日-日" class="headerlink" title="2. 转化单个年\/月\/日\/日"></a>2. 转化单个<strong>年</strong>\/<strong>月</strong>\/<strong>日</strong>\/<strong>日</strong></h3><pre><code>`YEAR()`    `MONTH()`    `DAY()`     `HOUR`
-</code></pre><h3 id="3-Sql语句计算年龄"><a href="#3-Sql语句计算年龄" class="headerlink" title="3. Sql语句计算年龄"></a>3. Sql语句计算年龄</h3><pre><code>`SELECT YEAR(curdate()) - YEAR(&apos;1990-01-09&apos;)  as age;`
-</code></pre><p>或者:<br>    <code>SELECT LEFT(curdate(),4) - LEFT(&#39;1990&#39;,4) as age</code><br>    <em>注 : LEFT() : 从左侧开始取值, RIGHT() : 从右侧开始取值</em></p>
+</code></pre><h3 id="2-&#x8F6C;&#x5316;&#x5355;&#x4E2A;&#x5E74;-&#x6708;-&#x65E5;-&#x65E5;"><a href="#2-&#x8F6C;&#x5316;&#x5355;&#x4E2A;&#x5E74;-&#x6708;-&#x65E5;-&#x65E5;" class="headerlink" title="2. &#x8F6C;&#x5316;&#x5355;&#x4E2A;&#x5E74;\/&#x6708;\/&#x65E5;\/&#x65E5;"></a>2. &#x8F6C;&#x5316;&#x5355;&#x4E2A;<strong>&#x5E74;</strong>\/<strong>&#x6708;</strong>\/<strong>&#x65E5;</strong>\/<strong>&#x65E5;</strong></h3><pre><code>`YEAR()`    `MONTH()`    `DAY()`     `HOUR`
+</code></pre><h3 id="3-Sql&#x8BED;&#x53E5;&#x8BA1;&#x7B97;&#x5E74;&#x9F84;"><a href="#3-Sql&#x8BED;&#x53E5;&#x8BA1;&#x7B97;&#x5E74;&#x9F84;" class="headerlink" title="3. Sql&#x8BED;&#x53E5;&#x8BA1;&#x7B97;&#x5E74;&#x9F84;"></a>3. Sql&#x8BED;&#x53E5;&#x8BA1;&#x7B97;&#x5E74;&#x9F84;</h3><pre><code>`SELECT YEAR(curdate()) - YEAR(&apos;1990-01-09&apos;)  as age;`
+</code></pre><p>&#x6216;&#x8005;:<br>    <code>SELECT LEFT(curdate(),4) - LEFT(&apos;1990&apos;,4) as age</code><br>    <em>&#x6CE8; : LEFT() : &#x4ECE;&#x5DE6;&#x4FA7;&#x5F00;&#x59CB;&#x53D6;&#x503C;, RIGHT() : &#x4ECE;&#x53F3;&#x4FA7;&#x5F00;&#x59CB;&#x53D6;&#x503C;</em></p>
 
       
     </div>
