@@ -1,0 +1,677 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swoole,PHP" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04.Swoole多端口监听、热重启以及Timer进阶">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:updated_time" content="2016-07-19T05:17:22.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="04.Swoole多端口监听、热重启以及Timer进阶">
+<meta name="twitter:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 04.Swoole多端口监听、热重启以及Timer进阶 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                04.Swoole多端口监听、热重启以及Timer进阶
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T15:44:29+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swoole/" itemprop="url" rel="index">
+                    <span itemprop="name">Swoole</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第四章-Swoole多端口监听、热重启以及Timer进阶"><a href="#第四章-Swoole多端口监听、热重启以及Timer进阶" class="headerlink" title="第四章 Swoole多端口监听、热重启以及Timer进阶"></a>第四章 Swoole多端口监听、热重启以及Timer进阶</h1><hr>
+<p>环境说明：</p>
+<blockquote>
+<p>系统：Ubuntu14.04 （安装教程包括CentOS6.5）<br>PHP版本：PHP-5.5.10<br>swoole版本：1.7.7-stable</p>
+</blockquote>
+<h4 id="1-多端口监听"><a href="#1-多端口监听" class="headerlink" title="1.多端口监听"></a>1.多端口监听</h4><p>在实际运用场景中，服务器可能需要监听不同host下的不同端口。比如，一个应用服务器，可能需要监听外网的服务端口，同时也需要监听内网的管理端口。在Swoole中，可以轻松的实现这样的功能。<br>Swoole提供了<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/03.swoole_server%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8.md#swoole_serveraddlistener" target="_blank" rel="external">addlistener</a>函数用于给服务器添加一个需要监听的host及port，并指定对应的Socket类型（TCP，UDP，Unix Socket以及对应的IPv4和IPv6版本）。</p>
+<blockquote>
+<p>代码如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$serv = <span class="keyword">new</span> swoole_server(<span class="string">"192.168.1.1"</span>, <span class="number">9501</span>); <span class="comment">// 监听外网的9501端口</span></span><br><span class="line">$serv-&gt;addlistener(<span class="string">"127.0.0.1"</span>, <span class="number">9502</span> , SWOOLE_TCP); <span class="comment">// 监听本地的9502端口</span></span><br><span class="line">$serv-&gt;start(); <span class="comment">// addlistener必须在start前调用</span></span><br></pre></td></tr></table></figure>
+<p>此时，swoole_server就会同时监听两个host下的两个端口。这里要注意的是，来自两个端口的数据会在同一个onReceive中获取到，这时就要用到swoole的另一个成员函数<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/03.swoole_server%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8.md#swoole_serverconnection_info" target="_blank" rel="external">connection_info</a>，通过这个函数获取到fd的from_port，就可以判定消息的类型。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$info = $serv-&gt;connection_info($fd, $from_id);</span><br><span class="line"><span class="comment">//来自9502的内网管理端口</span></span><br><span class="line"><span class="keyword">if</span>($info[<span class="string">'from_port'</span>] == <span class="number">9502</span>) &#123;</span><br><span class="line">    $serv-&gt;send($fd, <span class="string">"welcome admin\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//来自外网</span></span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    $serv-&gt;send($fd, <span class="string">'Swoole: '</span>.$data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/04/swoole_multi_port_server.php" target="_blank" rel="external">点此查看完整源码</a></p>
+<h4 id="2-服务器热重启"><a href="#2-服务器热重启" class="headerlink" title="2.服务器热重启"></a>2.服务器热重启</h4><p>所谓热重启，就是当服务器相关代码有所变动之后，无需停止服务，而是在服务器仍然运行的状态下更新文件。Swoole通过内置的reload函数以及两个自定义信号量实现了这一功能。<br>首先我讲解一下Swoole可用的三个信号：<code>SIGTERM</code>，<code>SIGUSR1</code>，<code>SIGUSR2</code>。</p>
+<blockquote>
+<ol>
+<li><code>SIGTERM</code>用于停止服务器，</li>
+<li><code>SIGUSR1</code>用于重启全部的Worker进程，</li>
+<li><code>SIGUSR2</code>用于重启全部的Task Worker进程。</li>
+</ol>
+</blockquote>
+<p>那要如何实现热更新代码文件呢？Swoole的回调函数中有这个一个回调<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#3onworkerstart" target="_blank" rel="external">onWorkerStart</a>;该回调会在Worker进程启动时被调用。因此，当swoole_server收到SIGUSR1信号并重启全部Worker进程后，onWorkerStart就会被调用。如果在onWorkerStart中require全部的代码文件，每次onWorkerStart后都会重新require一次php文件，这样就能实现代码文件的热更新。</p>
+<blockquote>
+<p>来看下代码实现：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onStart</span><span class="params">( $serv )</span> </span>&#123;</span><br><span class="line">    cli_set_process_title(<span class="string">"reload_master"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onWorkerStart</span><span class="params">( $serv , $worker_id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">require_once</span> <span class="string">"reload_page.php"</span>;</span><br><span class="line">    Test(); <span class="comment">// reload_page.php中定义的一个函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>首先，在<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#2onstart" target="_blank" rel="external">onStart</a>回调函数中通过php的cli_set_process_title函数设置进程名。</p>
+</blockquote>
+<p>在<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#3onworkerstart" target="_blank" rel="external">onWorkerStart</a>中，require相关的php文件。</p>
+<blockquote>
+<p>然后，新建一个reload.sh文件，输入如下内容：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;Reloading...&quot;</span><br><span class="line">cmd=$(pidof reload_master)</span><br><span class="line"></span><br><span class="line">kill -USR1 &quot;$cmd&quot;</span><br><span class="line">echo &quot;Reloaded&quot;</span><br></pre></td></tr></table></figure>
+<p>这样，就可以通过执行这个脚本重启服务器了。<br><a href="https://github.com/LinkedDestiny/swoole-doc/tree/master/src/04/reload" target="_blank" rel="external">点此查看完整源码</a></p>
+<h4 id="3-Timer补充：after函数"><a href="#3-Timer补充：after函数" class="headerlink" title="3.Timer补充：after函数"></a>3.Timer补充：after函数</h4><p>在swoole-1.7.7stable版本中，Timer新增了一个函数<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/03.swoole_server%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8.md#swoole_serverafter" target="_blank" rel="external">after</a>。该函数的作用是在指定的时间间隔后执行回调函数，并且只执行一次。<br>这个函数可以弥补Timer本身做不到或者做起来很难的一些定时工作。</p>
+<blockquote>
+<p>代码如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$serv-&gt;after( <span class="number">1000</span> , <span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="string">'onAfter'</span>) , $str );</span><br></pre></td></tr></table></figure>
+<p>这里指定在1000ms后，执行onAfter回调函数，函数参数为$str。<br>举个例子，比如服务器要求在收到某个请求后，在30S后向所有用户发起推送。这样的需求就可以直接用after函数来实现。<br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/04/swoole_after_server.php" target="_blank" rel="external">点此查看完整源码</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swoole/" rel="tag">#Swoole</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/" rel="next" title="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池">
+                <i class="fa fa-chevron-left"></i> 03.Timer定时器、心跳检测及Task进阶实例：mysql连接池
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/19/05.Swoole的自定义协议功能的使用/" rel="prev" title="05.Swoole的自定义协议功能的使用">
+                05.Swoole的自定义协议功能的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/"
+     data-title="04.Swoole多端口监听、热重启以及Timer进阶"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/"
+           data-title="04.Swoole多端口监听、热重启以及Timer进阶" data-url="http://yoursite.com/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-Swoole多端口监听、热重启以及Timer进阶"><span class="nav-text">第四章 Swoole多端口监听、热重启以及Timer进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-多端口监听"><span class="nav-text">1.多端口监听</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-服务器热重启"><span class="nav-text">2.服务器热重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Timer补充：after函数"><span class="nav-text">3.Timer补充：after函数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

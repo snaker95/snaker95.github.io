@@ -1,0 +1,688 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swoole,PHP" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05.Swoole的自定义协议功能的使用">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/05.Swoole的自定义协议功能的使用/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:updated_time" content="2016-07-19T05:23:59.012Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="05.Swoole的自定义协议功能的使用">
+<meta name="twitter:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 05.Swoole的自定义协议功能的使用 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                05.Swoole的自定义协议功能的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T15:44:30+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swoole/" itemprop="url" rel="index">
+                    <span itemprop="name">Swoole</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/19/05.Swoole的自定义协议功能的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/05.Swoole的自定义协议功能的使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第五章-Swoole的自定义协议功能的使用"><a href="#第五章-Swoole的自定义协议功能的使用" class="headerlink" title="第五章 Swoole的自定义协议功能的使用"></a>第五章 Swoole的自定义协议功能的使用</h1><hr>
+<p>环境说明：</p>
+<blockquote>
+<p>系统：Ubuntu14.04 （安装教程包括CentOS6.5）<br>PHP版本：PHP-5.5.10<br>swoole版本：1.7.8-alpha</p>
+</blockquote>
+<h4 id="1-为什么要提供自定义协议"><a href="#1-为什么要提供自定义协议" class="headerlink" title="1.为什么要提供自定义协议"></a>1.为什么要提供自定义协议</h4><p>熟悉TCP通信的朋友都会知道，TCP是一个流式协议。客户端向服务器发送的一段数据，可能并不会被服务器一次就完整的收到;客户端向服务器发送的多段数据，可能服务器一次就收到了全部的数据。而实际应用中，我们希望在服务器端能一次接收<strong>一段完整的</strong>数据，不多也不少。传统的TCP服务器中，往往需要由程序员维护一个缓存区，先将读到的数据放进缓存区中，然后再通过预先设定好的协议内容，来区分一段完整数据的开头、长度和结尾，并将一段完整的数据交给逻辑部分处理。这就是自定义协议的功能。<br><br>而在Swoole中，已经在底层实现了一个数据缓存区，并内置好了几个常用的协议类型，直接在底层做好了数据的拆分，保证了在onReceive回调函数中，一定能收到一个（或数个）完整的数据段。数据缓存区的大小可以通过配置选项<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#19package_max_length" target="_blank" rel="external">package_max_length</a>来控制。下面我就将讲解如何使用这些内置协议。<br></p>
+<h4 id="2-EOF标记型协议"><a href="#2-EOF标记型协议" class="headerlink" title="2.EOF标记型协议"></a>2.EOF标记型协议</h4><p>第一个比较常用的协议就是EOF标记协议。协议的内容是通过规定一个一定不会出现在正常数据中的字符或者字符串，用这个来标记一段完整数据的结尾。这样，只要发现这个结尾，就可以认定之前的数据已经结束，可以开始接收一个新的数据段了。<br><br>在Swoole中，可以通过<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#13open_eof_check" target="_blank" rel="external">open_eof_check</a>和<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#14package_eof" target="_blank" rel="external">package_eof</a>两个配置项来开启。其中，<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#13open_eof_check" target="_blank" rel="external">open_eof_check</a>指定开启了EOF检测，<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#14package_eof" target="_blank" rel="external">package_eof</a>指定了具体的EOF标记。通过这两个选项，Swoole底层就会自动根据EOF标记来缓存和拆分收到的数据包。</p>
+<blockquote>
+<p>示例如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;serv-&gt;set(<span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'package_max_length'</span> =&gt; <span class="number">8192</span>,</span><br><span class="line">    <span class="string">'open_eof_check'</span>=&gt; <span class="keyword">true</span>,</span><br><span class="line">    <span class="string">'package_eof'</span> =&gt; <span class="string">"\r\n"</span></span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+<p>就这样，swoole就已经开启了EOF标记协议的解析。那么让我们来测试一下效果：<br></p>
+<blockquote>
+<p>服务器这边：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Server</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onReceive</span><span class="params">( swoole_server $serv, $fd, $from_id, $data )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Get Message From Client &#123;$fd&#125;:&#123;$data&#125;\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>客户端这边：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$msg_eof = <span class="string">"This is a Msg\r\n"</span>;</span><br><span class="line"></span><br><span class="line">$i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>( $i &lt; <span class="number">100</span> ) &#123;</span><br><span class="line">	<span class="keyword">$this</span>-&gt;client-&gt;send( $msg_eof );</span><br><span class="line">	$i ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后运行一下，你会发现：哎不对啊，为什么还是一次收到了好多数据啊！<br><br>这是因为，在Swoole中，采用的不是遍历识别的方法，而只是简单的检查每一次接收到的数据的末尾是不是定义好的EOF标记。因此，在开启EOF检测后，onReceive回调中还是可能会一次收到多个数据包。<br><br>这要怎么办？你会发现，虽然是多个数据包，但是实际上收到的是N个完整的数据片段，那就只需要根据EOF把每个包再拆出来，一个个处理就好啦。<br></p>
+<blockquote>
+<p>修改后的服务器端代码如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onReceive</span><span class="params">( swoole_server $serv, $fd, $from_id, $data )</span> </span>&#123;</span><br><span class="line">	$data_list = explode(<span class="string">"\r\n"</span>, $data);</span><br><span class="line">	<span class="keyword">foreach</span> ($data_list <span class="keyword">as</span> $msg) &#123;</span><br><span class="line">		<span class="keyword">if</span>( !<span class="keyword">empty</span>($msg) ) &#123;</span><br><span class="line">			<span class="keyword">echo</span> <span class="string">"Get Message From Client &#123;$fd&#125;:&#123;$msg&#125;\n"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次运行，妥了～<br><br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/05/swoole_eof_server.php" target="_blank" rel="external">点此查看完整实例</a><br><br>另外，如果担心这样运行多段数据会长时间占用Worker，可以采用把数据+fd转发给Task进程的做法。如何转发请读者自己尝试实现。<br></p>
+<h4 id="3-固定包头类型协议"><a href="#3-固定包头类型协议" class="headerlink" title="3.固定包头类型协议"></a>3.固定包头类型协议</h4><p>固定包头协议是在实际应用中最常用的协议。该协议的内容是规定一个固定长度的包头，在包头的固定位置有一个指定好的字段存放了后续数据的实际长度。这样，服务器端可以先读取固定长度的数据，从中提取出长度，然后再读取指定长度的数据，即可获取一段完整的数据。<br><br>在Swoole中，同样提供了固定包头的协议格式。需要注意的是，Swoole只允许二进制形式的包头，因此，需要使用pack、unpack来打包、解包。<br><br>通过设置<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#15open_length_check" target="_blank" rel="external">open_length_check</a>选项，即可打开固定包头协议解析功能。此外还有<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#16package_length_offset" target="_blank" rel="external">package_length_offset</a>，<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#17package_body_offset" target="_blank" rel="external">package_body_offset</a>和<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#18package_length_type" target="_blank" rel="external">package_length_type</a>三个配置项用于控制解析功能。<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#16package_length_offset" target="_blank" rel="external">package_length_offset</a>规定了包头中第几个字节开始是长度字段，<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#17package_body_offset" target="_blank" rel="external">package_body_offset</a>规定了包头的长度，<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#18package_length_type" target="_blank" rel="external">package_length_type</a>规定了长度字段的类型。<br></p>
+<blockquote>
+<p>具体设置如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;serv-&gt;set(<span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'package_max_length'</span> =&gt; <span class="number">8192</span>,</span><br><span class="line">    <span class="string">'open_length_check'</span>=&gt; <span class="keyword">true</span>,</span><br><span class="line">    <span class="string">'package_length_offset'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">    <span class="string">'package_body_offset'</span> =&gt; <span class="number">4</span>,</span><br><span class="line">    <span class="string">'package_length_type'</span> =&gt; <span class="string">'N'</span></span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+<p>具体如何设置这些参数请参考<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.swoole_server配置选项.md" target="_blank" rel="external">文档</a><br><br>OK，废话不多讲，直接上实例：<br></p>
+<blockquote>
+<p>服务器端：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onReceive</span><span class="params">( swoole_server $serv, $fd, $from_id, $data )</span> </span>&#123;</span><br><span class="line">    $length = unpack(<span class="string">"N"</span> , $data)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Length = &#123;$length&#125;\n"</span>;</span><br><span class="line">    $msg = substr($data,-$length);</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"Get Message From Client &#123;$fd&#125;:&#123;$msg&#125;\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>客户端：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$msg_length = pack(<span class="string">"N"</span> , strlen($msg_normal) ). $msg_normal;</span><br><span class="line"></span><br><span class="line">$i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>( $i &lt; <span class="number">100</span> ) &#123;</span><br><span class="line">	<span class="keyword">$this</span>-&gt;client-&gt;send( $msg_length );</span><br><span class="line">	$i ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接运行，Perfect！<br><br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/05/swoole_length_check_server.php" target="_blank" rel="external">点此查看完整实例</a><br></p>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/05" target="_blank" rel="external">点此查看其他相关源码</a><br></p>
+<h4 id="4-特别篇：Http协议-Swoole内置的http-server"><a href="#4-特别篇：Http协议-Swoole内置的http-server" class="headerlink" title="4.特别篇：Http协议-Swoole内置的http_server"></a>4.特别篇：Http协议-Swoole内置的http_server</h4><p>从Swoole-1.7.7-stable开始，Swoole在内部封装并实现了一个Http服务器。是的，没错，再也不用在PHP层缓存和解析http协议了，Swoole直接内置Http服务器了。<br></p>
+<blockquote>
+<p>创建一个swoole_http_server的代码如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$http = <span class="keyword">new</span> swoole_http_server(<span class="string">"127.0.0.1"</span>, <span class="number">9501</span>);</span><br><span class="line">$http-&gt;on(<span class="string">'request'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(swoole_http_request $request, swoole_http_response $response)</span> </span>&#123;</span><br><span class="line">    $response-&gt;end(<span class="string">"&lt;h1&gt;Hello Swoole.&lt;/h1&gt;"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">$http-&gt;start();</span><br></pre></td></tr></table></figure>
+<p>只需创建一个swoole_http_server对象并设置onRequest回调函数，即可实现一个http服务器。<br><br>在onRequest回调中，共有两个参数。参数<code>$request</code>存放了来自客户端的请求，包括Http请求的头部信息、Http请求相关的服务器信息、Http请求的GET和POST参数以及HTTP请求携带的COOKIE信息。参数<code>$response</code>用于发送数据给客户端，可以通过该参数设置HTTP响应的Header信息、cookie信息和状态码。<br></p>
+<p>此外，swoole_http_server还提供WebSocket功能，使用此功能需要设置onMessage回调函数，如下：<br><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$http_server-&gt;on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span><span class="params">(swoole_http_request $request, swoole_http_response $response)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> $request-&gt;message;</span><br><span class="line">    $response-&gt;message(json_encode(<span class="keyword">array</span>(<span class="string">"data1"</span>, <span class="string">"data2"</span>)));</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>$request-&gt;message</code>获取WebSocket发送来的消息，再通过<code>$response-&gt;message()</code>回复消息即可。<br><br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/05/swoole_http_server.php" target="_blank" rel="external">点此查看完整实例</a><br><br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/14.swoole_http_server.md" target="_blank" rel="external">点此查看swoole_http_server相关文档</a><br></p>
+<p>(最后做个小广告，经过尝试，已经初步将php的Yaf框架移植到了swoole_http_server上，经过测试，swoole-yaf的性能远远超过了nginx+php-fpm+yaf的性能。<br><br>项目地址：<a href="https://github.com/LinkedDestiny/swoole-yaf" target="_blank" rel="external">https://github.com/LinkedDestiny/swoole-yaf</a><br><br>我将继续不断完善这个项目，力争能够真正用于线上项目)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swoole/" rel="tag">#Swoole</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/" rel="next" title="04.Swoole多端口监听、热重启以及Timer进阶">
+                <i class="fa fa-chevron-left"></i> 04.Swoole多端口监听、热重启以及Timer进阶
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/16/windows安装docker以及Lamp/" rel="prev" title="windows安装Docker,以及部署Lamp">
+                windows安装Docker,以及部署Lamp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/19/05.Swoole的自定义协议功能的使用/"
+     data-title="05.Swoole的自定义协议功能的使用"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/19/05.Swoole的自定义协议功能的使用/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/19/05.Swoole的自定义协议功能的使用/"
+           data-title="05.Swoole的自定义协议功能的使用" data-url="http://yoursite.com/2016/07/19/05.Swoole的自定义协议功能的使用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章-Swoole的自定义协议功能的使用"><span class="nav-text">第五章 Swoole的自定义协议功能的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为什么要提供自定义协议"><span class="nav-text">1.为什么要提供自定义协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-EOF标记型协议"><span class="nav-text">2.EOF标记型协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-固定包头类型协议"><span class="nav-text">3.固定包头类型协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-特别篇：Http协议-Swoole内置的http-server"><span class="nav-text">4.特别篇：Http协议-Swoole内置的http_server</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

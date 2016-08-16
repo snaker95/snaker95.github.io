@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/30/Web项目框架心得/index.html">
 <meta property="og:site_name" content="Snaker95">
 <meta property="og:description" content="搭建Web项目框架心得, 以此记录...">
-<meta property="og:updated_time" content="2016-07-01T02:13:13.134Z">
+<meta property="og:updated_time" content="2016-08-03T07:05:41.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web项目框架心得">
 <meta name="twitter:description" content="搭建Web项目框架心得, 以此记录...">
@@ -303,7 +303,8 @@
 
       
         <p>&#160;&#160;&#160;&#160;&#160;&#160;经历的几次项目之后, 慢慢的会发现项目的<strong>代码</strong>完全可以再精简和模块化, 因为很多地方用到的<strong>相同</strong>的方法或者查询相同的数据, 再或者通过条件查不同的数据; 但是能符合这样的要求需要在项目搭建的时候做好充分的搭建和规划, 甚至需要写项目标准文档, 以防止新加入项目成员去花很大精力去学习或者直接按照自己的风格去完成(<strong>统一项目代码风格</strong>). 现在我只想写下自己的想法:</p>
-<h1 id="搭建项目代码框架"><a href="#搭建项目代码框架" class="headerlink" title="搭建项目代码框架"></a>搭建项目代码框架</h1><p>​首先,在php中一般使用的<code>mvc</code>模式, 并且使用现成的<code>PHP框架</code>(ThnkPHP,CI等等), 但是我想在这个基础上做一下改进:<br>    ​&#160;&#160;&#160;&#160;<strong>(1) medel层:</strong> 写自己的基类model, 让其他直接继承该model, 而不是继承框架中的model, 当然,自己的基类model需要继承框架中的model, 在自己的基类model中书写内容: 数据库的增删改,以便所有继承其自己的其他model不用写增删改; 还可以写其他,例如:redis链接; 预定义好可能用到的变量<br>    ​&#160;&#160;&#160;&#160;<strong>​(2) controller层:</strong> 思想同model层大同小异</p>
+<h1 id="搭建项目代码框架"><a href="#搭建项目代码框架" class="headerlink" title="搭建项目代码框架"></a>搭建项目代码框架</h1><p>​首先,在php中一般使用的<code>mvc</code>模式, 并且使用现成的<code>PHP框架</code>(ThnkPHP,CI等等), 但是我想在这个基础上做一下改进:<br>    ​&#160;&#160;&#160;&#160;<strong>(1) medel层:</strong> 写自己的基类model, 让其他直接继承该model, 而不是继承框架中的model, 当然,自己的基类model需要继承框架中的model, 在自己的基类model中书写内容: 数据库的<strong>增</strong><font color="red">(备注:单次新增和批量新增)</font>、<strong>删</strong>、<strong>改</strong>,以便所有继承其自己的其他model不用写增删改; 还可以写其他,例如:<font color="orange">(1)redis链接(2)reids的增删改</font>; 预定义好可能用到的变量<br>    ​&#160;&#160;&#160;&#160;<strong>​(2) controller层:</strong> 思想同model层大同小异</p>
+<h1 id="通用方法"><a href="#通用方法" class="headerlink" title="通用方法"></a>通用方法</h1><p>​在项目进行过程中, 肯定会有一些方法或函数在不同的地方通用, 所以书写通用方法很重要, 比如, 表单提交时的字符串过滤. 这样做的另一个好处就是方便管理;</p>
 <h1 id="交互问题"><a href="#交互问题" class="headerlink" title="交互问题"></a>交互问题</h1><ol>
 <li><strong>model层与controller层交互:</strong><br>​&#160;&#160;&#160;&#160;​一般采用<font color="orange">array</font>和<font color="orange">boolean</font>交互, 在这之前我想过使用数组中带有<code>状态码</code>进行交互, 可是在实际操作中, 增加的<code>controller层</code>的操作, 所以,还是以最基本的方式交互比较稳妥</li>
 <li><strong>controller层和view层交互:</strong><br>​&#160;&#160;&#160;&#160;一般采用json交互, 但是在不同的情况下 , 必须保持返回的json格式一致, 也就是说json中的<font color="red"><strong>键</strong></font>必须一致, 方便<strong>前台(view)</strong>做统一判断, 为了保持统一的json, 我的建议是 写一个library的类, 在自己的基类controller层引入,并实例化; 对于json格式,我一般的返回包括:<blockquote>
@@ -312,7 +313,6 @@
 </li>
 </ol>
 <p><strong>注:</strong> 可参考 <a href="/2016/07/01/PHP-前后台交互类/">前后台交互类</a> </p>
-<h1 id="通用方法"><a href="#通用方法" class="headerlink" title="通用方法"></a>通用方法</h1><p>​在项目进行过程中, 肯定会有一些方法或函数在不同的地方通用, 所以书写通用方法很重要, 比如, 表单提交时的字符串过滤. 这样做的另一个好处就是方便管理;</p>
 <h1 id="数据安全问题"><a href="#数据安全问题" class="headerlink" title="数据安全问题"></a>数据安全问题</h1><p>现在网络安全和信息安全的战争年代, 保护数据和防被攻击是很重要的, 一般的web网站,最基本的攻击就是sql注入, 所以对用户提交的数据必须做数据<font color="orange">过滤</font>, 然后保存到数据库中</p>
 <h1 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h1><p>​作为程序猿, 数据库的设计必须掌握, 虽不能达到很高境界, 但也不能是白纸. 数据库优化我不会, 但是在设计初期我觉得:数据库的字段<font color="orange">不能为空时</font>必须添加默认值, 为了避免<font color="red">NULL</font>的出现, 可以设置<code>空字符串</code>; </p>
 
@@ -448,7 +448,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -456,7 +456,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -465,7 +465,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -494,7 +494,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建项目代码框架"><span class="nav-text">搭建项目代码框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交互问题"><span class="nav-text">交互问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用方法"><span class="nav-text">通用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据安全问题"><span class="nav-text">数据安全问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库设计"><span class="nav-text">数据库设计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建项目代码框架"><span class="nav-text">搭建项目代码框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用方法"><span class="nav-text">通用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交互问题"><span class="nav-text">交互问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据安全问题"><span class="nav-text">数据安全问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库设计"><span class="nav-text">数据库设计</span></a></li></ol></div>
             
           </div>
         </section>

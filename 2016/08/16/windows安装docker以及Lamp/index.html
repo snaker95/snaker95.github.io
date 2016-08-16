@@ -1,0 +1,670 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="windows,docker,lamp" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="随着Docker的流行程度和它的功效, 在Windows下搭建Docker来运行lamp环境, 增加开发环境和生产环境的兼容性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows安装Docker,以及部署Lamp">
+<meta property="og:url" content="http://yoursite.com/2016/08/16/windows安装docker以及Lamp/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="随着Docker的流行程度和它的功效, 在Windows下搭建Docker来运行lamp环境, 增加开发环境和生产环境的兼容性">
+<meta property="og:image" content="http://yoursite.com/images/001.jpg">
+<meta property="og:image" content="http://yoursite.com/images/002.jpg">
+<meta property="og:updated_time" content="2016-08-16T10:32:29.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows安装Docker,以及部署Lamp">
+<meta name="twitter:description" content="随着Docker的流行程度和它的功效, 在Windows下搭建Docker来运行lamp环境, 增加开发环境和生产环境的兼容性">
+<meta name="twitter:image" content="http://yoursite.com/images/001.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> windows安装Docker,以及部署Lamp | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                windows安装Docker,以及部署Lamp
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T14:03:06+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/windows安装docker以及Lamp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/windows安装docker以及Lamp/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>  我是一枚屌丝, 没钱买mac, 没能力玩linux命令行编程, 所以我只能在windows下砌墙代码, 比较苦逼的就是:每次代码传送到<code>服务器</code>中, 总会出现很多兼容性问题…蛋疼ing…</p>
+<p>  虽然有很多办法可以解决, 但都必须把代码上传到相应位置(或者虚拟机中), 这样就得让<em>懒散</em>的猿类多一层手续; 就算有人说用异步同步的方法<strong>so easy</strong>的解决问题, 我会说我有<em>洁癖</em>,可以否?</p>
+<p>  技术是牛逼的, docker是拯救猿类人民的, 现在终于实现了只在windows下砌代码, 在docker中运行, 也不需要去上传, 让我这个<em>洁癖患者</em>满足了一下; 不罗嗦了, 看我的<strong>‘洪荒之力’</strong> :</p>
+<h1 id="一-安装Docker"><a href="#一-安装Docker" class="headerlink" title="一. 安装Docker"></a>一. 安装Docker</h1><blockquote>
+<ol>
+<li>下载windows下的docker工具, <a href="https://www.docker.com/products/docker-toolbox" target="_blank" rel="external">下载地址</a> </li>
+<li>安装, 下一步….下一步…. (小白都知道..)</li>
+</ol>
+</blockquote>
+<h1 id="二-准备知识"><a href="#二-准备知识" class="headerlink" title="二. 准备知识"></a>二. 准备知识</h1><blockquote>
+<h3 id="1-docker的认识"><a href="#1-docker的认识" class="headerlink" title="1. docker的认识"></a>1. docker的认识</h3><blockquote>
+<p>windows下,docker虚拟机其实是运行在<code>VirtualBox</code>这么一个东东下的(我是这样认为的,因为安装docker工具的时候有它);这个是实现<code>梦想</code>的关键</p>
+<h3 id="2-docker学习"><a href="#2-docker学习" class="headerlink" title="2. docker学习"></a>2. docker学习</h3><p>docker下有很多需要学习的东东, 我也不知道应该学什么, 所以….(留给大家)</p>
+</blockquote>
+</blockquote>
+<h1 id="三-拉娶具有LAMP的docker镜像"><a href="#三-拉娶具有LAMP的docker镜像" class="headerlink" title="三. 拉娶具有LAMP的docker镜像"></a>三. 拉娶具有<code>LAMP</code>的docker镜像</h1><blockquote>
+<p>我在使用 tutum/lamp, 拉娶方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tutum/lamp</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="四-重要的部分"><a href="#四-重要的部分" class="headerlink" title="四. 重要的部分"></a>四. 重要的部分</h1><blockquote>
+<ol>
+<li>别着急去运行: <code>docker run -d -p 80:80 tutum/lamp</code></li>
+<li>带大家去’<strong>射</strong>‘制一下:<blockquote>
+<p>2.1 打开VirtualBox,你看那个像你当前运行的boot2docker,你就去’<strong>射</strong>‘那个,反着我的是<code>default</code><br>2.2 在<code>default</code>上右击-&gt;设置-&gt;共享文件; 添加一个共享文件夹,这个文件夹就是windows下砌代码的目录(项目目录);<img src="/images/001.jpg" alt="img">,(备注:千万把’自动挂在’勾掉)<br>2.3 确定后,回到主界面, 点击’<strong>显示</strong>‘<img src="/images/002.jpg" alt="img">,命令行了把, 别怕:不会敲很多字母的, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/docker/data</span><br><span class="line">mount -t vboxsf -o uid=1000,gid=50 www /home/docker/data</span><br><span class="line"># 备注: www:就是刚才共享文件的名称, /home/docker/data:就是一个挂载点</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>2.4 悄悄地告诉你: 要运行docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 -it -v /home/docker/data:/app tutum/lamp</span><br><span class="line"># 备注: /home/docker/data:就是刚才的那个挂载点, /app:为虚拟机lamp环境的web目录</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<h1 id="五-别等着了-已经可以运行了"><a href="#五-别等着了-已经可以运行了" class="headerlink" title="五. 别等着了,已经可以运行了"></a>五. 别等着了,已经可以运行了</h1><blockquote>
+<p>一般为 192.168.99.100;<br>希望大家继续完善…这个很<strong>粗</strong></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag">#Docker</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/19/05.Swoole的自定义协议功能的使用/" rel="next" title="05.Swoole的自定义协议功能的使用">
+                <i class="fa fa-chevron-left"></i> 05.Swoole的自定义协议功能的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/16/windows安装docker以及Lamp/"
+     data-title="windows安装Docker,以及部署Lamp"
+     data-content=""
+     data-url="http://yoursite.com/2016/08/16/windows安装docker以及Lamp/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/16/windows安装docker以及Lamp/"
+           data-title="windows安装Docker,以及部署Lamp" data-url="http://yoursite.com/2016/08/16/windows安装docker以及Lamp/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-安装Docker"><span class="nav-text">一. 安装Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-准备知识"><span class="nav-text">二. 准备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-docker的认识"><span class="nav-text">1. docker的认识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-docker学习"><span class="nav-text">2. docker学习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-拉娶具有LAMP的docker镜像"><span class="nav-text">三. 拉娶具有LAMP的docker镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-重要的部分"><span class="nav-text">四. 重要的部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-别等着了-已经可以运行了"><span class="nav-text">五. 别等着了,已经可以运行了</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

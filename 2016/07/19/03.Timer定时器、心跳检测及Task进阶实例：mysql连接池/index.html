@@ -1,0 +1,681 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swoole,PHP" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:updated_time" content="2016-07-19T04:11:26.273Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池">
+<meta name="twitter:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 03.Timer定时器、心跳检测及Task进阶实例：mysql连接池 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                03.Timer定时器、心跳检测及Task进阶实例：mysql连接池
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T15:44:28+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swoole/" itemprop="url" rel="index">
+                    <span itemprop="name">Swoole</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第三章-Timer定时器、心跳检测及Task进阶实例：mysql连接池"><a href="#第三章-Timer定时器、心跳检测及Task进阶实例：mysql连接池" class="headerlink" title="第三章 Timer定时器、心跳检测及Task进阶实例：mysql连接池"></a>第三章 Timer定时器、心跳检测及Task进阶实例：mysql连接池</h3><p>环境说明：</p>
+<blockquote>
+<p>系统：Ubuntu14.04 （安装教程包括CentOS6.5<br>PHP版本：PHP-5.5.10<br>swoole版本：1.7.7-stable</p>
+</blockquote>
+<h4 id="1-Timer定时器"><a href="#1-Timer定时器" class="headerlink" title="1.Timer定时器"></a>1.Timer定时器</h4><p>在实际应用中，往往会遇到需要每隔一段时间重复做一件事，比如心跳检测、订阅消息、数据库备份等工作。通常，我们会借助PHP的time()以及相关函数自己实现一个定时器，或者使用crontab工具来实现。但是，自定义的定时器容易出错，而使用crontab则需要编写额外的脚本文件，无论是迁移还是调试都比较麻烦。<br><br>因此，Swoole提供了一个内置的Timer定时器功能,通过函数<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/03.swoole_server%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8.md#swoole_serveraddtimer" target="_blank" rel="external">addtimer</a>即可在Swoole中添加一个定时器，该定时器会在建立之后，按照预先设定好的时间间隔，每到对应的时间就会调用一次回调函数<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#8ontimer" target="_blank" rel="external">onTimer</a>通知Server。</p>
+<blockquote>
+<p>简单示例如下：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">$this</span>-&gt;serv-&gt;on(<span class="string">'Timer'</span>, <span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="string">'onTimer'</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onWorkerStart</span><span class="params">( $serv , $worker_id)</span> </span>&#123;</span><br><span class="line"><span class="comment">// 在Worker进程开启时绑定定时器</span></span><br><span class="line">      <span class="comment">// 只有当worker_id为0时才添加定时器,避免重复添加</span></span><br><span class="line">      <span class="keyword">if</span>( $worker_id == <span class="number">0</span> ) &#123;</span><br><span class="line">      	$serv-&gt;addtimer(<span class="number">500</span>);</span><br><span class="line">      	$serv-&gt;addtimer(<span class="number">1000</span>);</span><br><span class="line">       $serv-&gt;addtimer(<span class="number">1500</span>);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onTimer</span><span class="params">($serv, $interval)</span> </span>&#123;</span><br><span class="line">  	<span class="keyword">switch</span>( $interval ) &#123;</span><br><span class="line">  		<span class="keyword">case</span> <span class="number">500</span>: &#123;	<span class="comment">// </span></span><br><span class="line">  			<span class="keyword">echo</span> <span class="string">"Do Thing A at interval 500\n"</span>;</span><br><span class="line">  			<span class="keyword">break</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">case</span> <span class="number">1000</span>:&#123;</span><br><span class="line">  			<span class="keyword">echo</span> <span class="string">"Do Thing B at interval 1000\n"</span>;</span><br><span class="line">  			<span class="keyword">break</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">case</span> <span class="number">1500</span>:&#123;</span><br><span class="line">  			<span class="keyword">echo</span> <span class="string">"Do Thing C at interval 1500\n"</span>;</span><br><span class="line">  			<span class="keyword">break</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，在<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#3onworkerstart" target="_blank" rel="external">onWorkerStart</a>回调函数中，通过addtimer添加了三个定时器，时间间隔分别为500、1000、1500。而在onTimer回调中，正好通过间隔的不同来区分不同的定时器回调，从而执行不同的操作。<br><br>需要注意的是，在上述示例中，当1000ms的定时器被触发时，500ms的定时器同样会被触发，但是不能保证会在1000ms定时器前触发还是后触发，因此需要注意，定时器中的操作不能依赖其他定时器的执行结果。</p>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/03/swoole_timer_server.php" target="_blank" rel="external">点此查看完整示例</a></p>
+<p>(PS:在Swoole-1.7.7版本，新提供了一个<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/03.swoole_server%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8.md#swoole_serverafter" target="_blank" rel="external">after</a>函数, 这个功能的用法会在以后的教程中给出。)</p>
+<h4 id="2-心跳检测"><a href="#2-心跳检测" class="headerlink" title="2.心跳检测"></a>2.心跳检测</h4><p>上文提到过，使用Timer定时器功能可以实现发送心跳包的功能。事实上，Swoole已经内置了心跳检测功能，能自动close掉长时间没有数据来往的连接。而开启心跳检测功能，只需要设置<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#11heartbeat_check_interval" target="_blank" rel="external">heartbeat_check_interval</a>和<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#12heartbeat_idle_time" target="_blank" rel="external">heartbeat_idle_time</a>即可。如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;serv-&gt;set(</span><br><span class="line">    <span class="keyword">array</span>(</span><br><span class="line">        <span class="string">'heartbeat_check_interval'</span> =&gt; <span class="number">60</span>,</span><br><span class="line">        <span class="string">'heartbeat_idle_time'</span> =&gt; <span class="number">600</span>,</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>heartbeat_idle_time</code>的默认值是<code>heartbeat_check_interval</code>的两倍。<br>在设置这两个选项后，swoole会在内部启动一个线程，每隔<code>heartbeat_check_interval</code>秒后遍历一次全部连接，检查最近一次发送数据的时间和当前时间的差，如果这个差值大于<code>heartbeat_idle_time</code>，则会强制关闭这个连接，并通过回调onClose通知Server进程。<br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/03/swoole_heartbeat_server.php" target="_blank" rel="external">点此查看完整示例</a><br><strong>小技巧</strong>：<br>结合之前的Timer功能，如果我们想维持连接，就设置一个略小于如果这个差值大于<code>heartbeat_idle_time</code>的定时器，在定时器内向所有连接发送一个心跳包。如果收到心跳回应，则判断连接正常，如果没有收到，则关闭这个连接或者再次尝试发送。</p>
+<h4 id="3-Task进阶：MySQL连接池"><a href="#3-Task进阶：MySQL连接池" class="headerlink" title="3.Task进阶：MySQL连接池"></a>3.Task进阶：MySQL连接池</h4><p>上一章中我简单讲解了如何开启和使用Task功能。这一节，我将提供一个Task的高级用法。<br></p>
+<p>在PHP中，访问MySQL数据库往往是性能提升的瓶颈。而MySQL连接池我想大家都不陌生，这是一个很好的提升数据库访问性能的方式。传统的MySQL连接池，是预先申请一定数量的连接，每一个新的请求都会占用其中一个连接，请求结束后再将连接放回池中，如果所有连接都被占用，新来的连接则会进入等待状态。<br><br>知道了MySQL连接池的实现原理，那我们来看如何使用Swoole实现一个连接池。<br><br>首先，Swoole允许开启一定量的Task Worker进程，我们可以让每个进程都拥有一个MySQL连接，并保持这个连接，这样，我们就创建了一个连接池。<br><br>其次，设置swoole的<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#5dispatch_mode" target="_blank" rel="external">dispatch_mode</a>为抢占模式(主进程会根据Worker的忙闲状态选择投递，只会投递给处于闲置状态的Worker)。这样，每个task都会被投递给闲置的Task Worker。这样，我们保证了每个新的task都会被闲置的Task Worker处理，如果全部Task Worker都被占用，则会进入等待队列。<br></p>
+<blockquote>
+<p>下面直接上关键代码：</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onWorkerStart</span><span class="params">( $serv , $worker_id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"onWorkerStart\n"</span>;</span><br><span class="line">    <span class="comment">// 判定是否为Task Worker进程</span></span><br><span class="line">    <span class="keyword">if</span>( $worker_id &gt;= $serv-&gt;setting[<span class="string">'worker_num'</span>] ) &#123;</span><br><span class="line">    	<span class="keyword">$this</span>-&gt;pdo = <span class="keyword">new</span> PDO(</span><br><span class="line">    		<span class="string">"mysql:host=localhost;port=3306;dbname=Test"</span>, </span><br><span class="line">    		<span class="string">"root"</span>, </span><br><span class="line">    		<span class="string">"123456"</span>, </span><br><span class="line">    		<span class="keyword">array</span>(</span><br><span class="line">                PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="string">"SET NAMES 'UTF8';"</span>,</span><br><span class="line">                PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,</span><br><span class="line">                PDO::ATTR_PERSISTENT =&gt; <span class="keyword">true</span></span><br><span class="line">        	)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>首先，在每个Task Worker进程中，创建一个MySQL连接。这里我选用了PDO扩展。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onReceive</span><span class="params">( swoole_server $serv, $fd, $from_id, $data )</span> </span>&#123;</span><br><span class="line">    $sql = <span class="keyword">array</span>(</span><br><span class="line">    	<span class="string">'sql'</span>=&gt;<span class="string">'select * from Test where pid &gt; ?'</span>,</span><br><span class="line">    	<span class="string">'param'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">    		<span class="number">0</span></span><br><span class="line">    	),</span><br><span class="line">    	<span class="string">'fd'</span> =&gt; $fd</span><br><span class="line">    );</span><br><span class="line">    $serv-&gt;task( json_encode($sql) );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其次，在需要的时候，通过<a href="">task</a>函数投递一个任务（也就是发起一次SQL请求）</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onTask</span><span class="params">($serv,$task_id,$from_id, $data)</span> </span>&#123;</span><br><span class="line">   	$sql = json_decode( $data , <span class="keyword">true</span> );</span><br><span class="line">	</span><br><span class="line">	$statement = <span class="keyword">$this</span>-&gt;pdo-&gt;prepare($sql[<span class="string">'sql'</span>]);</span><br><span class="line">    $statement-&gt;execute($sql[<span class="string">'param'</span>]);    	</span><br><span class="line"></span><br><span class="line">    $result = $statement-&gt;fetchAll(PDO::FETCH_ASSOC);</span><br><span class="line">    $serv-&gt;send( $sql[<span class="string">'fd'</span>],json_encode($result));</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>最后，在onTask回调中，根据请求过来的SQL语句以及相应的参数，发起一次MySQL请求，并将获取到的结果通过send发送给客户端（或者通过return返回给Worker进程）。而且，这样的一次MySQL请求还不会阻塞Worker进程，Worker进程可以继续处理其他的逻辑。<br></p>
+</blockquote>
+<p>可以看到，简单十几行代码，就实现了一个高效的异步MySQL连接池。<br><br>通过测试，单个客户端一共发起1W次select请求，共耗时9s;<br> 1W次insert请求，共耗时21s。<br><br>(客户端会在每次收到前一个请求的结果后才会发起下一次请求，而不是并发)。</p>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/03/swoole_mysql_pool_server.php" target="_blank" rel="external">点此查看完整服务端代码</a><br><br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/03/swoole_mysql_pool_client.php" target="_blank" rel="external">点此查看完整客户端代码</a><br></p>
+<h4 id="4-Task实战：yii中应用task"><a href="#4-Task实战：yii中应用task" class="headerlink" title="4.Task实战：yii中应用task"></a>4.Task实战：yii中应用task</h4><p>在YII框架中结合了swoole 的task 做了异步处理。</p>
+<blockquote>
+<p>本例中 主要用到</p>
+</blockquote>
+<p>1、protected/commands/ServerCommand.php 用来做server。<br>2、protected/event/下的文件 这里是在异步中的具体实现。</p>
+<blockquote>
+<p>客户端调用参照 TestController</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionTT</span><span class="params">()</span></span>&#123;</span><br><span class="line">        $message[<span class="string">'uid'</span>] = <span class="number">2</span>;</span><br><span class="line">        $message[<span class="string">'email'</span>] = <span class="string">'83212019@qq.com'</span>;</span><br><span class="line">        $message[<span class="string">'title'</span>] = <span class="string">'接口报警邮件'</span>;</span><br><span class="line">        $message[<span class="string">'contents'</span>] = <span class="string">"'EmailEvent'接口请求过程出错！ 错误信息如下：err_no:'00000' err_msg:'测试队列' 请求参数为:'[]'"</span>;</span><br><span class="line">        $message[<span class="string">'type'</span>] = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        $data[<span class="string">'param'</span>] = $message;</span><br><span class="line">        $data[<span class="string">'class'</span>] = <span class="string">'Email'</span>;</span><br><span class="line">        $client = <span class="keyword">new</span> EventClient();</span><br><span class="line">        $data = $client-&gt;send($data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有个task表是用来记录异步任务的。如果失败重试3次。sql在protected/data/sql.sql里。<br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/03/swoole_mysql_pool_client.php" target="_blank" rel="external">点此查看完整客户端代码</a><br></p>
+<p>下章预告：Swoole多端口监听、热重启以及Timer进阶：简单crontab</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swoole/" rel="tag">#Swoole</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/19/02-Swoole的Task使用以及swoole_client/" rel="next" title="02.Swoole的task使用以及swoole_client">
+                <i class="fa fa-chevron-left"></i> 02.Swoole的task使用以及swoole_client
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/19/04.Swoole多端口监听、热重启以及Timer进阶：简单crontab/" rel="prev" title="04.Swoole多端口监听、热重启以及Timer进阶">
+                04.Swoole多端口监听、热重启以及Timer进阶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/"
+     data-title="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/"
+           data-title="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池" data-url="http://yoursite.com/2016/07/19/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-Timer定时器、心跳检测及Task进阶实例：mysql连接池"><span class="nav-text">第三章 Timer定时器、心跳检测及Task进阶实例：mysql连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Timer定时器"><span class="nav-text">1.Timer定时器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-心跳检测"><span class="nav-text">2.心跳检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Task进阶：MySQL连接池"><span class="nav-text">3.Task进阶：MySQL连接池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Task实战：yii中应用task"><span class="nav-text">4.Task实战：yii中应用task</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
