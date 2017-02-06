@@ -303,7 +303,7 @@
 
       
         <p>[TOC]</p>
-<h1 id="&#x767E;&#x5EA6;&#x5730;&#x56FE;-&#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;"><a href="#&#x767E;&#x5EA6;&#x5730;&#x56FE;-&#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;" class="headerlink" title="&#x767E;&#x5EA6;&#x5730;&#x56FE; &#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;"></a>&#x767E;&#x5EA6;&#x5730;&#x56FE; &#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;</h1><p>&#x5728;&#x4F7F;&#x7528;&#x767E;&#x5EA6;&#x5730;&#x56FE;&#x7684;API&#x63A5;&#x53E3;&#x65F6;, &#x53D1;&#x73B0;web&#x7AEF;&#x5728;&#x4F7F;&#x7528;&#x5730;&#x56FE;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x5B58;&#x5728;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;, &#x901A;&#x8FC7;&#x67E5;&#x627E;&#x8D44;&#x6599;&#x53D1;&#x73B0;, web&#x79FB;&#x52A8;&#x7AEF;&#x963B;&#x6B62;&#x7684;click&#x4E8B;&#x4EF6;, &#x5728;&#x91C7;&#x7528;<code>map.disableDragging()</code>&#x7981;&#x6B62;&#x5730;&#x56FE;&#x62D6;&#x62FD;,&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E86;<code>&#x5355;&#x51FB;</code>&#x4E8B;&#x4EF6;, &#x4F46;&#x662F;&#x4E0D;&#x662F;&#x5F88;&#x5408;&#x7406;;&#x6700;&#x540E;&#x627E;&#x5230;&#x4E86;&#x5982;&#x4E0B;&#x89E3;&#x51B3;&#x65B9;&#x6848;:<br><a id="more"></a><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* #region &#x89E3;&#x51B3;&#x90E8;&#x5206;&#x673A;&#x578B;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x5931;&#x6548; */</span><br><span class="line">var timeout = 0,</span><br><span class="line">    tempPoint;</span><br><span class="line">map.addEventListener(&quot;touchstart&quot;, function (e) {</span><br><span class="line">    timeout = +new Date();</span><br><span class="line">    tempPoint = e;</span><br><span class="line">});</span><br><span class="line">map.addEventListener(&quot;touchend&quot;, function (e) {</span><br><span class="line">    var cur = +new Date();</span><br><span class="line">    if (cur - timeout &lt; 200) {</span><br><span class="line">        # &#x901A;&#x8FC7;touch&#x65F6;&#x95F4;&#x5DEE;&#x5224;&#x65AD;&#x8C03;&#x7528;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;</span><br><span class="line">        showInfo(tempPoint);</span><br><span class="line">    }</span><br><span class="line">});</span><br><span class="line">/* #endregion*/</span><br></pre></td></tr></table></figure></p>
+<h1 id="&#x767E;&#x5EA6;&#x5730;&#x56FE;-&#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;"><a href="#&#x767E;&#x5EA6;&#x5730;&#x56FE;-&#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;" class="headerlink" title="&#x767E;&#x5EA6;&#x5730;&#x56FE; &#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;"></a>&#x767E;&#x5EA6;&#x5730;&#x56FE; &#x79FB;&#x52A8;&#x7AEF;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;</h1><p>&#x5728;&#x4F7F;&#x7528;&#x767E;&#x5EA6;&#x5730;&#x56FE;&#x7684;API&#x63A5;&#x53E3;&#x65F6;, &#x53D1;&#x73B0;web&#x7AEF;&#x5728;&#x4F7F;&#x7528;&#x5730;&#x56FE;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x5B58;&#x5728;&#x517C;&#x5BB9;&#x6027;&#x95EE;&#x9898;, &#x901A;&#x8FC7;&#x67E5;&#x627E;&#x8D44;&#x6599;&#x53D1;&#x73B0;, web&#x79FB;&#x52A8;&#x7AEF;&#x963B;&#x6B62;&#x7684;click&#x4E8B;&#x4EF6;, &#x5728;&#x91C7;&#x7528;<code>map.disableDragging()</code>&#x7981;&#x6B62;&#x5730;&#x56FE;&#x62D6;&#x62FD;,&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E86;<code>&#x5355;&#x51FB;</code>&#x4E8B;&#x4EF6;, &#x4F46;&#x662F;&#x4E0D;&#x662F;&#x5F88;&#x5408;&#x7406;;&#x6700;&#x540E;&#x627E;&#x5230;&#x4E86;&#x5982;&#x4E0B;&#x89E3;&#x51B3;&#x65B9;&#x6848;:<br><a id="more"></a><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/* #region &#x89E3;&#x51B3;&#x90E8;&#x5206;&#x673A;&#x578B;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x5931;&#x6548; */</div><div class="line">var timeout = 0,</div><div class="line">    tempPoint;</div><div class="line">map.addEventListener(&quot;touchstart&quot;, function (e) {</div><div class="line">    timeout = +new Date();</div><div class="line">    tempPoint = e;</div><div class="line">});</div><div class="line">map.addEventListener(&quot;touchend&quot;, function (e) {</div><div class="line">    var cur = +new Date();</div><div class="line">    if (cur - timeout &lt; 200) {</div><div class="line">        # &#x901A;&#x8FC7;touch&#x65F6;&#x95F4;&#x5DEE;&#x5224;&#x65AD;&#x8C03;&#x7528;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;</div><div class="line">        showInfo(tempPoint);</div><div class="line">    }</div><div class="line">});</div><div class="line">/* #endregion*/</div></pre></td></tr></table></figure></p>
 <p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
 
       
@@ -436,7 +436,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -444,7 +444,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -453,7 +453,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

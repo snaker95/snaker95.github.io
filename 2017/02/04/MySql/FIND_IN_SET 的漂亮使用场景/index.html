@@ -303,7 +303,7 @@
 
       
         <p>[TOC]</p>
-<h1 id="FIND-IN-SET-&#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;"><a href="#FIND-IN-SET-&#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;" class="headerlink" title="FIND_IN_SET &#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;"></a>FIND_IN_SET &#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;</h1><p>&#x3000;&#x3000;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;,&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x60C5;&#x51B5;, &#x6709;&#x65F6;&#x5019;&#x6570;&#x636E;&#x5E93;&#x5C31;&#x4F1A;&#x8BBE;&#x8BA1;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x6765;&#x8BB0;&#x5F55;&#x8BE5;&#x60C5;&#x51B5;, <strong>&#x4F8B;&#x5982;:</strong> &#x8BE5;&#x5B57;&#x6BB5;(<code>father</code>)&#x8BB0;&#x5F55;&#x81EA;&#x5DF1;&#x7684;&#x6240;&#x5C5E;&#x5206;&#x7C7B;:<code>&#xFF11;&#xFF0C;&#xFF12;&#xFF0C;&#xFF13;&#xFF14;&#xFF0C;&#xFF16;&#xFF17;</code>,&#x8BF4;&#x660E;&#x5F53;&#x524D;&#x81EA;&#x5DF1;&#x5C5E;&#x4E8E;<code>&#xFF11;</code>&#xFF0F;<code>&#xFF12;</code>&#xFF0F;<code>&#xFF13;&#xFF14;</code>&#xFF0F;<code>&#xFF16;&#xFF17;</code>&#x7684;&#x5206;&#x7C7B;&#xFF1B;<br>&#x3000;&#x3000;&#x5728;&#x4E00;&#x5B9A;&#x7684;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x3000;&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x67D0;&#x4E00;&#x5206;&#x7C7B;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x7EA7;&#xFF0C;&#x3000;&#x4F8B;&#x5982;&#xFF1A;&#x67E5;&#x8BE2;&#x6240;&#x6709;<code>67</code>&#x5206;&#x7C7B;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x7C7B;, &#x8FD9;&#x6837;&#x7684;&#x6570;&#x636E;&#x5E93;&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x5F88;&#x86CB;&#x75BC;&#x4E86;&#x2026;. &#x4F46;&#x662F;&#x4E0D;&#x8981;&#x6015;,&#x4ECA;&#x5929;&#x4E00;&#x4E0D;&#x5C0F;&#x5FC3;&#x53D1;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;<strong>MySQL</strong>&#x7684;&#x9AD8;&#x7EA7;&#x51FD;&#x6570;(<code>FIND_IN_SE</code>T) , &#x7C7B;&#x662F;&#x4E0E; IN,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select * from table where FIND_IN_SET(67,father)</span><br><span class="line"># father &#x4E3A; table&#x8868;&#x4E2D;&#x7684;&#x5B57;&#x6BB5;</span><br></pre></td></tr></table></figure></p>
+<h1 id="FIND-IN-SET-&#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;"><a href="#FIND-IN-SET-&#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;" class="headerlink" title="FIND_IN_SET &#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;"></a>FIND_IN_SET &#x7684;&#x6F02;&#x4EAE;&#x4F7F;&#x7528;&#x573A;&#x666F;</h1><p>&#x3000;&#x3000;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;,&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x60C5;&#x51B5;, &#x6709;&#x65F6;&#x5019;&#x6570;&#x636E;&#x5E93;&#x5C31;&#x4F1A;&#x8BBE;&#x8BA1;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x6765;&#x8BB0;&#x5F55;&#x8BE5;&#x60C5;&#x51B5;, <strong>&#x4F8B;&#x5982;:</strong> &#x8BE5;&#x5B57;&#x6BB5;(<code>father</code>)&#x8BB0;&#x5F55;&#x81EA;&#x5DF1;&#x7684;&#x6240;&#x5C5E;&#x5206;&#x7C7B;:<code>&#xFF11;&#xFF0C;&#xFF12;&#xFF0C;&#xFF13;&#xFF14;&#xFF0C;&#xFF16;&#xFF17;</code>,&#x8BF4;&#x660E;&#x5F53;&#x524D;&#x81EA;&#x5DF1;&#x5C5E;&#x4E8E;<code>&#xFF11;</code>&#xFF0F;<code>&#xFF12;</code>&#xFF0F;<code>&#xFF13;&#xFF14;</code>&#xFF0F;<code>&#xFF16;&#xFF17;</code>&#x7684;&#x5206;&#x7C7B;&#xFF1B;<br>&#x3000;&#x3000;&#x5728;&#x4E00;&#x5B9A;&#x7684;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x3000;&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x67D0;&#x4E00;&#x5206;&#x7C7B;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x7EA7;&#xFF0C;&#x3000;&#x4F8B;&#x5982;&#xFF1A;&#x67E5;&#x8BE2;&#x6240;&#x6709;<code>67</code>&#x5206;&#x7C7B;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x7C7B;, &#x8FD9;&#x6837;&#x7684;&#x6570;&#x636E;&#x5E93;&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x5F88;&#x86CB;&#x75BC;&#x4E86;&#x2026;. &#x4F46;&#x662F;&#x4E0D;&#x8981;&#x6015;,&#x4ECA;&#x5929;&#x4E00;&#x4E0D;&#x5C0F;&#x5FC3;&#x53D1;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;<strong>MySQL</strong>&#x7684;&#x9AD8;&#x7EA7;&#x51FD;&#x6570;(<code>FIND_IN_SE</code>T) , &#x7C7B;&#x662F;&#x4E0E; IN,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt;  select * from table where FIND_IN_SET(67,father)</div><div class="line"># father &#x4E3A; table&#x8868;&#x4E2D;&#x7684;&#x5B57;&#x6BB5;</div></pre></td></tr></table></figure></p>
 <p><strong> &#x91CD;&#x70B9; </strong><br><code>FIND_IN_SET</code> &#x867D;&#x7136;&#x53EA;&#x662F;<code>SET</code>&#x7C7B;&#x578B;&#x7684;&#x51FD;&#x6570;, &#x4F46;&#x662F;&#x7ECF;&#x6D4B;&#x8BD5;, <code>varchar</code>&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x7684;, &#x53EA;&#x8981;&#x4FDD;&#x6301;&#x683C;&#x5F0F;;<br>&#x81F3;&#x4E8E;&#x6548;&#x7387;&#x95EE;&#x9898;, &#x8FD8;&#x662F;&#x6709;&#x5F85;&#x8003;&#x5BDF;&#x7684;&#x2026;&#x2026;</p>
 <p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
 
@@ -437,7 +437,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -445,7 +445,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -454,7 +454,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

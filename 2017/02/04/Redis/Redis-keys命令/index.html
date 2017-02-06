@@ -304,22 +304,22 @@
       
         <p>[TOC]</p>
 <h1 id="Redis-keys&#x547D;&#x4EE4;"><a href="#Redis-keys&#x547D;&#x4EE4;" class="headerlink" title="Redis-keys&#x547D;&#x4EE4;"></a>Redis-keys&#x547D;&#x4EE4;</h1><p>  Redis &#x6570;&#x636E;&#x5E93;&#x662F;key-value&#x7C7B;&#x578B;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;, &#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6709; <code>&#x5B57;&#x7B26;&#x4E32;</code>(string)&#x3001; <code>&#x54C8;&#x5E0C;</code>(Hash)&#x3001; <code>&#x5217;&#x8868;</code>(list)&#x3001; <code>&#x96C6;&#x5408;</code>(set)&#x3001; <code>&#x6709;&#x5E8F;&#x96C6;&#x5408;</code>(Zset). </p>
-<p>  &#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;<strong>keys&#x76F8;&#x5173;&#x547D;&#x4EE4;</strong>&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;<br><strong>1. &#x5220;&#x9664;key</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del key</span><br></pre></td></tr></table></figure></p>
-<p><strong>2. &#x5E8F;&#x5217;&#x5316;key&#x5E76;&#x8FD4;&#x56DE;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump key</span><br></pre></td></tr></table></figure></p>
-<p><strong>3. &#x68C0;&#x6D4B;key&#x662F;&#x5426;&#x5B58;&#x5728;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exists key</span><br></pre></td></tr></table></figure></p>
-<p><strong>4. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expire key seconds</span><br></pre></td></tr></table></figure></p>
-<p><strong>5. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x4E3A;&#x79D2;&#x65F6;&#x95F4;&#x6233;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expireat key timestamp</span><br></pre></td></tr></table></figure></p>
-<p><strong>6. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x6BEB;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpire key milliseconds</span><br></pre></td></tr></table></figure></p>
-<p><strong>7. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x4E3A;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6233;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpireat key milliseconds-timestamp</span><br></pre></td></tr></table></figure></p>
-<p><strong>8. &#x67E5;&#x627E;&#x6240;&#x6709;&#x7B26;&#x5408;&#x7ED9;&#x5B9A;&#x6A21;&#x5F0F;(pattern)&#x7684;key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys pattern  # pattern &#x7C7B;&#x662F;&#x6B63;&#x5219;</span><br></pre></td></tr></table></figure></p>
-<p><strong>9. &#x5C06;key&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93;db</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">move key db</span><br></pre></td></tr></table></figure></p>
-<p><strong>10. &#x79FB;&#x9664;key&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;,&#x6301;&#x4E45;&#x4FDD;&#x6301;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">persist key</span><br></pre></td></tr></table></figure></p>
-<p><strong>11. &#x83B7;&#x53D6;key&#x7684;&#x5269;&#x4F59;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x6BEB;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pttl key</span><br></pre></td></tr></table></figure></p>
-<p><strong>12. &#x83B7;&#x53D6;key&#x7684;&#x751F;&#x5B58;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ttl key</span><br></pre></td></tr></table></figure></p>
-<p><strong>13. &#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x968F;&#x673A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">randomkey</span><br></pre></td></tr></table></figure></p>
-<p><strong>14. &#x4FEE;&#x6539;key&#x7684;&#x540D;&#x79F0;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename key newkey</span><br></pre></td></tr></table></figure></p>
-<p><strong>15. &#x4EC5;&#x5F53;newkey&#x4E0D;&#x5B58;&#x5728;,&#x624D;&#x80FD;&#x4FEE;&#x6539;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renamenx key newkey</span><br></pre></td></tr></table></figure></p>
-<p><strong>16. &#x83B7;&#x53D6;key&#x5B58;&#x50A8;&#x503C;&#x7684;&#x7C7B;&#x578B;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type key</span><br></pre></td></tr></table></figure></p>
+<p>  &#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;<strong>keys&#x76F8;&#x5173;&#x547D;&#x4EE4;</strong>&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;<br><strong>1. &#x5220;&#x9664;key</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">del key</div></pre></td></tr></table></figure></p>
+<p><strong>2. &#x5E8F;&#x5217;&#x5316;key&#x5E76;&#x8FD4;&#x56DE;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dump key</div></pre></td></tr></table></figure></p>
+<p><strong>3. &#x68C0;&#x6D4B;key&#x662F;&#x5426;&#x5B58;&#x5728;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exists key</div></pre></td></tr></table></figure></p>
+<p><strong>4. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">expire key seconds</div></pre></td></tr></table></figure></p>
+<p><strong>5. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x4E3A;&#x79D2;&#x65F6;&#x95F4;&#x6233;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">expireat key timestamp</div></pre></td></tr></table></figure></p>
+<p><strong>6. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x6BEB;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pexpire key milliseconds</div></pre></td></tr></table></figure></p>
+<p><strong>7. &#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x4E3A;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6233;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pexpireat key milliseconds-timestamp</div></pre></td></tr></table></figure></p>
+<p><strong>8. &#x67E5;&#x627E;&#x6240;&#x6709;&#x7B26;&#x5408;&#x7ED9;&#x5B9A;&#x6A21;&#x5F0F;(pattern)&#x7684;key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keys pattern  # pattern &#x7C7B;&#x662F;&#x6B63;&#x5219;</div></pre></td></tr></table></figure></p>
+<p><strong>9. &#x5C06;key&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93;db</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">move key db</div></pre></td></tr></table></figure></p>
+<p><strong>10. &#x79FB;&#x9664;key&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;,&#x6301;&#x4E45;&#x4FDD;&#x6301;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">persist key</div></pre></td></tr></table></figure></p>
+<p><strong>11. &#x83B7;&#x53D6;key&#x7684;&#x5269;&#x4F59;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x6BEB;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pttl key</div></pre></td></tr></table></figure></p>
+<p><strong>12. &#x83B7;&#x53D6;key&#x7684;&#x751F;&#x5B58;&#x65F6;&#x95F4;, &#x5355;&#x4F4D;&#x4E3A;&#x79D2;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ttl key</div></pre></td></tr></table></figure></p>
+<p><strong>13. &#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x968F;&#x673A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;key</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">randomkey</div></pre></td></tr></table></figure></p>
+<p><strong>14. &#x4FEE;&#x6539;key&#x7684;&#x540D;&#x79F0;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rename key newkey</div></pre></td></tr></table></figure></p>
+<p><strong>15. &#x4EC5;&#x5F53;newkey&#x4E0D;&#x5B58;&#x5728;,&#x624D;&#x80FD;&#x4FEE;&#x6539;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">renamenx key newkey</div></pre></td></tr></table></figure></p>
+<p><strong>16. &#x83B7;&#x53D6;key&#x5B58;&#x50A8;&#x503C;&#x7684;&#x7C7B;&#x578B;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type key</div></pre></td></tr></table></figure></p>
 <p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
 
       
@@ -452,7 +452,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -460,7 +460,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -469,7 +469,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

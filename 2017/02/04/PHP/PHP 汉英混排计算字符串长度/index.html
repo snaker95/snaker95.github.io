@@ -305,10 +305,10 @@
         <p>[TOC]</p>
 <h1 id="PHP-&#x6C49;&#x82F1;&#x6DF7;&#x6392;&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;"><a href="#PHP-&#x6C49;&#x82F1;&#x6DF7;&#x6392;&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;" class="headerlink" title="PHP &#x6C49;&#x82F1;&#x6DF7;&#x6392;&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;"></a>PHP &#x6C49;&#x82F1;&#x6DF7;&#x6392;&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;</h1><p>&#x5728;PHP&#x540E;&#x53F0;&#x505A;&#x6570;&#x636E;&#x9A8C;&#x8BC1;&#x662F;&#x5FC5;&#x987B;&#x7684;, &#x800C;&#x9650;&#x5236;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x662F;&#x5E38;&#x89C1;&#x4E0D;&#x8FC7;&#x7684;, &#x4F46;&#x662F;&#x7531;&#x4E8E;&#x6C49;&#x5B57;&#x5728;UTF-8&#x7F16;&#x7801;&#x4E2D;,&#x957F;&#x5EA6;&#x5374;&#x662F;3&#x4E2A;, &#x6240;&#x4EE5;,&#x5728;&#x6C49;&#x82F1;&#x6DF7;&#x6392;&#x65F6;&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x5C31;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#x786E;&#x5B9A;&#x4E86;, &#x4F46;&#x662F;PHP&#x4E2D;&#x5DF2;&#x63D0;&#x4F9B;&#x4E86;&#x76F8;&#x5173;&#x51FD;&#x6570;<br><a id="more"></a></p>
 <h2 id="&#x4E00;-&#x51FD;&#x6570;&#x4ECB;&#x7ECD;"><a href="#&#x4E00;-&#x51FD;&#x6570;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x4E00;. &#x51FD;&#x6570;&#x4ECB;&#x7ECD;"></a>&#x4E00;. &#x51FD;&#x6570;&#x4ECB;&#x7ECD;</h2><blockquote>
-<p><code>strlen()</code> &#x548C; <code>mb_srelen()</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$str=<span class="string">&quot;&#x4E2D;&#x6587;a&#x5B57;1&#x7B26;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> strlen($str);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br /&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> mb_strlen($str,<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line"><span class="comment">//&#x8F93;&#x51FA;&#x7ED3;&#x679C;</span></span><br><span class="line">    <span class="comment">//14</span></span><br><span class="line">    <span class="comment">//6</span></span><br></pre></td></tr></table></figure></p>
+<p><code>strlen()</code> &#x548C; <code>mb_srelen()</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$str=<span class="string">&quot;&#x4E2D;&#x6587;a&#x5B57;1&#x7B26;&quot;</span>;</div><div class="line"><span class="keyword">echo</span> strlen($str);</div><div class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br /&gt;&quot;</span>;</div><div class="line"><span class="keyword">echo</span> mb_strlen($str,<span class="string">&quot;UTF8&quot;</span>);</div><div class="line"><span class="comment">//&#x8F93;&#x51FA;&#x7ED3;&#x679C;</span></div><div class="line">    <span class="comment">//14</span></div><div class="line">    <span class="comment">//6</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 <h2 id="&#x4E8C;-&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x5360;&#x4F4D;"><a href="#&#x4E8C;-&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x5360;&#x4F4D;" class="headerlink" title="&#x4E8C;. &#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x5360;&#x4F4D;"></a>&#x4E8C;. &#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x5360;&#x4F4D;</h2><blockquote>
-<p>&#x4E2D;&#x82F1;&#x6DF7;&#x6392;&#x5360;&#x4F4D; <em>(&#x4E00;&#x4E2A;&#x4E2D;&#x6587;&#x5B57;&#x7B26;&#x7684;&#x5360;&#x4F4D;&#x662F;2&#xFF0C;&#x82F1;&#x6587;&#x5B57;&#x7B26;&#x662F;1)</em><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$str=<span class="string">&apos;&#x4E2D;&#x6587;a&#x5B57;1&#x7B26;&apos;</span>;</span><br><span class="line"><span class="comment">//&#x8BA1;&#x7B97;&#x5982;&#x4E0B;</span></span><br><span class="line"><span class="keyword">echo</span> ( strlen($str) + mb_strlen($str,<span class="string">&apos;UTF8&apos;</span>) ) / <span class="number">2</span>;</span><br><span class="line"><span class="comment">//&#x8F93;&#x51FA;&#x7ED3;&#x679C;</span></span><br><span class="line">&#xA0;&#xA0;<span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x4E2D;&#x82F1;&#x6DF7;&#x6392;&#x5360;&#x4F4D; <em>(&#x4E00;&#x4E2A;&#x4E2D;&#x6587;&#x5B57;&#x7B26;&#x7684;&#x5360;&#x4F4D;&#x662F;2&#xFF0C;&#x82F1;&#x6587;&#x5B57;&#x7B26;&#x662F;1)</em><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$str=<span class="string">&apos;&#x4E2D;&#x6587;a&#x5B57;1&#x7B26;&apos;</span>;</div><div class="line"><span class="comment">//&#x8BA1;&#x7B97;&#x5982;&#x4E0B;</span></div><div class="line"><span class="keyword">echo</span> ( strlen($str) + mb_strlen($str,<span class="string">&apos;UTF8&apos;</span>) ) / <span class="number">2</span>;</div><div class="line"><span class="comment">//&#x8F93;&#x51FA;&#x7ED3;&#x679C;</span></div><div class="line">&#xA0;&#xA0;<span class="comment">//10</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 <h2 id="&#x4E09;-&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x50A8;&#x957F;&#x5EA6;"><a href="#&#x4E09;-&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x50A8;&#x957F;&#x5EA6;" class="headerlink" title="&#x4E09;. &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x50A8;&#x957F;&#x5EA6;"></a>&#x4E09;. &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x50A8;&#x957F;&#x5EA6;</h2><blockquote>
 <p><code>varchar</code>&#x3001;<code>char</code> &#x4E2D;&#x6587;&#x5B57;&#x7B26;&#x5360;&#x4F4D;&#x4E3A;1 </p>
@@ -445,7 +445,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -453,7 +453,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -462,7 +462,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
