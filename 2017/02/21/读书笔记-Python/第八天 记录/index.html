@@ -1,0 +1,723 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Python读写文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第八天 记录">
+<meta property="og:url" content="http://yoursite.com/2017/02/21/读书笔记-Python/第八天 记录/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Python读写文件">
+<meta property="og:updated_time" content="2017-02-09T01:47:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第八天 记录">
+<meta name="twitter:description" content="Python读写文件">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 第八天 记录 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                第八天 记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-21T10:15:46+08:00" content="2017-02-21">
+              2017-02-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/21/读书笔记-Python/第八天 记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/21/读书笔记-Python/第八天 记录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h1 id="&#x7B2C;&#x516B;&#x5929;-&#x8BB0;&#x5F55;"><a href="#&#x7B2C;&#x516B;&#x5929;-&#x8BB0;&#x5F55;" class="headerlink" title="&#x7B2C;&#x516B;&#x5929; &#x8BB0;&#x5F55;"></a>&#x7B2C;&#x516B;&#x5929; &#x8BB0;&#x5F55;</h1><p>&#xA0;&#xA0;&#xA0; &#x4F7F;&#x7528;Python&#x5728;&#x786C;&#x76D8;&#x4E0A;&#x521B;&#x5EFA;/&#x8BFB;&#x53D6;&#x548C;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;</p>
+<h2 id="1-&#x6587;&#x4EF6;&#x548C;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;"><a href="#1-&#x6587;&#x4EF6;&#x548C;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;" class="headerlink" title="1. &#x6587;&#x4EF6;&#x548C;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;"></a>1. &#x6587;&#x4EF6;&#x548C;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</h2><ul>
+<li>Windows&#x8DEF;&#x5F84;&#x98CE;&#x683C;: &#x4F7F;&#x7528;&#x5012;&#x659C;&#x6760;&#x4F5C;&#x4E3A;&#x6587;&#x4EF6;&#x5939;&#x4E4B;&#x95F4;&#x7684;&#x5206;&#x9694;&#x7B26; </li>
+<li>Linux&#x548C;OS X&#x8DEF;&#x5F84;&#x98CE;&#x683C;: &#x4F7F;&#x7528;&#x6B63;&#x659C;&#x6760;&#x4F5C;&#x4E3A;&#x8DEF;&#x5F84;&#x5206;&#x9694;&#x7B26;</li>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6848;: &#x4F7F;&#x7528;os.path.join()&#x51FD;&#x6570;.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">&apos;usr&apos;</span>,<span class="string">&apos;bin&apos;</span>, <span class="string">&apos;spam&apos;</span>)</div><div class="line"><span class="comment"># Windows: </span></div><div class="line">    usr\\bin\\spam <span class="comment"># &#x5012;&#x659C;&#x6760;&#x6709;2&#x4E2A;,&#x56E0;&#x4E3A;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x8F6C;&#x79FB;</span></div><div class="line"><span class="comment"># Linux or OS X:</span></div><div class="line">    usr/bin/spam</div></pre></td></tr></table></figure>
+<h2 id="2-&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;"><a href="#2-&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;" class="headerlink" title="2. &#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;"></a>2. &#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;</h2><ul>
+<li>&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x76EE;&#x5F55;: os.getcwd()</li>
+<li>&#x5207;&#x6362;&#x76EE;&#x5F55;: os.chdir()</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.getcwd()</div><div class="line"><span class="string">&apos;C:\\Python35&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.chdir(<span class="string">&apos;C:\\Windows&apos;</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.getcwd()</div><div class="line"><span class="string">&apos;C:\\Windows&apos;</span></div><div class="line"><span class="comment"># &#x6CE8;: &#x5F53;&#x8981;&#x5207;&#x6362;&#x7684;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x4E0D;&#x5B58;&#x5728;, &#x5219;&#x4F1A;&#x62A5;&#x9519;FileNotFoundError, &#x6240;&#x4EE5;&#x5207;&#x6362;&#x524D;&#x9700;&#x8981;&#x5224;&#x65AD;&#x8BE5;&#x76EE;&#x5F55;&#x662F;&#x5426;&#x5B58;&#x5728; os.path.exists()</span></div></pre></td></tr></table></figure>
+<h2 id="3-&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x5939;"><a href="#3-&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x5939;" class="headerlink" title="3.&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x5939;"></a>3.&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x5939;</h2><ul>
+<li>os.makedirs() &#x4F1A;&#x521B;&#x5EFA;&#x5B8C;&#x6574;&#x7684;&#x76EE;&#x5F55;, &#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x53EF;&#x4EE5;&#x8FDE;&#x7EED;&#x521B;&#x5EFA;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6587;&#x4EF6;&#x5939;</li>
+</ul>
+<h2 id="4-os-path&#x6A21;&#x5757;"><a href="#4-os-path&#x6A21;&#x5757;" class="headerlink" title="4.os.path&#x6A21;&#x5757;"></a>4.os.path&#x6A21;&#x5757;</h2><ol>
+<li><p>&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#x548C;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</p>
+<ul>
+<li>os.path.abspath(path) &#x83B7;&#x53D6;path&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</li>
+<li>os.path.isabs(path) &#x5224;&#x65AD;path&#x662F;&#x5426;&#x4E3A;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;, &#x8FD4;&#x56DE;bool&#x503C;</li>
+<li><p>os.path.relpath(path, start) &#x8FD4;&#x56DE;&#x4ECE;start&#x8DEF;&#x5F84;&#x5230;path&#x7684;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#x7684;&#x5B57;&#x7B26;&#x4E32;,&#x4E0D;&#x63D0;&#x4F9B;start, &#x9ED8;&#x8BA4;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="string">&apos;.&apos;</span>)</div><div class="line"><span class="string">&apos;C://Python35&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isabs(<span class="string">&apos;.\\Scripts&apos;</span>)</div><div class="line"><span class="keyword">False</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isabs(os.path.abspath(<span class="string">&apos;.&apos;</span>))</div><div class="line"><span class="keyword">True</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.relpath(<span class="string">&apos;C:\\Windows&apos;</span>, <span class="string">&apos;C:\\spam\\eggs&apos;</span>)</div><div class="line"><span class="string">&apos;..\\..\\Windows&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.getcwd()</div><div class="line"><span class="string">&apos;C:\\Python35&apos;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>&#x76EE;&#x5F55;&#x540D;&#x79F0;&#x548C;&#x57FA;&#x672C;&#x540D;&#x79F0;</p>
+<ul>
+<li>os.path.basename() &#x57FA;&#x672C;&#x540D;&#x79F0; &#x4EE5;&#x6700;&#x540E;&#x7684;&#x6B63;/&#x5012;&#x659C;&#x6760;&#x6709;&#x5173;</li>
+<li>os.path.dirname() &#x76EE;&#x5F55;&#x540D;&#x79F0; &#x4EE5;&#x6700;&#x540E;&#x7684;&#x6B63;/&#x5012;&#x659C;&#x6760;&#x6709;&#x5173;</li>
+<li>os.path.split() &#x4EE5;&#x5143;&#x7EC4;&#x5F62;&#x5F0F;&#x83B7;&#x53D6;&#x57FA;&#x672C;&#x540D;&#x79F0;&#x548C;&#x76EE;&#x5F55;&#x540D;&#x79F0;;(&#x76EE;&#x5F55;&#x540D;&#x79F0;, &#x57FA;&#x672C;&#x540D;&#x79F0;)</li>
+<li><p>os.path.sep &#x6587;&#x4EF6;&#x5939;&#x5206;&#x5272;&#x659C;&#x6760; Windows: &#x2018;\&#x2018;  Linux/OSX: &#x2018;/&#x2018; </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>apath = <span class="string">&apos;C:/Windows/System32&apos;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(apath)</div><div class="line"><span class="string">&apos;C:\\Windows&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(apath)</div><div class="line"><span class="string">&apos;System32&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(apath)</div><div class="line">(<span class="string">&apos;C:\\Windows&apos;</span>, <span class="string">&apos;System32&apos;</span>)</div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.sep</div><div class="line"><span class="comment"># Windows:</span></div><div class="line"><span class="string">&apos;\\&apos;</span></div><div class="line"><span class="comment"># Linux/ OSX</span></div><div class="line"><span class="string">&apos;/&apos;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>&#x83B7;&#x53D6;&#x6587;&#x4EF6;&#x5927;&#x5C0F;&#x548C;&#x6587;&#x4EF6;&#x5939;&#x5185;&#x5BB9;</p>
+<ul>
+<li>os.path.getsize(path) &#x83B7;&#x53D6;path&#x8DEF;&#x5F84;&#x4E2D;&#x6587;&#x4EF6;&#x7684;&#x5B57;&#x8282;&#x6570;</li>
+<li>os.listdir(path) &#x83B7;&#x53D6;path&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;&#x5B50;&#x6587;&#x4EF6;&#x548C;&#x5B50;&#x76EE;&#x5F55;&#x7684;&#x5217;&#x8868;</li>
+</ul>
+</li>
+<li><p>&#x68C0;&#x67E5;&#x8DEF;&#x5F84;&#x6709;&#x6548;&#x6027;</p>
+<ul>
+<li>os.path.exists(path) path&#x6240;&#x6307;&#x7684;&#x6587;&#x4EF6;&#x6216;&#x6587;&#x4EF6;&#x5939;&#x662F;&#x5426;&#x5B58;&#x5728;</li>
+<li>os.path.isfile(path) path&#x6240;&#x6307;&#x7684;&#x6587;&#x4EF6;(&#x4EC5;&#x4EC5;&#x662F;&#x6587;&#x4EF6;)&#x662F;&#x5426;&#x5B58;&#x5728;</li>
+<li>os.path.isdir(path) path&#x6240;&#x6307;&#x7684;&#x6587;&#x4EF6;&#x5939;(&#x4EC5;&#x4EC5;&#x662F;&#x6587;&#x4EF6;&#x5939;)&#x662F;&#x5426;&#x5B58;&#x5728;</li>
+</ul>
+</li>
+</ol>
+<h2 id="5-&#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x8FC7;&#x7A0B;"><a href="#5-&#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x8FC7;&#x7A0B;" class="headerlink" title="5. &#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x8FC7;&#x7A0B;"></a>5. &#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x8FC7;&#x7A0B;</h2><ol>
+<li>&#x8C03;&#x7528;open()&#x51FD;&#x6570;, &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;File&#x5BF9;&#x8C61;</li>
+<li>&#x8C03;&#x7528;File&#x5BF9;&#x8C61;&#x7684;read()&#x6216;&#x8005;write()&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x8BFB;&#x5199;</li>
+<li>&#x8C03;&#x7528;File&#x5BF9;&#x8C61;&#x7684;close()&#x65B9;&#x6CD5;&#x5173;&#x95ED;&#x6587;&#x4EF6;</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># &#x6253;&#x5F00;&#x6587;&#x4EF6;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fileObj = open(<span class="string">&apos;C:\\Users\\Snaker\Hello.txt&apos;</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># &#x8BE5;open()&#x51FD;&#x6570;&#x652F;&#x6301;&#x7B2C;&#x4E8C;&#x53C2;&#x6570;, &#x6807;&#x8BB0;&#x6253;&#x5F00;&#x65B9;&#x5F0F;, &#x9ED8;&#x8BA4;&#x4E3A;&apos;r&apos; &#x53EA;&#x8BFB;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># &#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x5305;&#x62EC;: &apos;r&apos; &#x53EA;&#x8BFB;   &apos;w&apos; &#x8986;&#x76D6;&#x5199;&#x5165;    &apos;a&apos; &#x8FFD;&#x52A0;&#x5199;&#x5165;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="comment"># &#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5185;&#x5BB9;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>content = fileObj.read() <span class="comment"># &#x4E00;&#x6B21;&#x6027;&#x5168;&#x90E8;&#x8BFB;&#x53D6;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>content = fileObj.readlines() <span class="comment"># &#x8FD4;&#x56DE;&#x5B57;&#x7B26;&#x4E32;&#x5217;&#x8868;, &#x4EE5;&#x884C;&#x4E3A;&#x5206;&#x5272;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="comment"># &#x5199;&#x5165;&#x6587;&#x4EF6;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fileObj.write(<span class="string">&apos;Hello Word! \n&apos;</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># &#x5199;&#x5165;&#x6587;&#x4EF6;&#x65F6;, &#x6253;&#x5F00;&#x65B9;&#x5F0F;open()&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x5FC5;&#x987B;&#x662F;&apos;w&apos; &#x6216; &apos;a&apos;</span></div><div class="line">&gt;&gt;&gt;</div><div class="line"><span class="comment"># &#x5173;&#x95ED;&#x6587;&#x4EF6;</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fileObj.close()</div></pre></td></tr></table></figure>
+<h2 id="6-&#x4F7F;&#x7528;shelve&#x6A21;&#x5757;&#x4FDD;&#x5B58;&#x53D8;&#x91CF;"><a href="#6-&#x4F7F;&#x7528;shelve&#x6A21;&#x5757;&#x4FDD;&#x5B58;&#x53D8;&#x91CF;" class="headerlink" title="6. &#x4F7F;&#x7528;shelve&#x6A21;&#x5757;&#x4FDD;&#x5B58;&#x53D8;&#x91CF;"></a>6. &#x4F7F;&#x7528;shelve&#x6A21;&#x5757;&#x4FDD;&#x5B58;&#x53D8;&#x91CF;</h2><ul>
+<li><strong>&#x4F7F;&#x7528;&#x573A;&#x666F;:</strong> &#x5C06;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;&#x5230;&#x4E8C;&#x8FDB;&#x5236;&#x7684;shelf&#x6587;&#x4EF6;&#x4E2D;, &#x4EE5;&#x4FBF;&#x7A0B;&#x5E8F;&#x51B2;&#x786C;&#x76D8;&#x4E2D;&#x6062;&#x590D;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x636E;.</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt;import shelve</div><div class="line"># &#x4FDD;&#x5B58;&#x5230;shelf&#x6587;&#x4EF6;</div><div class="line">&gt;&gt;&gt; shelfFile = shelve.open(&apos;mydata&apos;)</div><div class="line">&gt;&gt;&gt; cats = [&apos;Zabc&apos;, &apos;Xabc&apos;, &apos;Cabc&apos;]</div><div class="line">&gt;&gt;&gt; shelfFile[&apos;cats&apos;] = cats</div><div class="line">&gt;&gt;&gt; shelfFile.close()</div><div class="line">&gt;&gt;&gt; # &#x6B64;&#x65F6;, &#x4F1A;&#x5C06;cats&#x5217;&#x8868;&#x4FDD;&#x5B58;&#x5230;shelf&#x6587;&#x4EF6;&#x4E2D;&#x5E76;&#x751F;&#x6210;&#x76F8;&#x5E94;&#x7684;&#x6587;&#x4EF6;, &#x5728;windows&#x4E0B;&#x4F1A;&#x751F;&#x6210;3&#x4E2A;&#x6587;&#x4EF6;: mydata.bak, mydata.dat, mydata.dir; &#x5728;OSX&#x4E0B;&#x53EA;&#x751F;&#x6210;1&#x4E2A;:mydata.db </div><div class="line">&gt;&gt;&gt;</div><div class="line"># &#x8BFB;&#x53D6;shelf&#x6587;&#x4EF6;</div><div class="line">&gt;&gt;&gt; shelfFile = shelve.open(&apos;mydata&apos;)</div><div class="line">&gt;&gt;&gt; type(shelfFile)</div><div class="line">&lt;class &apos;shelve.DbfilenameShelf&apos;&gt;</div><div class="line">&gt;&gt;&gt; shelfFile[&apos;cats&apos;]</div><div class="line">[&apos;Zabc&apos;, &apos;Xabc&apos;, &apos;Cabc&apos;]</div><div class="line">&gt;&gt;&gt;</div><div class="line">&gt;&gt;&gt; # shelf&#x7C7B;&#x4F3C;&#x4E8E;&#x5B57;&#x5178;&#x7C7B;&#x578B;, &#x5B58;&#x5728;keys()&#x548C;values()&#x65B9;&#x6CD5;</div><div class="line">&gt;&gt;&gt; list(shelfFile.keys())</div><div class="line">[&apos;cats&apos;]</div><div class="line">&gt;&gt;&gt; list(shelfFile.values())</div><div class="line">[[&apos;Zabc&apos;, &apos;Xabc&apos;, &apos;Cabc&apos;]]</div><div class="line">&gt;&gt;&gt; shelfFile.close()</div></pre></td></tr></table></figure>
+<h2 id="7-pprint&#x6A21;&#x5757;"><a href="#7-pprint&#x6A21;&#x5757;" class="headerlink" title="7. pprint&#x6A21;&#x5757;"></a>7. pprint&#x6A21;&#x5757;</h2><ol>
+<li>pprint.pprint() &#x5C06;&#x5217;&#x8868;&#x6216;&#x5B57;&#x5178;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x2019;&#x6F02;&#x4EAE;&#x6253;&#x5370;&#x2019;&#x5230;&#x5C4F;&#x5E55;</li>
+<li>pprint.pformat() &#x8FD4;&#x56DE;&#x2019;&#x6F02;&#x4EAE;&#x683C;&#x5F0F;&#x2019;&#x7684;&#x5217;&#x8868;&#x6216;&#x5B57;&#x5178;&#x7684;&#x5185;&#x5BB9;&#x4EE5;&#x4F9B;&#x4FDD;&#x5B58;&#x5230;&#x6587;&#x4EF6;&#x4E2D;</li>
+</ol>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记-Python/" rel="tag">#读书笔记-Python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/21/PHP/PHP Curl请求数据/" rel="next" title="PHP Curl请求数据">
+                <i class="fa fa-chevron-left"></i> PHP Curl请求数据
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/21/PHP/PHP 写日志方法/" rel="prev" title="PHP 写日志方法">
+                PHP 写日志方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/21/读书笔记-Python/第八天 记录/"
+     data-title="第八天 记录"
+     data-content=""
+     data-url="http://yoursite.com/2017/02/21/读书笔记-Python/第八天 记录/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/21/读书笔记-Python/第八天 记录/"
+           data-title="第八天 记录" data-url="http://yoursite.com/2017/02/21/读书笔记-Python/第八天 记录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八天-记录"><span class="nav-text">第八天 记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文件和文件路径"><span class="nav-text">1. 文件和文件路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-当前工作目录"><span class="nav-text">2. 当前工作目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-创建新文件夹"><span class="nav-text">3.创建新文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-os-path模块"><span class="nav-text">4.os.path模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-文件读写过程"><span class="nav-text">5. 文件读写过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-使用shelve模块保存变量"><span class="nav-text">6. 使用shelve模块保存变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-pprint模块"><span class="nav-text">7. pprint模块</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
