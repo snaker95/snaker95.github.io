@@ -1,0 +1,684 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Redis,zset" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Redis的数据类型-zset(有序列表)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis-PHP操作-有序集合">
+<meta property="og:url" content="http://yoursite.com/2017/Redis/Redis-PHP操作-有序集合/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Redis的数据类型-zset(有序列表)">
+<meta property="og:updated_time" content="2017-02-05T07:56:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis-PHP操作-有序集合">
+<meta name="twitter:description" content="Redis的数据类型-zset(有序列表)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Redis-PHP操作-有序集合 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Redis-PHP操作-有序集合
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:31+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/Redis/Redis-PHP操作-有序集合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/Redis/Redis-PHP操作-有序集合/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="Redis-PHP&#x64CD;&#x4F5C;-&#x6709;&#x5E8F;&#x96C6;&#x5408;"><a href="#Redis-PHP&#x64CD;&#x4F5C;-&#x6709;&#x5E8F;&#x96C6;&#x5408;" class="headerlink" title="Redis-PHP&#x64CD;&#x4F5C;-&#x6709;&#x5E8F;&#x96C6;&#x5408;"></a>Redis-PHP&#x64CD;&#x4F5C;-&#x6709;&#x5E8F;&#x96C6;&#x5408;</h1><p>  Redis &#x6570;&#x636E;&#x5E93;&#x662F;key-value&#x7C7B;&#x578B;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;, &#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6709; <code>&#x5B57;&#x7B26;&#x4E32;</code>(string)&#x3001; <code>&#x54C8;&#x5E0C;</code>(Hash)&#x3001; <code>&#x5217;&#x8868;</code>(list)&#x3001; <code>&#x96C6;&#x5408;</code>(set)&#x3001; <code>&#x6709;&#x5E8F;&#x96C6;&#x5408;</code>(Zset). </p>
+<p>  &#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;<strong>&#x6709;&#x5E8F;&#x5217;&#x8868;</strong>&#x7C7B;&#x578B;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;<br><strong>1. &#x5728;&#x5217;&#x8868;&#x4E2D;&#x6DFB;&#x52A0;&#x6216;&#x8005;&#x66F4;&#x65B0;&#x6210;&#x5458; <code>zadd</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*<span class="doctag">@param</span> key </span></div><div class="line"> *<span class="doctag">@param</span> score</div><div class="line"> *<span class="doctag">@param</span> member</div><div class="line"> *<span class="doctag">@return</span> int &#x6210;&#x529F;&#x4E3A;1, &#x5426;&#x5219;&#x4E3A;0</div><div class="line"> *@&#x66F4;&#x65B0;&#x65F6;, &#x6210;&#x529F;&#x4E5F;&#x662F;&#x4E3A;0</div><div class="line"> */</div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zadd($key, $score, $member);</div></pre></td></tr></table></figure></p>
+<p><strong>2. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6210;&#x5458;&#x6570; <code>zcard</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*<span class="doctag">@param</span> key </span></div><div class="line"> *<span class="doctag">@return</span> int &#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6570;&#x91CF;</div><div class="line"> */</div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zcard($key);</div></pre></td></tr></table></figure></p>
+<p><strong>3. &#x8BA1;&#x7B97;&#x5728;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5206;&#x6570;&#x7684;&#x6210;&#x5458;&#x6570; <code>zcount</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*<span class="doctag">@param</span> key </span></div><div class="line"> *<span class="doctag">@param</span> min</div><div class="line"> *<span class="doctag">@param</span> max</div><div class="line"> *<span class="doctag">@return</span> int &#x83B7;&#x53D6;score&#x5206;&#x6570;min/max&#x4E4B;&#x95F4;&#x7684;&#x6210;&#x5458;&#x6570;</div><div class="line"> */</div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zcount($key, $min, $max);</div></pre></td></tr></table></figure></p>
+<p><strong>4. &#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x5BF9;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x5206;&#x6570;&#x52A0;&#x4E0A;&#x589E;&#x91CF; N <code>zincrby</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*<span class="doctag">@param</span> key </span></div><div class="line"> *<span class="doctag">@param</span> N</div><div class="line"> *<span class="doctag">@param</span> member</div><div class="line"> *<span class="doctag">@return</span> float &#x589E;&#x52A0;&#x540E;&#x7684;&#x5206;&#x6570;</div><div class="line"> */</div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zincrby($key, $N, $member);</div></pre></td></tr></table></figure></p>
+<p><strong>5. &#x8BA1;&#x7B97;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;&#x5E76;&#x5C06;&#x7ED3;&#x679C;&#x5B58;&#x50A8;&#x5728;&#x65B0;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#x5408;key&#x4E2D; <code>zinterstore</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/*<span class="doctag">@param</span> newKey </span></div><div class="line"> *<span class="doctag">@param</span> array(key1, key2,...)</div><div class="line"> *<span class="doctag">@return</span> int &#x4EA4;&#x96C6;&#x7684;&#x6570;&#x91CF;</div><div class="line"> */</div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zinterstore($newKey,<span class="keyword">array</span>($key1, $key2...));</div></pre></td></tr></table></figure></p>
+<p><strong>&#x6CE8;:</strong> &#x4EA4;&#x96C6;&#x65F6;&#x83B7;&#x53D6;&#x4EA4;&#x96C6;&#x4E2D;&#x5206;&#x6570;&#x6700;&#x5927;&#x7684;&#x503C;</p>
+<p><strong>6. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x8BA1;&#x7B97;&#x6307;&#x5B9A;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x5185;&#x6210;&#x5458;&#x6570;&#x91CF; <code>zlexcount</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZLEXCOUNT key min max  <span class="comment"># &#x83B7;&#x53D6;key&#x4E2D;min-max&#x95F4;&#x7684;&#x6210;&#x5458;&#x6570;&#x91CF;</span></div></pre></td></tr></table></figure></p>
+<p><strong>7. &#x83B7;&#x53D6;&#x7D22;&#x5F15;&#x533A;&#x95F4;&#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6570;&#x91CF; <code>zrange</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ZRANGE key start stop [WITHSCORES]</div><div class="line"> <span class="comment">/*<span class="doctag">@param</span> key </span></div><div class="line"> *<span class="doctag">@param</span> start</div><div class="line"> *<span class="doctag">@param</span> stop</div><div class="line"> *<span class="doctag">@param</span> [WITHSCORES] true/false</div><div class="line"> *<span class="doctag">@return</span> int &#x4EA4;&#x96C6;&#x7684;&#x6570;&#x91CF;</div><div class="line"> */</div><div class="line"><span class="comment">// &#x8FD4;&#x56DE;member=&gt;score &#x5F62;&#x5F0F;</span></div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zrange($key,$start,$stop,<span class="keyword">true</span>);</div><div class="line"><span class="comment">// &#x8FD4;&#x56DE;member&#x7684;&#x6570;&#x7EC4;</span></div><div class="line"><span class="keyword">$this</span>-&gt;redis-&gt;zrange($key,$start,$stop,<span class="keyword">false</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>8. &#x83B7;&#x53D6;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6210;&#x5458; <code>ZRANGEBYLEX</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANGEBYLEX key min max [LIMIT offset count]</div></pre></td></tr></table></figure></p>
+<p><strong>9. &#x901A;&#x8FC7;&#x5206;&#x6570;&#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458; <code>ZRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]</div></pre></td></tr></table></figure></p>
+<p><strong>10. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x7D22;&#x5F15; <code>ZRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANK key member</div></pre></td></tr></table></figure></p>
+<p><strong>11. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6210;&#x5458; <code>zrem</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREM key member [member1 member2 ... ]</div></pre></td></tr></table></figure></p>
+<p><strong>12. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebylex</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYLEX key min max</div></pre></td></tr></table></figure></p>
+<p><strong>13. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x6392;&#x540D;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebyrank</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYRANK key start stop</div></pre></td></tr></table></figure></p>
+<p><strong>14. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x5206;&#x6570;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebyscore</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYSCORE key min max</div></pre></td></tr></table></figure></p>
+<p><strong>15. &#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x4E2D;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x901A;&#x8FC7;&#x7D22;&#x5F15;&#xFF0C;&#x5206;&#x6570;&#x4ECE;&#x9AD8;&#x5230;&#x5E95; <code>ZREVRANGE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANGE key start stop [WITHSCORES]</div></pre></td></tr></table></figure></p>
+<p><strong>16. &#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x4E2D;&#x6307;&#x5B9A;&#x5206;&#x6570;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x5206;&#x6570;&#x4ECE;&#x9AD8;&#x5230;&#x4F4E;&#x6392;&#x5E8F; <code>ZREVRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANGEBYSCORE key max min [WITHSCORES]</div></pre></td></tr></table></figure></p>
+<p><strong>17. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x6709;&#x5E8F;&#x96C6;&#x6210;&#x5458;&#x6309;&#x5206;&#x6570;&#x503C;&#x9012;&#x51CF;(&#x4ECE;&#x5927;&#x5230;&#x5C0F;)&#x6392;&#x5E8F; <code>ZREVRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANK key member</div></pre></td></tr></table></figure></p>
+<p><strong>18. &#x83B7;&#x53D6;&#x6210;&#x5458;&#x7684;&#x5206;&#x6570;&#x503C; <code>ZSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZSCORE key member</div></pre></td></tr></table></figure></p>
+<p><strong>19. &#x7ED9;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6709;&#x5E8F;&#x96C6;&#x7684;&#x5E76;&#x96C6;&#xFF0C;&#x5E76;&#x5B58;&#x50A8;&#x5728;&#x65B0;&#x7684; key &#x4E2D; <code>ZUNIONSTORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZUNIONSTORE destination numkeys key [key1 ...]</div></pre></td></tr></table></figure></p>
+<p><strong>20. &#x8FED;&#x4EE3;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#xFF08;&#x5305;&#x62EC;&#x5143;&#x7D20;&#x6210;&#x5458;&#x548C;&#x5143;&#x7D20;&#x5206;&#x503C;&#xFF09;<code>ZSCAN</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZSCAN key cursor [MATCH pattern] [COUNT count]</div></pre></td></tr></table></figure></p>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/Redis/Redis-PHP操作-字符串/" rel="next" title="Redis-PHP操作-字符串">
+                <i class="fa fa-chevron-left"></i> Redis-PHP操作-字符串
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/Redis/Redis-PHP操作-列表/" rel="prev" title="Redis-PHP操作-列表">
+                Redis-PHP操作-列表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/Redis/Redis-PHP操作-有序集合/"
+     data-title="Redis-PHP操作-有序集合"
+     data-content=""
+     data-url="http://yoursite.com/2017/Redis/Redis-PHP操作-有序集合/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/Redis/Redis-PHP操作-有序集合/"
+           data-title="Redis-PHP操作-有序集合" data-url="http://yoursite.com/2017/Redis/Redis-PHP操作-有序集合/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-PHP操作-有序集合"><span class="nav-text">Redis-PHP操作-有序集合</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

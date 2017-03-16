@@ -1,0 +1,677 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Redis,hash" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Redis的数据类型-Hash(哈希)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis-数据类型-哈希">
+<meta property="og:url" content="http://yoursite.com/2016/Redis/Redis-数据类型-哈希/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Redis的数据类型-Hash(哈希)">
+<meta property="og:updated_time" content="2017-02-05T07:57:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis-数据类型-哈希">
+<meta name="twitter:description" content="Redis的数据类型-Hash(哈希)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Redis-数据类型-哈希 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Redis-数据类型-哈希
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-08T11:28:20+08:00" content="2016-06-08">
+              2016-06-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/Redis/Redis-数据类型-哈希/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/Redis/Redis-数据类型-哈希/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x54C8;&#x5E0C;"><a href="#Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x54C8;&#x5E0C;" class="headerlink" title="Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x54C8;&#x5E0C;"></a>Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x54C8;&#x5E0C;</h1><p>  Redis &#x6570;&#x636E;&#x5E93;&#x662F;key-value&#x7C7B;&#x578B;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;, &#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6709; <code>&#x5B57;&#x7B26;&#x4E32;</code>(string)&#x3001; <code>&#x54C8;&#x5E0C;</code>(Hash)&#x3001; <code>&#x5217;&#x8868;</code>(list)&#x3001; <code>&#x96C6;&#x5408;</code>(set)&#x3001; <code>&#x6709;&#x5E8F;&#x96C6;&#x5408;</code>(Zset). </p>
+<p>  &#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;<strong>&#x54C8;&#x5E0C;</strong>&#x7C7B;&#x578B;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;<br><strong>1. &#x5220;&#x9664;&#x54C8;&#x5E0C;&#x8868;&#x5B57;&#x6BB5; <code>hdel</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HDEL key field1 [field2 ... ] 	# &#x5220;&#x9664;key&#x4E2D;&#x7684;fields</div></pre></td></tr></table></figure></p>
+<p><strong>2. &#x67E5;&#x770B;&#x5B57;&#x6BB5;&#x662F;&#x5426;&#x5B58;&#x5728; <code>hexists</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HEXISTS key field	# &#x54C8;&#x5E0C;&#x8868;key&#x4E2D;&#x662F;&#x5426;&#x5B58;&#x5728;field</div></pre></td></tr></table></figure></p>
+<p><strong>3. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x7684;&#x503C;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HGET key field  # &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;field</div></pre></td></tr></table></figure></p>
+<p><strong>4. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;key&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x548C;&#x503C;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HGETALL key  # &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;key&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x548C;&#x503C;</div></pre></td></tr></table></figure></p>
+<p><strong>5. &#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;key&#x4E2D;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x7684;&#x6574;&#x6570;&#x65B0;&#x589E;N <code>hincrby</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HINCRBY key field N  # &#x5728;field&#x503C;&#x4E0A;&#x65B0;&#x589E;N</div></pre></td></tr></table></figure></p>
+<p><strong>6. &#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x6307;&#x5B9A;key&#x4E2D;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x7684;&#x6D6E;&#x70B9;&#x6570;&#x65B0;&#x589E;N.M <code>hincrbyfloat</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HINCRBYFLOAT key field N.M  # &#x5728;field&#x503C;&#x4E0A;&#x65B0;&#x589E;N.M</div></pre></td></tr></table></figure></p>
+<p><strong>7. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;key&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5; <code>hkeys</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HKEYS key  # &#x83B7;&#x53D6;key&#x4E2D;&#x6240;&#x6709;&#x5B57;&#x6BB5;fields</div></pre></td></tr></table></figure></p>
+<p><strong>8. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x5B57;&#x6BB5;&#x957F;&#x5EA6; <code>hlen</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HLEN key  # &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x4E2D;&#x5B57;&#x6BB5;fields&#x7684;&#x957F;&#x5EA6;</div></pre></td></tr></table></figure></p>
+<p><strong>9. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x5B57;&#x6BB5;&#x7684;&#x503C; <code>hmget</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HMGET key field [field1 ... ]  # &#x83B7;&#x53D6;key&#x4E2D;fields&#x7684;&#x503C;</div></pre></td></tr></table></figure></p>
+<p><strong>10. &#x8BBE;&#x7F6E;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x591A;&#x4E2A;&#x5B57;&#x6BB5;&#x548C;&#x503C; <code>hmset</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HMSET key field value [field1 value1 ... ]</div></pre></td></tr></table></figure></p>
+<p><strong>11. &#x8BBE;&#x7F6E;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x5355;&#x4E2A;&#x5B57;&#x6BB5;&#x548C;&#x503C; <code>hset</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HSET key field value</div></pre></td></tr></table></figure></p>
+<p><strong>12. &#x53EA;&#x6709;&#x5B57;&#x6BB5;&#x4E0D;&#x5B58;&#x5728;&#x624D;&#x53EF;&#x8BBE;&#x7F6E; <code>hsetnx</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HSETNX key field value  # &#x53EA;&#x6709;field&#x4E0D;&#x5B58;&#x5728;&#x624D;&#x53EF;&#x8BBE;&#x7F6E;</div></pre></td></tr></table></figure></p>
+<p><strong>13. &#x83B7;&#x53D6;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x503C; <code>hvals</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HVALS key  # &#x83B7;&#x53D6;key &#x6240;&#x6709;&#x503C;</div></pre></td></tr></table></figure></p>
+<p><strong>14. &#x8FED;&#x4EE3;&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x7684;&#x952E;&#x503C;&#x5BF9; <code>hscan</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HSCAN key cursor [MATCH pattern] [COUNT count]</div></pre></td></tr></table></figure></p>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/Redis/Redis-数据类型-有序集合/" rel="next" title="Redis-数据类型-有序集合">
+                <i class="fa fa-chevron-left"></i> Redis-数据类型-有序集合
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/心得/Web项目框架心得/" rel="prev" title="Web项目框架心得">
+                Web项目框架心得 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/Redis/Redis-数据类型-哈希/"
+     data-title="Redis-数据类型-哈希"
+     data-content=""
+     data-url="http://yoursite.com/2016/Redis/Redis-数据类型-哈希/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/Redis/Redis-数据类型-哈希/"
+           data-title="Redis-数据类型-哈希" data-url="http://yoursite.com/2016/Redis/Redis-数据类型-哈希/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-数据类型-哈希"><span class="nav-text">Redis-数据类型-哈希</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
