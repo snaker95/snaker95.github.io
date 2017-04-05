@@ -1,0 +1,721 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swoole,PHP" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02.Swoole的task使用以及swoole_client">
+<meta property="og:url" content="http://yoursite.com/Swoole/Swoole/02-Swoole的Task使用以及swoole_client/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+<meta property="og:updated_time" content="2016-07-19T03:57:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="02.Swoole的task使用以及swoole_client">
+<meta name="twitter:description" content="Swoole虽然是标准的PHP扩展，实际上与普通的扩展不同。普通的扩展只是提供一个库函数。而swoole扩展在运行后会接管PHP的控制权，进入事件循环。当IO事件发生后，swoole会自动回调指定的PHP函数。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 02.Swoole的task使用以及swoole_client | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                02.Swoole的task使用以及swoole_client
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T15:44:19+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swoole/" itemprop="url" rel="index">
+                    <span itemprop="name">Swoole</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/Swoole/Swoole/02-Swoole的Task使用以及swoole_client/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="/Swoole/Swoole/02-Swoole的Task使用以及swoole_client/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x7B2C;&#x4E8C;&#x7AE0;-Swoole&#x7684;task&#x4F7F;&#x7528;&#x4EE5;&#x53CA;swoole-client"><a href="#&#x7B2C;&#x4E8C;&#x7AE0;-Swoole&#x7684;task&#x4F7F;&#x7528;&#x4EE5;&#x53CA;swoole-client" class="headerlink" title="&#x7B2C;&#x4E8C;&#x7AE0; Swoole&#x7684;task&#x4F7F;&#x7528;&#x4EE5;&#x53CA;swoole_client"></a>&#x7B2C;&#x4E8C;&#x7AE0; Swoole&#x7684;task&#x4F7F;&#x7528;&#x4EE5;&#x53CA;swoole_client</h3><p>&#x73AF;&#x5883;&#x8BF4;&#x660E;&#xFF1A;</p>
+<blockquote>
+<p>&#x7CFB;&#x7EDF;&#xFF1A;Ubuntu14.04 &#xFF08;&#x5B89;&#x88C5;&#x6559;&#x7A0B;&#x5305;&#x62EC;CentOS6.5)<br>PHP&#x7248;&#x672C;&#xFF1A;PHP-5.5.10<br>swoole&#x7248;&#x672C;&#xFF1A;1.7.6-stable</p>
+</blockquote>
+<p>&#x4E0A;&#x4E00;&#x7AE0;&#x5DF2;&#x7ECF;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#x4E86;&#x5982;&#x4F55;&#x5199;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;Echo&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x4E86;&#x89E3;&#x4E86;onReceive&#x7B49;&#x51E0;&#x4E2A;&#x6838;&#x5FC3;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x4E00;&#x7AE0;&#xFF0C;&#x6211;&#x5C06;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x4F7F;&#x7528;Swoole&#x7684;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;<code>Task</code>&#x3002;</p>
+<h4 id="1-Task&#x7B80;&#x4ECB;"><a href="#1-Task&#x7B80;&#x4ECB;" class="headerlink" title="1. Task&#x7B80;&#x4ECB;"></a>1. Task&#x7B80;&#x4ECB;</h4><p>Swoole&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x90E8;&#x5206;&#x662F;&#x540C;&#x6B65;&#x963B;&#x585E;&#x8FD0;&#x884C;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x9047;&#x5230;&#x4E00;&#x4E9B;&#x8017;&#x65F6;&#x8F83;&#x5927;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x3001;&#x5E7F;&#x64AD;&#x6D88;&#x606F;&#x7B49;&#xFF0C;&#x5C31;&#x4F1A;&#x5F71;&#x54CD;&#x670D;&#x52A1;&#x5668;&#x7684;&#x54CD;&#x5E94;&#x901F;&#x5EA6;&#x3002;&#x56E0;&#x6B64;Swoole&#x63D0;&#x4F9B;&#x4E86;Task&#x529F;&#x80FD;&#xFF0C;&#x5C06;&#x8FD9;&#x4E9B;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x653E;&#x5230;&#x53E6;&#x5916;&#x7684;&#x8FDB;&#x7A0B;&#x53BB;&#x5904;&#x7406;&#xFF0C;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x540E;&#x9762;&#x7684;&#x903B;&#x8F91;&#x3002;</p>
+<h4 id="2-&#x5F00;&#x542F;Task&#x529F;&#x80FD;"><a href="#2-&#x5F00;&#x542F;Task&#x529F;&#x80FD;" class="headerlink" title="2.&#x5F00;&#x542F;Task&#x529F;&#x80FD;"></a>2.&#x5F00;&#x542F;Task&#x529F;&#x80FD;</h4><p>&#x5F00;&#x542F;Task&#x529F;&#x80FD;&#x53EA;&#x9700;&#x8981;&#x5728;<code>swoole_server</code>&#x7684;&#x914D;&#x7F6E;&#x9879;&#x4E2D;&#x6DFB;&#x52A0;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/01.%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.md#6task_worker_num" target="_blank" rel="external">task_worker_num</a>&#x4E00;&#x9879;&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$serv-&gt;set(<span class="keyword">array</span>(</div><div class="line">    <span class="string">&apos;task_worker_num&apos;</span> =&gt; <span class="number">8</span></div><div class="line">));</div></pre></td></tr></table></figure></p>
+<p>&#x5373;&#x53EF;&#x5F00;&#x542F;task&#x529F;&#x80FD;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x5FC5;&#x987B;&#x7ED9;swoole_server&#x7ED1;&#x5B9A;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF1A;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#6ontask" target="_blank" rel="external">onTask</a>&#x548C;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#7onfinish" target="_blank" rel="external">onFinish</a>&#x3002;&#x8FD9;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5206;&#x522B;&#x7528;&#x4E8E;<strong>&#x6267;&#x884C;Task&#x4EFB;&#x52A1;</strong>&#x548C;<strong>&#x5904;&#x7406;Task&#x4EFB;&#x52A1;</strong>&#x7684;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;</p>
+<h4 id="3-&#x4F7F;&#x7528;Task"><a href="#3-&#x4F7F;&#x7528;Task" class="headerlink" title="3.&#x4F7F;&#x7528;Task"></a>3.&#x4F7F;&#x7528;Task</h4><blockquote>
+<p>&#x9996;&#x5148;&#x662F;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;Task&#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onReceive</span><span class="params">( swoole_server $serv, $fd, $from_id, $data )</span> </span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Get Message From Client {$fd}:{$data}\n&quot;</span>;</div><div class="line">    <span class="comment">// send a task to task worker.</span></div><div class="line">    $param = <span class="keyword">array</span>(</div><div class="line">        <span class="string">&apos;fd&apos;</span> =&gt; $fd</div><div class="line">    );</div><div class="line">    <span class="comment">// start a task</span></div><div class="line">    $serv-&gt;task( json_encode( $param ) );</div><div class="line">    </div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Continue Handle Worker\n&quot;</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x901A;&#x8FC7;swoole_server&#x5BF9;&#x8C61;&#x8C03;&#x7528;task&#x51FD;&#x6570;&#x5373;&#x53EF;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;swoole&#x5185;&#x90E8;&#x4F1A;&#x5C06;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x6295;&#x9012;&#x7ED9;task_worker&#xFF0C;&#x800C;&#x5F53;&#x524D;Worker&#x8FDB;&#x7A0B;&#x4F1A;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;</p>
+<blockquote>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x53D1;&#x8D77;&#x540E;&#xFF0C;task_worker&#x8FDB;&#x7A0B;&#x4F1A;&#x54CD;&#x5E94;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#6ontask" target="_blank" rel="external">onTask</a>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onTask</span><span class="params">($serv,$task_id,$from_id, $data)</span> </span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;This Task {$task_id} from Worker {$from_id}\n&quot;</span>;</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Data: {$data}\n&quot;</span>;</div><div class="line">    <span class="keyword">for</span>($i = <span class="number">0</span> ; $i &lt; <span class="number">10</span> ; $i ++ ) {</div><div class="line">        sleep(<span class="number">1</span>);</div><div class="line">        <span class="keyword">echo</span> <span class="string">&quot;Task {$task_id} Handle {$i} times...\n&quot;</span>;</div><div class="line">    }</div><div class="line">    $fd = json_decode( $data , <span class="keyword">true</span> )[<span class="string">&apos;fd&apos;</span>];</div><div class="line">    $serv-&gt;send( $fd , <span class="string">&quot;Data in Task {$task_id}&quot;</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">&quot;Task {$task_id}&apos;s result&quot;</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x6211;&#x7528;sleep&#x51FD;&#x6570;&#x548C;&#x5FAA;&#x73AF;&#x6A21;&#x62DF;&#x4E86;&#x4E00;&#x4E2A;&#x957F;&#x8017;&#x65F6;&#x4EFB;&#x52A1;&#x3002;&#x5728;onTask&#x56DE;&#x8C03;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;task_id&#x548C;from_id(&#x4E5F;&#x5C31;&#x662F;worker_id)&#x6765;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x6295;&#x9012;&#x7684;&#x4E0D;&#x540C;task&#x3002;&#x5F53;&#x4E00;&#x4E2A;task&#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x901A;&#x8FC7;return&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5C06;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;Worker&#x8FDB;&#x7A0B;&#x3002;Worker&#x8FDB;&#x7A0B;&#x5C06;&#x901A;&#x8FC7;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#7onfinish" target="_blank" rel="external">onFinish</a>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x8FD9;&#x4E2A;&#x5904;&#x7406;&#x7ED3;&#x679C;&#x3002;</p>
+<blockquote>
+<p>&#x4E0B;&#x9762;&#x6765;&#x770B;onFinish&#x56DE;&#x8C03;&#xFF1A;</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">onFinish</span><span class="params">($serv,$task_id, $data)</span> </span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Task {$task_id} finish\n&quot;</span>;</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Result: {$data}\n&quot;</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;<a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/doc/02.%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0.md#7onfinish" target="_blank" rel="external">onFinish</a>&#x56DE;&#x8C03;&#x4E2D;&#xFF0C;&#x4F1A;&#x63A5;&#x6536;&#x5230;Task&#x4EFB;&#x52A1;&#x7684;&#x5904;&#x7406;&#x7ED3;&#x679C;$data&#x3002;&#x5728;&#x8FD9;&#x91CC;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x5373;&#x53EF;&#x3002;<br>&#xFF08;<strong>Tip:</strong> &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x4F20;&#x9012;&#x7684;data&#x4E2D;&#x5B58;&#x653E;fd&#x3001;buff&#x7B49;&#x6570;&#x636E;&#xFF0C;&#x6765;&#x5EF6;&#x7EED;&#x6295;&#x9012;Task&#x4E4B;&#x524D;&#x7684;&#x5DE5;&#x4F5C;&#xFF09;</p>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/02/swoole_task_server.php" target="_blank" rel="external">&#x70B9;&#x6B64;&#x67E5;&#x770B;&#x5B8C;&#x6574;&#x793A;&#x4F8B;</a></p>
+<h4 id="4-swoole-client"><a href="#4-swoole-client" class="headerlink" title="4.swoole_client"></a>4.swoole_client</h4><p>&#x4E4B;&#x6240;&#x4EE5;&#x5728;&#x8FD9;&#x91CC;&#x8BB2;&#x89E3;&#x5982;&#x4F55;&#x4F7F;&#x7528;swoole_client&#x662F;&#x56E0;&#x4E3A;&#xFF0C;&#x5728;&#x5199;&#x670D;&#x52A1;&#x7AEF;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#x9700;&#x8981;&#x7528;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;swoole&#x63D0;&#x4F9B;&#x4E86;swoole_client&#x7528;&#x4E8E;&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x5C06;&#x8BB2;&#x89E3;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x3002;</p>
+<p><code>swoole_client</code>&#x6709;&#x4E24;&#x79CD;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;&#xFF1A;<strong>&#x540C;&#x6B65;&#x963B;&#x585E;&#x6A21;&#x5F0F;</strong>&#x548C;<strong>&#x5F02;&#x6B65;&#x56DE;&#x8C03;&#x6A21;&#x5F0F;</strong>&#x3002;&#x5176;&#x4E2D;&#xFF0C;<strong>&#x540C;&#x6B65;&#x963B;&#x585E;&#x6A21;&#x5F0F;</strong>&#x5728;&#x4E0A;&#x4E00;&#x7AE0;&#x4E2D;&#x5DF2;&#x7ECF;&#x7ED9;&#x51FA;&#x793A;&#x4F8B;&#xFF0C;&#x5176;&#x4F7F;&#x7528;&#x548C;&#x4E00;&#x822C;&#x7684;socket&#x57FA;&#x672C;&#x65E0;&#x5F02;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x5C06;&#x91CD;&#x70B9;&#x8BB2;&#x89E3;swoole_client&#x7684;<strong>&#x5F02;&#x6B65;&#x56DE;&#x8C03;&#x6A21;&#x5F0F;</strong>&#x3002;</p>
+<blockquote>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;client&#x7684;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$client = <span class="keyword">new</span> swoole_client(SWOOLE_SOCK_TCP, SWOOLE_SOCK_ASYNC);</div></pre></td></tr></table></figure>
+<p>&#x5176;&#x4E2D;&#xFF0C;<strong>SWOOLE_SOCK_ASYNC</strong>&#x9009;&#x9879;&#x5373;&#x8868;&#x660E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;client&#x3002;</p>
+<blockquote>
+<p>&#x65E2;&#x7136;&#x662F;&#x5F02;&#x6B65;&#xFF0C;&#x90A3;&#x5F53;&#x7136;&#x9700;&#x8981;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;swoole_client&#x4E00;&#x5171;&#x6709;&#x56DB;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$client-&gt;on(<span class="string">&quot;connect&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">($cli)</span> </span>{</div><div class="line">    $cli-&gt;send(<span class="string">&quot;hello world\n&quot;</span>);</div><div class="line">});</div><div class="line">$client-&gt;on(<span class="string">&quot;receive&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">($cli, $data)</span></span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Received: &quot;</span>.$data.<span class="string">&quot;\n&quot;</span>;</div><div class="line">});</div><div class="line">$client-&gt;on(<span class="string">&quot;error&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">($cli)</span></span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Connect failed\n&quot;</span>;</div><div class="line">});</div><div class="line">$client-&gt;on(<span class="string">&quot;close&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">($cli)</span></span>{</div><div class="line">    <span class="keyword">echo</span> <span class="string">&quot;Connection close\n&quot;</span>;</div><div class="line">});</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x51E0;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57FA;&#x672C;&#x548C;swoole_server&#x7C7B;&#x4F3C;&#xFF0C;&#x53EA;&#x6709;&#x53C2;&#x6570;&#x4E0D;&#x540C;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#x3002;<br><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/02/swoole_async_client.php" target="_blank" rel="external">&#x70B9;&#x6B64;&#x67E5;&#x770B;&#x5B8C;&#x6574;&#x793A;&#x4F8B;</a></p>
+<p>###<strong>&#x8FDB;&#x9636;&#xFF1A;&#x7B80;&#x6613;&#x804A;&#x5929;&#x5BA4;</strong><br>&#x6211;&#x7528;swoole&#x6269;&#x5C55;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x804A;&#x5929;&#x5BA4;Demo&#xFF08;<a href="https://github.com/LinkedDestiny/swoole-doc/tree/master/src/Chatroom" target="_blank" rel="external">&#x70B9;&#x6B64;&#x67E5;&#x770B;</a>&#xFF09;<br>&#x8FD9;&#x4E2A;Demo&#x867D;&#x7136;&#x7528;&#x5230;&#x4E86;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x7684;&#x67B6;&#x6784;&#xFF0C;&#x4F46;&#x662F;&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x4ECD;&#x7136;&#x662F;&#x4F9D;&#x6258;swoole&#x6269;&#x5C55;&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
+<ul>
+<li>&#x901A;&#x8FC7;onReceive&#x56DE;&#x8C03;&#x63A5;&#x6536;&#x6570;&#x636E;&#xFF0C;&#x6839;&#x636E;&#x9884;&#x5148;&#x89C4;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;&#x3002; </li>
+<li>&#x901A;&#x8FC7;onTask&#x5904;&#x7406;&#x53D1;&#x9001;&#x6570;&#x636E;&#x3001;&#x5E7F;&#x64AD;&#x8FD9;&#x6837;&#x7684;&#x8017;&#x65F6;&#x5185;&#x5BB9;&#x3002;</li>
+</ul>
+<p><a href="https://github.com/LinkedDestiny/swoole-doc/blob/master/src/Chatroom/Server/app/socket/Server.php" target="_blank" rel="external">Server.php</a>&#x662F;&#x5168;&#x90E8;&#x7684;Swoole&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5B9E;&#x73B0;&#x7684;&#x7C7B;&#x3002;</p>
+<p>&#x4E0B;&#x7AE0;&#x9884;&#x544A;&#xFF1A;Timer&#x8BA1;&#x65F6;&#x5668;&#x3001;&#x5FC3;&#x8DF3;&#x68C0;&#x6D4B;&#x53CA;Task&#x8FDB;&#x9636;&#x5B9E;&#x4F8B;&#xFF1A;mysql&#x8FDE;&#x63A5;&#x6C60;&#x3002;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swoole/" rel="tag">#Swoole</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Swoole/Swoole/01-环境搭建及扩展安装/" rel="next" title="01.环境搭建及扩展安装">
+                <i class="fa fa-chevron-left"></i> 01.环境搭建及扩展安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Swoole/Swoole/03.Timer定时器、心跳检测及Task进阶实例：mysql连接池/" rel="prev" title="03.Timer定时器、心跳检测及Task进阶实例：mysql连接池">
+                03.Timer定时器、心跳检测及Task进阶实例：mysql连接池 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="/Swoole/Swoole/02-Swoole的Task使用以及swoole_client/"
+     data-title="02.Swoole的task使用以及swoole_client"
+     data-content=""
+     data-url="http://yoursite.com//Swoole/Swoole/02-Swoole的Task使用以及swoole_client/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="/Swoole/Swoole/02-Swoole的Task使用以及swoole_client/"
+           data-title="02.Swoole的task使用以及swoole_client" data-url="http://yoursite.com//Swoole/Swoole/02-Swoole的Task使用以及swoole_client/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-Swoole的task使用以及swoole-client"><span class="nav-text">第二章 Swoole的task使用以及swoole_client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Task简介"><span class="nav-text">1. Task简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开启Task功能"><span class="nav-text">2.开启Task功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-使用Task"><span class="nav-text">3.使用Task</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-swoole-client"><span class="nav-text">4.swoole_client</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

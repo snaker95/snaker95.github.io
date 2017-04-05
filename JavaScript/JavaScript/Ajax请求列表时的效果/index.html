@@ -1,0 +1,682 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML,JS,解析URL" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在数据列表中, ajax请求为常用的一种方法; 由于一个项目中,列表部分占比较大的比例, 所以,重新一个ajax请求列表时很重要的, 这样既能减少代码量, 又能在后期维护中提高效率;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax请求列表时的效果">
+<meta property="og:url" content="http://yoursite.com/JavaScript/JavaScript/Ajax请求列表时的效果/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="在数据列表中, ajax请求为常用的一种方法; 由于一个项目中,列表部分占比较大的比例, 所以,重新一个ajax请求列表时很重要的, 这样既能减少代码量, 又能在后期维护中提高效率;">
+<meta property="og:updated_time" content="2017-02-05T07:41:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax请求列表时的效果">
+<meta name="twitter:description" content="在数据列表中, ajax请求为常用的一种方法; 由于一个项目中,列表部分占比较大的比例, 所以,重新一个ajax请求列表时很重要的, 这样既能减少代码量, 又能在后期维护中提高效率;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Ajax请求列表时的效果 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ajax请求列表时的效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-05T15:41:12+08:00" content="2017-02-05">
+              2017-02-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/JavaScript/JavaScript/Ajax请求列表时的效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="/JavaScript/JavaScript/Ajax请求列表时的效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="Ajax&#x8BF7;&#x6C42;&#x5217;&#x8868;&#x65F6;&#x7684;&#x6548;&#x679C;"><a href="#Ajax&#x8BF7;&#x6C42;&#x5217;&#x8868;&#x65F6;&#x7684;&#x6548;&#x679C;" class="headerlink" title="Ajax&#x8BF7;&#x6C42;&#x5217;&#x8868;&#x65F6;&#x7684;&#x6548;&#x679C;"></a>Ajax&#x8BF7;&#x6C42;&#x5217;&#x8868;&#x65F6;&#x7684;&#x6548;&#x679C;</h1><p>&#x5728;&#x6570;&#x636E;&#x5217;&#x8868;&#x4E2D;, ajax&#x8BF7;&#x6C42;&#x4E3A;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;; &#x7531;&#x4E8E;&#x4E00;&#x4E2A;&#x9879;&#x76EE;&#x4E2D;,&#x5217;&#x8868;&#x90E8;&#x5206;&#x5360;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x6BD4;&#x4F8B;, &#x6240;&#x4EE5;,&#x91CD;&#x65B0;&#x4E00;&#x4E2A;ajax&#x8BF7;&#x6C42;&#x5217;&#x8868;&#x65F6;&#x5F88;&#x91CD;&#x8981;&#x7684;, &#x8FD9;&#x6837;&#x65E2;&#x80FD;&#x51CF;&#x5C11;&#x4EE3;&#x7801;&#x91CF;, &#x53C8;&#x80FD;&#x5728;&#x540E;&#x671F;&#x7EF4;&#x62A4;&#x4E2D;&#x63D0;&#x9AD8;&#x6548;&#x7387;; </p>
+<h2 id="js&#x4EE3;&#x7801;"><a href="#js&#x4EE3;&#x7801;" class="headerlink" title="js&#x4EE3;&#x7801;:"></a>js&#x4EE3;&#x7801;:</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">$.ajax_list = (<span class="function"><span class="keyword">function</span>(<span class="params">$acfg,$scfg</span>) </span>{</div><div class="line">  <span class="comment">/* --- AJAX &#x76F8;&#x5173;&#x53C2;&#x6570; --- */</span></div><div class="line">  <span class="keyword">var</span> acfg = {</div><div class="line">    <span class="string">&apos;type&apos;</span>      :   <span class="string">&apos;post&apos;</span></div><div class="line">    ,<span class="string">&apos;url&apos;</span>       :   <span class="string">&apos;&apos;</span></div><div class="line">    ,<span class="string">&apos;data&apos;</span>      :   {}</div><div class="line">    ,<span class="string">&apos;dataType&apos;</span>  :   <span class="string">&apos;json&apos;</span></div><div class="line">    ,<span class="string">&apos;async&apos;</span>     :   <span class="literal">true</span></div><div class="line">  }</div><div class="line">  <span class="comment">/* --- &#x6548;&#x679C; &#x76F8;&#x5173;&#x53C2;&#x6570; --- */</span></div><div class="line">  <span class="keyword">var</span> scfg = {</div><div class="line">    <span class="string">&apos;s_type&apos;</span>    :     <span class="string">&apos;insert&apos;</span> <span class="comment">// &#x8BF7;&#x6C42;&#x56DE;&#x7684;&#x6570;&#x636E;&#x662F;&#x8FFD;&#x52A0;(insert),&#x6216;&#x8005;&#x66FF;&#x6362;(replace)</span></div><div class="line">    ,<span class="string">&apos;s_dom&apos;</span>     :     <span class="string">&apos;body&apos;</span>  <span class="comment">// &#x64CD;&#x4F5C;&#x7684;dom</span></div><div class="line">    ,<span class="string">&apos;s_break&apos;</span>   :     <span class="literal">true</span>   <span class="comment">// &#x662F;&#x5426;&#x7EC8;&#x6B62;&#x4E4B;&#x524D;&#x672A;&#x5B8C;&#x6210;&#x7684;ajax&#x8BF7;&#x6C42;</span></div><div class="line">    ,<span class="string">&apos;s_warn&apos;</span>   :      <span class="string">&apos;&apos;</span>      <span class="comment">// &#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x53CB;&#x597D;&#x63D0;&#x793A;(class&#x6837;&#x5F0F;)</span></div><div class="line">  }</div><div class="line">  <span class="keyword">var</span> _callback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}</div><div class="line">  <span class="comment">/* ---- &#x53CB;&#x597D;&#x63D0;&#x793A;&#x7684;&#x6837;&#x5F0F; ---- */</span></div><div class="line">  <span class="keyword">var</span> warn_icon = <span class="string">&quot;data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D&apos;0%200%20120%20120&apos;%20xmlns%3D&apos;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&apos;%20xmlns%3Axlink%3D&apos;http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink&apos;%3E%3Cdefs%3E%3Cline%20id%3D&apos;l&apos;%20x1%3D&apos;60&apos;%20x2%3D&apos;60&apos;%20y1%3D&apos;7&apos;%20y2%3D&apos;27&apos;%20stroke%3D&apos;%236c6c6c&apos;%20stroke-width%3D&apos;11&apos;%20stroke-linecap%3D&apos;round&apos;%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%20transform%3D&apos;rotate(30%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%20transform%3D&apos;rotate(60%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%20transform%3D&apos;rotate(90%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%20transform%3D&apos;rotate(120%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.27&apos;%20transform%3D&apos;rotate(150%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.37&apos;%20transform%3D&apos;rotate(180%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.46&apos;%20transform%3D&apos;rotate(210%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.56&apos;%20transform%3D&apos;rotate(240%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.66&apos;%20transform%3D&apos;rotate(270%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.75&apos;%20transform%3D&apos;rotate(300%2060%2C60)&apos;%2F%3E%3Cuse%20xlink%3Ahref%3D&apos;%23l&apos;%20opacity%3D&apos;.85&apos;%20transform%3D&apos;rotate(330%2060%2C60)&apos;%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E&quot;</span>;</div><div class="line">  <span class="keyword">var</span> warn_css = <span class="string">&apos;&lt;style&gt;.preloader{display:inline-block;width:1.5rem;height:1.5rem;-webkit-transform-origin:50%;transform-origin:50%;-webkit-animation:preloader-spin 1s steps(12,end) infinite;animation:preloader-spin 1s steps(12,end) infinite}.preloader:after{display:block;content:&quot;&quot;;width:100%;height:100%;background-image:url(&quot;&apos;</span>+warn_icon+<span class="string">&apos;&quot;);background-position:50%;background-size:100%;background-repeat:no-repeat}&lt;/style&gt;&apos;</span>;</div><div class="line">    $(<span class="string">&apos;head&apos;</span>).append(warn_css);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"> $acfg , $scfg, $func</span>) </span>{</div><div class="line">    acfg = merge(acfg,$acfg);</div><div class="line">        scfg = merge(scfg,$scfg);</div><div class="line">        $(<span class="string">&apos;.scroll-preloader&apos;</span>).remove();</div><div class="line">        <span class="keyword">if</span>(scfg.s_break &amp;&amp; <span class="keyword">typeof</span>(xhr) !== <span class="string">&apos;undefined&apos;</span> &amp;&amp; xhr !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span>(xhr) === <span class="string">&apos;object&apos;</span>) xhr.abort(); <span class="comment">// &#x4E2D;&#x65AD;&#x4E0A;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;</span></div><div class="line">        xhr = $.ajax({</div><div class="line">            <span class="attr">type</span>            :   acfg[<span class="string">&apos;type&apos;</span>]</div><div class="line">            ,<span class="attr">url</span>            :   acfg[<span class="string">&apos;url&apos;</span>]</div><div class="line">            ,<span class="attr">data</span>           :   acfg[<span class="string">&apos;data&apos;</span>]</div><div class="line">            ,<span class="attr">dataType</span>       :   acfg[<span class="string">&apos;dataType&apos;</span>]</div><div class="line">            ,<span class="attr">async</span>          :   acfg[<span class="string">&apos;async&apos;</span>]</div><div class="line">            ,<span class="attr">beforeSend</span>     :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</div><div class="line">              <span class="comment">/* ---- &#x66FF;&#x6362;&#x65F6;&#x63D0;&#x524D;&#x6E05;&#x7A7A;dom ---- */</span></div><div class="line">              <span class="keyword">if</span>(scfg[<span class="string">&apos;s_type&apos;</span>] === <span class="string">&apos;replace&apos;</span>){</div><div class="line">                $(scfg[<span class="string">&apos;s_dom&apos;</span>]).html(<span class="string">&apos;&apos;</span>);</div><div class="line">              }</div><div class="line">    </div><div class="line">              <span class="comment">/* ---- &#x53CB;&#x597D;&#x63D0;&#x793A; ---- */</span></div><div class="line">              <span class="keyword">var</span> warn_str = <span class="string">&apos;&lt;div class=&quot;scroll-preloader&quot; style=&quot;margin:.5rem;text-align:center;&quot;&gt;&lt;div class=&quot;preloader&quot;&gt;&lt;/div&gt;&lt;/div&gt;&apos;</span>;</div><div class="line">              $(scfg[<span class="string">&apos;s_dom&apos;</span>]).append(warn_str);</div><div class="line">    </div><div class="line">            }</div><div class="line">            ,<span class="attr">success</span>        :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</div><div class="line">                <span class="comment">// func(e); return;</span></div><div class="line">            }</div><div class="line">            ,<span class="attr">error</span>        :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</div><div class="line">                <span class="comment">// func(e); return;</span></div><div class="line">            }</div><div class="line">            ,<span class="attr">complete</span>       :   <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</div><div class="line">              xhr = <span class="literal">null</span>;</div><div class="line">              $(<span class="string">&apos;.scroll-preloader&apos;</span>).remove();</div><div class="line">              $func(e);</div><div class="line">            }</div><div class="line">        });</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params"></span>) </span>{</div><div class="line">        <span class="keyword">var</span> merge;</div><div class="line">        <span class="keyword">var</span> numargs = <span class="built_in">arguments</span>.length;</div><div class="line">        <span class="keyword">if</span>(numargs &gt; <span class="number">1</span>){</div><div class="line">          <span class="keyword">try</span>{</div><div class="line">            merge = <span class="built_in">Object</span>.assign(<span class="built_in">arguments</span>[<span class="number">0</span>],<span class="built_in">arguments</span>[<span class="number">1</span>]);</div><div class="line">          }<span class="keyword">catch</span>(e){</div><div class="line">            merge = $.extend(<span class="built_in">arguments</span>[<span class="number">0</span>],<span class="built_in">arguments</span>[<span class="number">1</span>]);</div><div class="line">          }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">          merge = <span class="built_in">arguments</span>[<span class="number">0</span>];</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> merge;</div><div class="line">    }</div><div class="line">})();</div></pre></td></tr></table></figure>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/读书笔记/2017-02-05/" rel="next" title="模板">
+                <i class="fa fa-chevron-left"></i> 模板
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/PHP/PHP/PHP 中文正则和文件路径正则/" rel="prev" title="PHP 中文正则和文件路径正则">
+                PHP 中文正则和文件路径正则 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="/JavaScript/JavaScript/Ajax请求列表时的效果/"
+     data-title="Ajax请求列表时的效果"
+     data-content=""
+     data-url="http://yoursite.com//JavaScript/JavaScript/Ajax请求列表时的效果/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="/JavaScript/JavaScript/Ajax请求列表时的效果/"
+           data-title="Ajax请求列表时的效果" data-url="http://yoursite.com//JavaScript/JavaScript/Ajax请求列表时的效果/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ajax请求列表时的效果"><span class="nav-text">Ajax请求列表时的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#js代码"><span class="nav-text">js代码:</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

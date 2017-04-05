@@ -1,0 +1,682 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,交互" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在WEB项目中, 前后台交互具有统一的格式会使很多工作很容易做好, 同时也可以做到一些功能模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP 前后台交互类">
+<meta property="og:url" content="http://yoursite.com/PHP/PHP/PHP 前后台交互类/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="在WEB项目中, 前后台交互具有统一的格式会使很多工作很容易做好, 同时也可以做到一些功能模块化">
+<meta property="og:updated_time" content="2017-02-05T07:53:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP 前后台交互类">
+<meta name="twitter:description" content="在WEB项目中, 前后台交互具有统一的格式会使很多工作很容易做好, 同时也可以做到一些功能模块化">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> PHP 前后台交互类 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP 前后台交互类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:11:38+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/PHP/PHP/PHP 前后台交互类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="/PHP/PHP/PHP 前后台交互类/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PHP-&#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x7C7B;"><a href="#PHP-&#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x7C7B;" class="headerlink" title="PHP &#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x7C7B;"></a>PHP &#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x7C7B;</h1><p>&#x5728;WEB&#x9879;&#x76EE;&#x4E2D;, &#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x5177;&#x6709;&#x7EDF;&#x4E00;&#x7684;&#x683C;&#x5F0F;&#x4F1A;&#x4F7F;&#x5F88;&#x591A;&#x5DE5;&#x4F5C;&#x5F88;&#x5BB9;&#x6613;&#x505A;&#x597D;, &#x540C;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x4E00;&#x4E9B;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x5316;; &#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x81EA;&#x5DF1;&#x53C2;&#x8003;&#x5927;&#x725B;&#x4EEC;&#x642C;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x524D;&#x540E;&#x53F0;&#x4EA4;&#x4E92;&#x7684;&#x7C7B;<br><a id="more"></a></p>
+<h2 id="&#x4EE3;&#x7801;"><a href="#&#x4EE3;&#x7801;" class="headerlink" title="&#x4EE3;&#x7801;"></a>&#x4EE3;&#x7801;</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * &#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#x7C7B;&#x5C01;&#x88C5;</div><div class="line"> * <span class="doctag">@author</span> snaker95</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReturnPacket</span> </span>{</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#x72B6;&#x6001; 400&#x8868;&#x793A;&#x5904;&#x7406;&#x5931;&#x8D25;,200&#x8868;&#x793A;&#x5904;&#x7406;&#x6210;&#x529F;,-9&#x8868;&#x793A;&#x7528;&#x6237;session&#x4E22;&#x5931;;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $status = <span class="number">400</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#x6D88;&#x606F;</div><div class="line">     * <span class="doctag">@var</span> string</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $msg = <span class="string">&apos;&apos;</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#x7684;&#x7EDF;&#x8BA1;&#x603B;&#x6761;&#x6570;,&#x6B64;&#x5C5E;&#x6027;&#x7528;&#x4E8E;&#x5206;&#x9875;&#x663E;&#x793A;&#x603B;&#x8BB0;&#x5F55;&#x6761;&#x6570;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $count;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x6570;&#x636E;&#xFF0C;&#x4E00;&#x822C;&#x662F;array</div><div class="line">     * <span class="doctag">@var</span> array</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $data = <span class="keyword">array</span>();</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x6BCF;&#x9875;&#x663E;&#x793A;&#x6761;&#x6570;,&#x6B64;&#x5C5E;&#x6027;&#x975E;&#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#xFF0C;&#x540E;&#x7EED;&#x6DFB;&#x52A0;,&#x7528;&#x6237;&#x5206;&#x9875;&#x5904;&#x7406;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $perPageSize = <span class="number">6</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x603B;&#x9875;&#x7801;&#x6570;,&#x6B64;&#x5C5E;&#x6027;&#x975E;&#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#xFF0C;&#x540E;&#x7EED;&#x6DFB;&#x52A0;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $totalPage = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x5F53;&#x524D;&#x9875;&#x7801;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $currentPage = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x663E;&#x793A;&#x9875;&#x7801;&#x6570;,&#x9ED8;&#x8BA4;&#x663E;&#x793A;5&#x4E2A;&#x9875;&#x7801;</div><div class="line">     * <span class="doctag">@var</span> int</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $viewCount = <span class="number">5</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x5F53;&#x524D;&#x9875;&#x9762;&#x663E;&#x793A;&#x7684;&#x9875;&#x7801;,&#x4E3A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;</div><div class="line">     * <span class="doctag">@var</span> array</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $viewNumbers;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x83B7;&#x53D6;&#x53EF;&#x8FD4;&#x56DE;&#x524D;&#x4E00;&#x6B21;&#x9875;&#x9762;&#x7684;url</div><div class="line">     * <span class="doctag">@var</span> string</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $url;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x69CB;&#x9020;&#x51FD;&#x6578;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(</span></span></div><div class="line">             $count = <span class="number">0</span>, </div><div class="line">             $currentPage = <span class="number">1</span>,</div><div class="line">             $perPageSize = <span class="number">10</span>, </div><div class="line">             $viewCount = <span class="number">5</span> </div><div class="line">    ) {</div><div class="line">        <span class="comment">// &#x521D;&#x59CB;&#x5316;&#x6570;&#x636E;</span></div><div class="line">        <span class="keyword">$this</span>-&gt;status = <span class="number">400</span>;</div><div class="line">        <span class="keyword">$this</span>-&gt;msg = <span class="string">&apos;&apos;</span>;</div><div class="line">        <span class="keyword">$this</span>-&gt;url = <span class="string">&apos;&apos;</span>;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;count = $count;</div><div class="line">        <span class="keyword">$this</span>-&gt;perPageSize = $perPageSize;</div><div class="line">        <span class="keyword">$this</span>-&gt;currentPage = $currentPage;</div><div class="line">        <span class="keyword">$this</span>-&gt;totalPage = <span class="number">1</span>;</div><div class="line">        <span class="keyword">$this</span>-&gt;viewCount = $viewCount;</div><div class="line">        <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> ();</div><div class="line"></div><div class="line">        <span class="comment">// &#x8BA1;&#x7B97;&#x6570;&#x636E;</span></div><div class="line">        <span class="keyword">$this</span>-&gt;getTotalPage(); <span class="comment">// &#x8BA1;&#x7B97;&#x603B;&#x9875;&#x7801;</span></div><div class="line">        <span class="keyword">$this</span>-&gt;viewPageNumbers(); <span class="comment">// &#x663E;&#x793A;&#x9875;&#x9762;</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_get_back_url(); <span class="comment">// &#x8BBE;&#x7F6E;&#x53EF;&#x8FD4;&#x56DE;&#x7684;url</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x83B7;&#x53D6;&#x603B;&#x9875;&#x7801;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getTotalPage</span><span class="params">()</span> </span>{</div><div class="line">       <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;count &gt; <span class="number">0</span>) {</div><div class="line">         <span class="keyword">if</span> (fmod ( <span class="keyword">$this</span>-&gt;count, <span class="keyword">$this</span>-&gt;perPageSize ) == <span class="number">0</span>) {</div><div class="line">          <span class="keyword">$this</span>-&gt;totalPage = <span class="keyword">$this</span>-&gt;count / <span class="keyword">$this</span>-&gt;perPageSize;</div><div class="line">         } <span class="keyword">else</span> {</div><div class="line">          <span class="keyword">$this</span>-&gt;totalPage = intval ( <span class="keyword">$this</span>-&gt;count / <span class="keyword">$this</span>-&gt;perPageSize ) + <span class="number">1</span>;</div><div class="line">         }</div><div class="line">       } <span class="keyword">else</span> {</div><div class="line">         <span class="keyword">$this</span>-&gt;totalPage = <span class="number">1</span>;</div><div class="line">       }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x5F53;&#x524D;&#x8981;&#x663E;&#x793A;&#x7684;&#x9875;&#x7801;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">viewPageNumbers</span><span class="params">()</span> </span>{</div><div class="line">       <span class="comment">// &#x82E5;&#x603B;&#x9875;&#x7801;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;&#x9ED8;&#x8BA4;&#x663E;&#x793A;&#x9875;&#x7801;,&#x5219;&#x5168;&#x90E8;&#x663E;&#x793A;</span></div><div class="line">       <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;totalPage &lt;= <span class="keyword">$this</span>-&gt;viewCount) {</div><div class="line">         <span class="keyword">for</span>($i = <span class="number">1</span>; $i &lt;= <span class="keyword">$this</span>-&gt;totalPage; $i ++) {</div><div class="line">          <span class="keyword">$this</span>-&gt;viewNumbers [] = $i;</div><div class="line">         }</div><div class="line">       } <span class="keyword">else</span> {</div><div class="line">         <span class="keyword">$this</span>-&gt;getViewNums ( </div><div class="line">                <span class="number">1</span>, </div><div class="line">                <span class="keyword">$this</span>-&gt;totalPage, </div><div class="line">                <span class="keyword">$this</span>-&gt;currentPage, </div><div class="line">                <span class="keyword">$this</span>-&gt;viewCount</div><div class="line">         );</div><div class="line">       }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x663E;&#x793A;&#x7684;&#x9875;&#x9762;</div><div class="line">     * &#x8FDB;&#x5165;&#x6B64;&#x65B9;&#x6CD5;&#x524D;&#x7F6E;&#x6761;&#x4EF6;&#xFF1A;&#x603B;&#x9875;&#x7801;&#x5927;&#x4E8E;&#x8981;&#x663E;&#x793A;&#x7684;&#x9875;&#x7801;&#x6570;&#x4E86;</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> int $min</div><div class="line">     *       &#x6700;&#x5C0F;&#x9875;&#x7801;</div><div class="line">     * <span class="doctag">@param</span> int $max</div><div class="line">     *       &#x6700;&#x5927;&#x9875;&#x9762;</div><div class="line">     * <span class="doctag">@param</span> int $current</div><div class="line">     *       &#x5F53;&#x524D;&#x9875;&#x9762;</div><div class="line">     * <span class="doctag">@param</span> int $viewCount</div><div class="line">     *       &#x663E;&#x793A;&#x9875;&#x7801;&#x6570;</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getViewNums</span><span class="params">($min, $max, $current, $viewCount)</span> </span>{</div><div class="line">       <span class="keyword">if</span> ( <span class="keyword">empty</span> ( $min ) || </div><div class="line">            <span class="keyword">empty</span> ( $max ) || </div><div class="line">            <span class="keyword">empty</span> ( $current ) || </div><div class="line">            <span class="keyword">empty</span> ( $viewCount )</div><div class="line">          ) {</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">       <span class="keyword">if</span> ($max &lt; $min) {</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line"></div><div class="line">       <span class="keyword">if</span> ($current == $min) { <span class="comment">// &#x5F53;&#x524D;&#x4E3A;&#x7B2C;&#x4E00;&#x9875;</span></div><div class="line">         <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> (</div><div class="line">              $min,</div><div class="line">              $min + <span class="number">1</span>,</div><div class="line">              $min + <span class="number">2</span>,</div><div class="line">              $min + <span class="number">3</span>,</div><div class="line">              $min + <span class="number">4</span></div><div class="line">         );</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">       <span class="keyword">if</span> ($current == $max) { <span class="comment">// &#x5F53;&#x524D;&#x4E3A;&#x6700;&#x5927;&#x9875;</span></div><div class="line">         <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> (</div><div class="line">              $max - <span class="number">4</span>,</div><div class="line">              $max - <span class="number">3</span>,</div><div class="line">              $max - <span class="number">2</span>,</div><div class="line">              $max - <span class="number">1</span>,</div><div class="line">              $max</div><div class="line">         );</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">       <span class="keyword">if</span> (($current - $min) &gt;= <span class="number">2</span> &amp;&amp; ($max - $current) &gt;= <span class="number">2</span>) { <span class="comment">//&#x5F53;&#x524D;&#x9875;&#x7801;&#x6B63;&#x597D;&#x5904;&#x4E8E;&#x4E2D;&#x95F4;</span></div><div class="line">         <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> (</div><div class="line">              $current - <span class="number">2</span>,</div><div class="line">              $current - <span class="number">1</span>,</div><div class="line">              $current,</div><div class="line">              $current + <span class="number">1</span>,</div><div class="line">              $current + <span class="number">2</span></div><div class="line">         );</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">       <span class="keyword">if</span> (($current - $min) &lt; <span class="number">2</span>) { <span class="comment">// &#x8DDD;&#x79BB;&#x6700;&#x5C0F;&#x4E0D;&#x5230;2</span></div><div class="line">         <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> (</div><div class="line">              $current - <span class="number">1</span>,</div><div class="line">              $current,</div><div class="line">              $current + <span class="number">1</span>,</div><div class="line">              $current + <span class="number">2</span>,</div><div class="line">              $current + <span class="number">3</span></div><div class="line">         );</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">       <span class="keyword">if</span> (($max - $current) &lt; <span class="number">2</span>) { <span class="comment">// &#x8DDD;&#x79BB;&#x6700;&#x5927;&#x4E0D;&#x5230;2</span></div><div class="line">         <span class="keyword">$this</span>-&gt;viewNumbers = <span class="keyword">array</span> (</div><div class="line">              $current - <span class="number">3</span>,</div><div class="line">              $current - <span class="number">2</span>,</div><div class="line">              $current - <span class="number">1</span>,</div><div class="line">              $current,</div><div class="line">              $current + <span class="number">1</span></div><div class="line">         );</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">       }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#x8BBE;&#x7F6E;&#x53EF;&#x8FD4;&#x56DE;&#x7684;url</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_get_back_url</span><span class="params">()</span> </span>{</div><div class="line">      $jumpUrl = <span class="string">&apos;&apos;</span>;</div><div class="line">      <span class="keyword">if</span>(IS_AJAX || IS_POST) {</div><div class="line">          <span class="keyword">if</span>(<span class="keyword">isset</span>($_SERVER[<span class="string">&apos;HTTP_REFERER&apos;</span>])) {</div><div class="line">              $jumpUrl = urlencode($_SERVER[<span class="string">&apos;HTTP_REFERER&apos;</span>]);</div><div class="line">          }</div><div class="line">      }<span class="keyword">else</span> {</div><div class="line">          <span class="keyword">if</span>(<span class="keyword">isset</span>($_SERVER[<span class="string">&apos;REQUEST_URI&apos;</span>])) {</div><div class="line">              $jumpUrl = urlencode($_SERVER[<span class="string">&apos;REQUEST_URI&apos;</span>]);</div><div class="line">          }</div><div class="line">      }</div><div class="line">      <span class="keyword">$this</span>-&gt;url = $jumpUrl;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p><strong>&#x6CE8;:</strong> &#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5927;&#x5BB6;&#x81EA;&#x5DF1;&#x609F;&#x5427;!</p>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/PHP/PHP/PHP 写日志方法/" rel="next" title="PHP 写日志方法">
+                <i class="fa fa-chevron-left"></i> PHP 写日志方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/PHP/PHP/PHP 汉英混排计算字符串长度/" rel="prev" title="PHP 汉英混排计算字符串长度">
+                PHP 汉英混排计算字符串长度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="/PHP/PHP/PHP 前后台交互类/"
+     data-title="PHP 前后台交互类"
+     data-content=""
+     data-url="http://yoursite.com//PHP/PHP/PHP 前后台交互类/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="/PHP/PHP/PHP 前后台交互类/"
+           data-title="PHP 前后台交互类" data-url="http://yoursite.com//PHP/PHP/PHP 前后台交互类/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-前后台交互类"><span class="nav-text">PHP 前后台交互类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-text">代码</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

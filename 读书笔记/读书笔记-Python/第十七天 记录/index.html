@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Python基本操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第十七天 记录 python多进程multiprocessing">
+<meta property="og:url" content="http://yoursite.com/读书笔记/读书笔记-Python/第十七天 记录/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Python基本操作">
+<meta property="og:updated_time" content="2017-03-28T00:47:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第十七天 记录 python多进程multiprocessing">
+<meta name="twitter:description" content="Python基本操作">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 第十七天 记录 python多进程multiprocessing | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                第十七天 记录 python多进程multiprocessing
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-28T08:41:40+08:00" content="2017-03-28">
+              2017-03-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/读书笔记/读书笔记-Python/第十七天 记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="/读书笔记/读书笔记-Python/第十七天 记录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h1 id="&#x7B2C;&#x5341;&#x4E03;&#x5929;-&#x8BB0;&#x5F55;"><a href="#&#x7B2C;&#x5341;&#x4E03;&#x5929;-&#x8BB0;&#x5F55;" class="headerlink" title="&#x7B2C;&#x5341;&#x4E03;&#x5929; &#x8BB0;&#x5F55;"></a>&#x7B2C;&#x5341;&#x4E03;&#x5929; &#x8BB0;&#x5F55;</h1><h2 id="1-multiprocessing&#x6A21;&#x5757;"><a href="#1-multiprocessing&#x6A21;&#x5757;" class="headerlink" title="1. multiprocessing&#x6A21;&#x5757;"></a>1. multiprocessing&#x6A21;&#x5757;</h2><h2 id="2-&#x591A;&#x8FDB;&#x7A0B;&#x722C;&#x866B;"><a href="#2-&#x591A;&#x8FDB;&#x7A0B;&#x722C;&#x866B;" class="headerlink" title="2. &#x591A;&#x8FDB;&#x7A0B;&#x722C;&#x866B;"></a>2. &#x591A;&#x8FDB;&#x7A0B;&#x722C;&#x866B;</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># encoding: utf-8</span></div><div class="line"></div><div class="line"><span class="string">&quot;&quot;&quot;</span></div><div class="line">@Author: Snaker95</div><div class="line">@Software: PyCharm</div><div class="line">@File: process_crawler.py</div><div class="line">@Time: 2017/3/22 21:25</div><div class="line">&quot;&quot;&quot;</div><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># encoding: utf-8</span></div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">import</span> urlparse</div><div class="line"><span class="keyword">import</span> threading</div><div class="line"><span class="keyword">import</span> multiprocessing</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">from</span> downloader_class <span class="keyword">import</span> Downlaoder</div><div class="line"><span class="keyword">from</span> mongo_queue <span class="keyword">import</span> MongoQueue</div><div class="line"><span class="keyword">from</span> zip_csv <span class="keyword">import</span> read_zip_csv</div><div class="line"><span class="keyword">from</span> loggingprint <span class="keyword">import</span> lprint</div><div class="line"></div><div class="line">SLEEP_TIME = <span class="number">1</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadedCrawler</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,seed_url, link_regex, *args, **kwargs)</span>:</span></div><div class="line">        <span class="comment"># base url</span></div><div class="line">        self.seed_url = seed_url</div><div class="line">        <span class="comment"># the regex for crawl link</span></div><div class="line">        self.link_regex = link_regex</div><div class="line">        <span class="comment"># headers</span></div><div class="line">        self.headers = kwargs[<span class="string">&apos;headers&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;headers&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> {}</div><div class="line">        <span class="comment"># to install the proxy</span></div><div class="line">        self.proxy = kwargs[<span class="string">&apos;proxy&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;proxy&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> <span class="keyword">None</span></div><div class="line">        <span class="comment"># the count of the downloading site if fail</span></div><div class="line">        self.striven_num = kwargs[<span class="string">&apos;striven_num&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;striven_num&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> <span class="number">2</span></div><div class="line">        <span class="comment"># the load speed</span></div><div class="line">        self.delay = kwargs[<span class="string">&apos;delay&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;delay&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> <span class="number">1</span></div><div class="line">        <span class="comment"># crawl_depth</span></div><div class="line">        self.crawl_depth = kwargs[<span class="string">&apos;crawl_depth&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;crawl_depth&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> <span class="number">0</span></div><div class="line">        <span class="comment"># max threads</span></div><div class="line">        self.threads = kwargs[<span class="string">&apos;threads&apos;</span>] <span class="keyword">if</span> <span class="string">&apos;threads&apos;</span> <span class="keyword">in</span> kwargs <span class="keyword">else</span> <span class="number">10</span></div><div class="line">        <span class="comment"># mongo queue</span></div><div class="line">        uri = <span class="string">&quot;mongodb://root:root123@127.0.0.1:27017&quot;</span></div><div class="line">        self.crawl_queue = MongoQueue(client=MongoClient(uri))</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">crawler</span><span class="params">(self, call_back=None, cache=None, threads=<span class="number">10</span>)</span>:</span></div><div class="line">        <span class="comment"># Set threads num</span></div><div class="line">        self.threads = (threads, self.threads)[self.threads == threads]</div><div class="line">        <span class="comment"># the queue of URL`s that still need to be crawled</span></div><div class="line">        self.crawl_queue.push(self.seed_url)</div><div class="line"></div><div class="line">        D = Downlaoder(cache=cache)</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process_queue</span><span class="params">()</span>:</span></div><div class="line">            <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">                <span class="keyword">try</span>:</div><div class="line">                    url = self.crawl_queue.pop()</div><div class="line">                <span class="keyword">except</span> IndexError:</div><div class="line">                    <span class="comment"># the crawl_queue is empty</span></div><div class="line">                    <span class="keyword">break</span></div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    html = D(url)</div><div class="line">                    <span class="comment"># filter for links matching our regular expression</span></div><div class="line">                    links = self.get_link(html)</div><div class="line">                    <span class="comment"># zipfile = &apos;top-1m.csv.zip&apos;</span></div><div class="line">                    <span class="comment"># try:</span></div><div class="line">                    <span class="comment">#     links = read_zip_csv(zipfile,max=10) or []</span></div><div class="line">                    <span class="comment"># except KeyError:</span></div><div class="line">                    <span class="comment">#     links = []</span></div><div class="line">                    <span class="keyword">if</span> call_back:</div><div class="line">                        call_back(url, html)</div><div class="line"></div><div class="line">                    <span class="keyword">for</span> link <span class="keyword">in</span> links:</div><div class="line">                        <span class="keyword">if</span> re.match(self.link_regex, link):</div><div class="line">                            <span class="keyword">if</span> <span class="keyword">not</span> re.match(<span class="string">r&apos;^http(s)?://.*&apos;</span>, link):</div><div class="line">                                <span class="comment"># get absolute link</span></div><div class="line">                                link = urlparse.urljoin(self.seed_url, link)</div><div class="line">                            self.crawl_queue.push(link)</div><div class="line">                    self.crawl_queue.complete(url)</div><div class="line">        threads_list = []</div><div class="line">        <span class="keyword">while</span> threads_list <span class="keyword">or</span> self.crawl_queue:</div><div class="line">            <span class="comment"># the crawl is still active</span></div><div class="line">            <span class="keyword">for</span> thread <span class="keyword">in</span> threads_list:</div><div class="line">                <span class="keyword">if</span> <span class="keyword">not</span> thread.is_alive():</div><div class="line">                    <span class="comment"># remove the stopped thread</span></div><div class="line">                    threads_list.remove(thread)</div><div class="line"></div><div class="line">            <span class="keyword">while</span> len(threads_list) &lt; self.threads <span class="keyword">and</span> self.crawl_queue:</div><div class="line">                <span class="comment"># can start some more threading</span></div><div class="line">                thread_handler = threading.Thread(target=process_queue)</div><div class="line">                <span class="comment"># set daemon so main thread can exit when receives ctrl-c</span></div><div class="line">                thread_handler.setDaemon(<span class="keyword">True</span>)</div><div class="line">                thread_handler.start()</div><div class="line">                threads_list.append(thread_handler)</div><div class="line"></div><div class="line">            <span class="comment"># all threads have been processed</span></div><div class="line">            <span class="comment"># sleep temporarily so CPU can focus execution else where</span></div><div class="line">            time.sleep(SLEEP_TIME)</div><div class="line"></div><div class="line">    <span class="comment"># &#x83B7;&#x53D6;&#x7F51;&#x9875;&#x4E2D;&#x5176;&#x4ED6;&#x6DF1;&#x5EA6;&#x94FE;&#x63A5;</span></div><div class="line"><span class="meta">    @staticmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_link</span><span class="params">(html)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;Return a list of links from html&quot;&quot;&quot;</span></div><div class="line">        <span class="comment"># a regular expression to extract all links from the webpage(html)</span></div><div class="line">        webpage_regex = re.compile(<span class="string">r&apos;&lt;a[^&gt;]+href=[&quot;\&apos;](.*?)[&quot;\&apos;]&apos;</span>, re.IGNORECASE)</div><div class="line">        <span class="comment"># list of all links from the webpage(html)</span></div><div class="line">        <span class="keyword">return</span> webpage_regex.findall(html)</div><div class="line"></div><div class="line">    <span class="comment"># &#x68C0;&#x67E5;&#x57DF;&#x540D;&#x662F;&#x5426;&#x4E00;&#x81F4;</span></div><div class="line"><span class="meta">    @staticmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">same_domain</span><span class="params">(url1, url2)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;Return True if both URL&apos;s belong to same domain</span></div><div class="line">        &quot;&quot;&quot;</div><div class="line">        <span class="keyword">return</span> urlparse.urlparse(url1).netloc == urlparse.urlparse(url2).netloc</div><div class="line"></div><div class="line"><span class="comment"># multiprocessing</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">process_crawler</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, seed_url, link_regex, *args, **kwargs)</span>:</span></div><div class="line">        <span class="comment"># get the number of CPU</span></div><div class="line">        cpu_count = multiprocessing.cpu_count()</div><div class="line"></div><div class="line">        processes = []</div><div class="line">        thread_crawler = ThreadedCrawler(url, link_regex)</div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(cpu_count):</div><div class="line">            p = multiprocessing.Process(target=thread_crawler.crawler, args=[args], kwargs=kwargs)</div><div class="line">            p.start()</div><div class="line">            processes.append(p)</div><div class="line"></div><div class="line">        <span class="comment"># wait for processes to complete</span></div><div class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> processes:</div><div class="line">            p.join()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</div><div class="line">    start = time.time()</div><div class="line">    url = <span class="string">&apos;http://example.webscraping.com&apos;</span></div><div class="line">    <span class="comment"># html = ThreadedCrawler(url, r&apos;/view&apos;)</span></div><div class="line">    <span class="comment"># html =  html.crawler(threads=1)</span></div><div class="line"></div><div class="line">    process_crawler(url, <span class="string">r&apos;/view&apos;</span>, threads=<span class="number">1</span>)</div><div class="line">    end = time.time()</div><div class="line">    lprint(end - start)</div></pre></td></tr></table></figure>
+<h2 id="3-&#x4F7F;&#x7528;MongoDB&#x505A;&#x7B80;&#x5355;&#x961F;&#x5217;"><a href="#3-&#x4F7F;&#x7528;MongoDB&#x505A;&#x7B80;&#x5355;&#x961F;&#x5217;" class="headerlink" title="3. &#x4F7F;&#x7528;MongoDB&#x505A;&#x7B80;&#x5355;&#x961F;&#x5217;"></a>3. &#x4F7F;&#x7528;MongoDB&#x505A;&#x7B80;&#x5355;&#x961F;&#x5217;</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># encoding: utf-8</span></div><div class="line"></div><div class="line"><span class="string">&quot;&quot;&quot;</span></div><div class="line">@Author: Snaker95</div><div class="line">@Software: PyCharm</div><div class="line">@File: mongo_queue.py</div><div class="line">@Time: 2017/3/22 20:44</div><div class="line">This is a queue based with MongoDB</div><div class="line">&quot;&quot;&quot;</div><div class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient, errors</div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MongoQueue</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="comment"># possible states of a download</span></div><div class="line">    OUTSTANDING, PROCESSING, COMPETE = range(<span class="number">3</span>)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, client=None, timeout=<span class="number">300</span>)</span>:</span></div><div class="line">        self.client = MongoClient() <span class="keyword">if</span> client <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">else</span> client</div><div class="line">        self.db = self.client.cache</div><div class="line">        self.timeout = timeout</div><div class="line"></div><div class="line">    <span class="comment"># The function is to determine the boolean of the class</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__nonzero__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;Return True if there are more jobs to process&quot;&quot;&quot;</span></div><div class="line">        record = self.db.crawl_queue.find_one(</div><div class="line">            {<span class="string">&apos;status&apos;</span>: {<span class="string">&apos;$ne&apos;</span>: self.COMPETE}}</div><div class="line">        )</div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span> <span class="keyword">if</span> record <span class="keyword">else</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, url)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;add new url to queue if does not exist&quot;&quot;&quot;</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            self.db.crawl_queue.insert(</div><div class="line">                {<span class="string">&apos;_id&apos;</span>: url, <span class="string">&apos;status&apos;</span>: self.OUTSTANDING}</div><div class="line">            )</div><div class="line">        <span class="keyword">except</span> errors.DuplicateKeyError <span class="keyword">as</span> e:</div><div class="line">            <span class="keyword">pass</span> <span class="comment"># this is alreadly in the queue</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;</span></div><div class="line">        Get an outstanding URL from the queue and set its status to pocessiong.</div><div class="line">        If the queue is empty a KeyError exception is raised</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        record = self.db.crawl_queue.find_and_modify(</div><div class="line">            query={<span class="string">&apos;status&apos;</span>: self.OUTSTANDING},</div><div class="line">            update={<span class="string">&apos;$set&apos;</span>: {<span class="string">&apos;status&apos;</span>: self.PROCESSING, <span class="string">&apos;timestamp&apos;</span>: datetime.now()}}</div><div class="line">        )</div><div class="line">        <span class="keyword">if</span> record:</div><div class="line">            <span class="keyword">return</span> record[<span class="string">&apos;_id&apos;</span>]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.repair()</div><div class="line">            <span class="keyword">raise</span> KeyError()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">complete</span><span class="params">(self, url)</span>:</span></div><div class="line">        self.db.crawl_queue.update(</div><div class="line">            {<span class="string">&apos;_id&apos;</span>: url},</div><div class="line">            {<span class="string">&apos;$set&apos;</span>: {<span class="string">&apos;status&apos;</span>: self.COMPETE}}</div><div class="line">        )</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repair</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">&quot;&quot;&quot;Release stalled jobs&quot;&quot;&quot;</span></div><div class="line">        record = self.db.crawl_queue.find_and_modify(</div><div class="line">            query={</div><div class="line">                <span class="string">&apos;timestamp&apos;</span>: {<span class="string">&apos;$lt&apos;</span>: datetime.now() - timedelta(seconds=self.timeout)},</div><div class="line">                <span class="string">&apos;status&apos;</span> : {<span class="string">&apos;$ne&apos;</span>: self.COMPETE}</div><div class="line">            },</div><div class="line">            update={<span class="string">&apos;$set&apos;</span>: {<span class="string">&apos;status&apos;</span>: self.OUTSTANDING}}</div><div class="line">        )</div><div class="line">        <span class="keyword">if</span> record:</div><div class="line">            <span class="keyword">print</span> <span class="string">&apos;Release: %s&apos;</span>%record[<span class="string">&apos;_id&apos;</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</div><div class="line">    <span class="keyword">pass</span></div></pre></td></tr></table></figure>
+<p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记-Python/" rel="tag">#读书笔记-Python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/读书笔记/读书笔记-Python/第十六天 记录/" rel="next" title="第十六天 记录 python多线程threading.Thread">
+                <i class="fa fa-chevron-left"></i> 第十六天 记录 python多线程threading.Thread
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/PHP/PHP/PHP-百度地图/" rel="prev" title="PHP 请求百度地图">
+                PHP 请求百度地图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="/读书笔记/读书笔记-Python/第十七天 记录/"
+     data-title="第十七天 记录 python多进程multiprocessing"
+     data-content=""
+     data-url="http://yoursite.com//读书笔记/读书笔记-Python/第十七天 记录/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><i class="ds-more" href="javascript:void(0);">分享到：</i></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="/读书笔记/读书笔记-Python/第十七天 记录/"
+           data-title="第十七天 记录 python多进程multiprocessing" data-url="http://yoursite.com//读书笔记/读书笔记-Python/第十七天 记录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第十七天-记录"><span class="nav-text">第十七天 记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-multiprocessing模块"><span class="nav-text">1. multiprocessing模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-多进程爬虫"><span class="nav-text">2. 多进程爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用MongoDB做简单队列"><span class="nav-text">3. 使用MongoDB做简单队列</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"snaker95"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
