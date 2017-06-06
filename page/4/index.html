@@ -233,8 +233,8 @@
             
               
                 
-                <a class="post-title-link" href="/PHP/PHP/PHP 写日志方法/" itemprop="url">
-                  PHP 写日志方法
+                <a class="post-title-link" href="/Redis/Redis/Redis-keys命令/" itemprop="url">
+                  Redis-keys命令
                 </a>
               
             
@@ -247,8 +247,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:15:01+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -261,8 +261,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -295,474 +295,9 @@
 
       
         
-          程序运行过程中总会出现错误, 在排除错误的过程中, 查看日志是很重要的, 所以咱们PHP程序猿也要学会写log日志来帮助排错
+          Redis的keys命令
           <div class="post-more-link text-center">
-            <a class="btn" href="/PHP/PHP/PHP 写日志方法/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/MySql/MySql/MySql权限设置/" itemprop="url">
-                  MySql权限设置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/MySql/" itemprop="url" rel="index">
-                    <span itemprop="name">MySql</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>[TOC]</p>
-<h1 id="MySql&#x6743;&#x9650;&#x8BBE;&#x7F6E;"><a href="#MySql&#x6743;&#x9650;&#x8BBE;&#x7F6E;" class="headerlink" title="MySql&#x6743;&#x9650;&#x8BBE;&#x7F6E;"></a>MySql&#x6743;&#x9650;&#x8BBE;&#x7F6E;</h1><p>&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;, &#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x5404;&#x7A0B;&#x5E8F;&#x733F;&#x6240;&#x5F97;&#x5230;&#x7684;&#x6570;&#x636E;&#x4E00;&#x81F4;, &#x901A;&#x5E38;&#x91C7;&#x7528;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;, &#x5373;&#x8FDE;&#x63A5;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;, &#x6240;&#x4EE5;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x89D2;&#x8272;&#x8BBE;&#x7F6E;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6743;&#x9650;&#x662F;&#x65E0;&#x53EF;&#x539A;&#x975E;&#x7684;. </p>
-<blockquote>
-<p>&#x901A;&#x7528;&#x65B9;&#x6CD5;</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@host~] GRANT ALL ON *.* TO <span class="string">&apos;username&apos;</span>@<span class="string">&apos;host&apos;</span> IDENTIFEID BY <span class="string">&apos;password&apos;</span></div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/MySql/MySql/MySql权限设置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/programming/Hexo/windows Hexo 安装步骤/" itemprop="url">
-                  windows Hexo 安装步骤
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">程序</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          Windows下安装Hexo的必要步骤以及简单排错
-          <div class="post-more-link text-center">
-            <a class="btn" href="/programming/Hexo/windows Hexo 安装步骤/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/PHP/PHP/PHP 汉英混排计算字符串长度/" itemprop="url">
-                  PHP 汉英混排计算字符串长度
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了
-          <div class="post-more-link text-center">
-            <a class="btn" href="/PHP/PHP/PHP 汉英混排计算字符串长度/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/JavaScript/HTML/Ajax请求列表时的效果/" itemprop="url">
-                  Ajax请求列表时的效果
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          在数据列表中, ajax请求为常用的一种方法; 由于一个项目中,列表部分占比较大的比例, 所以,重新一个ajax请求列表时很重要的, 这样既能减少代码量, 又能在后期维护中提高效率;
-          <div class="post-more-link text-center">
-            <a class="btn" href="/JavaScript/HTML/Ajax请求列表时的效果/">
+            <a class="btn" href="/Redis/Redis/Redis-keys命令/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -827,8 +362,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:52+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -928,8 +463,8 @@
             
               
                 
-                <a class="post-title-link" href="/PHP/PHP/PHP 中文正则和文件路径正则/" itemprop="url">
-                  PHP 中文正则和文件路径正则
+                <a class="post-title-link" href="/Redis/Redis/Redis-PHP操作-列表/" itemprop="url">
+                  Redis-PHP操作-列表
                 </a>
               
             
@@ -942,8 +477,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:40+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -956,8 +491,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -990,9 +525,124 @@
 
       
         
-          在数据验证中, 匹配中文
+          Redis的数据类型-List(列表)
           <div class="post-more-link text-center">
-            <a class="btn" href="/PHP/PHP/PHP 中文正则和文件路径正则/">
+            <a class="btn" href="/Redis/Redis/Redis-PHP操作-列表/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/Redis/Redis/Redis-PHP操作-有序集合/" itemprop="url">
+                  Redis-PHP操作-有序集合
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:31+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          Redis的数据类型-zset(有序列表)
+          <div class="post-more-link text-center">
+            <a class="btn" href="/Redis/Redis/Redis-PHP操作-有序集合/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1057,8 +707,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:21+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -1158,8 +808,8 @@
             
               
                 
-                <a class="post-title-link" href="/Python/Python/Send-Email/" itemprop="url">
-                  Python-Send-Email
+                <a class="post-title-link" href="/Redis/Redis/Redis-安装/" itemprop="url">
+                  Redis-安装
                 </a>
               
             
@@ -1172,8 +822,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:14:09+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -1186,8 +836,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1220,9 +870,9 @@
 
       
         
-          Python Send Email
+          Redis在Window和Linux环境中的安装
           <div class="post-more-link text-center">
-            <a class="btn" href="/Python/Python/Send-Email/">
+            <a class="btn" href="/Redis/Redis/Redis-安装/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1273,8 +923,8 @@
             
               
                 
-                <a class="post-title-link" href="/HTML/HTML/图片加载失败时 显示默认图片/" itemprop="url">
-                  图片加载失败时 显示默认图片
+                <a class="post-title-link" href="/Redis/Redis/Redis-配置/" itemprop="url">
+                  Redis-配置
                 </a>
               
             
@@ -1287,8 +937,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-21T02:15:46+00:00" content="2017-02-21">
-              2017-02-21
+            <time itemprop="dateCreated" datetime="2017-02-04T23:13:58+08:00" content="2017-02-04">
+              2017-02-04
             </time>
           </span>
 
@@ -1301,8 +951,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1335,9 +985,354 @@
 
       
         
-          在数据列表中, ajax请求为常用的一种方法; 由于一个项目中,列表部分占比较大的比例, 所以,重新一个ajax请求列表时很重要的, 这样既能减少代码量, 又能在后期维护中提高效率;
+          Redis的配置文件
           <div class="post-more-link text-center">
-            <a class="btn" href="/HTML/HTML/图片加载失败时 显示默认图片/">
+            <a class="btn" href="/Redis/Redis/Redis-配置/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/PHP/PHP/PHP Curl请求数据/" itemprop="url">
+                  PHP Curl请求数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:11:58+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          PHP已是公认世界上最好的语言, PHP中的CURL扩展帮助猿类们实现后台请求其他接口, 或者请求网络中其他的数据, 此时, 封装CURL成为一个函数方法, 简化在使用中的复杂程度
+          <div class="post-more-link text-center">
+            <a class="btn" href="/PHP/PHP/PHP Curl请求数据/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/PHP/PHP/PHP 汉英混排计算字符串长度/" itemprop="url">
+                  PHP 汉英混排计算字符串长度
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:11:48+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          在PHP后台做数据验证是必须的, 而限制字符串长度是常见不过的, 但是由于汉字在UTF-8编码中,长度却是3个, 所以,在汉英混排时计算字符串长度就不是很好确定了
+          <div class="post-more-link text-center">
+            <a class="btn" href="/PHP/PHP/PHP 汉英混排计算字符串长度/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/PHP/PHP/PHP 前后台交互类/" itemprop="url">
+                  PHP 前后台交互类
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-04T23:11:38+08:00" content="2017-02-04">
+              2017-02-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          在WEB项目中, 前后台交互具有统一的格式会使很多工作很容易做好, 同时也可以做到一些功能模块化
+          <div class="post-more-link text-center">
+            <a class="btn" href="/PHP/PHP/PHP 前后台交互类/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1609,8 +1604,6 @@
 
 
   
-    
-    
   
 
 
