@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Redis,zset" />
+  <meta name="keywords" content="PHP,Laravel,路由" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="Redis的数据类型-zset(有序列表)">
+<meta name="description" content="创建不同的路由文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis-数据类型-有序集合">
-<meta property="og:url" content="http://yoursite.com/Redis/Redis/Redis-数据类型-有序集合/index.html">
+<meta property="og:title" content="Laravel之路由创建">
+<meta property="og:url" content="http://yoursite.com/PHP/Laravel/Laravel之新建路由文件/index.html">
 <meta property="og:site_name" content="Snaker95">
-<meta property="og:description" content="Redis的数据类型-zset(有序列表)">
-<meta property="og:updated_time" content="2017-02-05T07:57:28.000Z">
+<meta property="og:description" content="创建不同的路由文件">
+<meta property="og:updated_time" content="2017-06-14T15:51:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis-数据类型-有序集合">
-<meta name="twitter:description" content="Redis的数据类型-zset(有序列表)">
+<meta name="twitter:title" content="Laravel之路由创建">
+<meta name="twitter:description" content="创建不同的路由文件">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> Redis-数据类型-有序集合 | Snaker95 </title>
+  <title> Laravel之路由创建 | Snaker95 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +231,7 @@
             
             
               
-                Redis-数据类型-有序集合
+                Laravel之路由创建
               
             
           </h1>
@@ -243,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-08T11:28:16+08:00" content="2016-06-08">
-              2016-06-08
+            <time itemprop="dateCreated" datetime="2017-06-14T23:50:34+08:00" content="2017-06-14">
+              2017-06-14
             </time>
           </span>
 
@@ -257,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
                   </a>
                 </span>
 
@@ -296,27 +296,27 @@
 
       
         <p>[TOC]</p>
-<h1 id="Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x6709;&#x5E8F;&#x96C6;&#x5408;"><a href="#Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x6709;&#x5E8F;&#x96C6;&#x5408;" class="headerlink" title="Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x6709;&#x5E8F;&#x96C6;&#x5408;"></a>Redis-&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x6709;&#x5E8F;&#x96C6;&#x5408;</h1><p>  Redis &#x6570;&#x636E;&#x5E93;&#x662F;key-value&#x7C7B;&#x578B;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;, &#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6709; <code>&#x5B57;&#x7B26;&#x4E32;</code>(string)&#x3001; <code>&#x54C8;&#x5E0C;</code>(Hash)&#x3001; <code>&#x5217;&#x8868;</code>(list)&#x3001; <code>&#x96C6;&#x5408;</code>(set)&#x3001; <code>&#x6709;&#x5E8F;&#x96C6;&#x5408;</code>(Zset). </p>
-<p>  &#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;<strong>&#x6709;&#x5E8F;&#x5217;&#x8868;</strong>&#x7C7B;&#x578B;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;<br><strong>1. &#x5728;&#x5217;&#x8868;&#x4E2D;&#x6DFB;&#x52A0;&#x6216;&#x8005;&#x66F4;&#x65B0;&#x6210;&#x5458; <code>zadd</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZADD key score member [ score1 member1 score2 member2 ... ]</div></pre></td></tr></table></figure></p>
-<p><strong>2. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6210;&#x5458;&#x6570; <code>zcard</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZCARD key  # &#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6570;&#x91CF;</div></pre></td></tr></table></figure></p>
-<p><strong>3. &#x8BA1;&#x7B97;&#x5728;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5206;&#x6570;&#x7684;&#x6210;&#x5458;&#x6570; <code>zcount</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZCOUNT key min max  # &#x83B7;&#x53D6;score&#x5206;&#x6570;min/max&#x4E4B;&#x95F4;&#x7684;&#x6210;&#x5458;&#x6570;</div></pre></td></tr></table></figure></p>
-<p><strong>4. &#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x5BF9;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x5206;&#x6570;&#x52A0;&#x4E0A;&#x589E;&#x91CF; N <code>zincrby</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZINCRBY key N member  # member&#x6210;&#x5458;</div></pre></td></tr></table></figure></p>
-<p><strong>5. &#x8BA1;&#x7B97;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;&#x5E76;&#x5C06;&#x7ED3;&#x679C;&#x5B58;&#x50A8;&#x5728;&#x65B0;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#x5408;key&#x4E2D; <code>zinterstore</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZINTERSTORE destination numkeys key [key1 ...]</div></pre></td></tr></table></figure></p>
-<p><strong>6. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x8BA1;&#x7B97;&#x6307;&#x5B9A;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x5185;&#x6210;&#x5458;&#x6570;&#x91CF; <code>zlexcount</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZLEXCOUNT key min max  # &#x83B7;&#x53D6;key&#x4E2D;min-max&#x95F4;&#x7684;&#x6210;&#x5458;&#x6570;&#x91CF;</div></pre></td></tr></table></figure></p>
-<p><strong>7. &#x83B7;&#x53D6;&#x7D22;&#x5F15;&#x533A;&#x95F4;&#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6570;&#x91CF; <code>zrangebylex</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANGE key start stop [WITHSCORES]</div></pre></td></tr></table></figure></p>
-<p><strong>8. &#x83B7;&#x53D6;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x7684;&#x6210;&#x5458; <code>ZRANGEBYLEX</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANGEBYLEX key min max [LIMIT offset count]</div></pre></td></tr></table></figure></p>
-<p><strong>9. &#x901A;&#x8FC7;&#x5206;&#x6570;&#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458; <code>ZRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]</div></pre></td></tr></table></figure></p>
-<p><strong>10. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x7D22;&#x5F15; <code>ZRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZRANK key member</div></pre></td></tr></table></figure></p>
-<p><strong>11. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6210;&#x5458; <code>zrem</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREM key member [member1 member2 ... ]</div></pre></td></tr></table></figure></p>
-<p><strong>12. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x5B57;&#x5178;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebylex</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYLEX key min max</div></pre></td></tr></table></figure></p>
-<p><strong>13. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x6392;&#x540D;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebyrank</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYRANK key start stop</div></pre></td></tr></table></figure></p>
-<p><strong>14. &#x79FB;&#x9664;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7ED9;&#x5B9A;&#x7684;&#x5206;&#x6570;&#x533A;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458; <code>zremrangebyscore</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREMRANGEBYSCORE key min max</div></pre></td></tr></table></figure></p>
-<p><strong>15. &#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x4E2D;&#x6307;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x901A;&#x8FC7;&#x7D22;&#x5F15;&#xFF0C;&#x5206;&#x6570;&#x4ECE;&#x9AD8;&#x5230;&#x5E95; <code>ZREVRANGE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANGE key start stop [WITHSCORES]</div></pre></td></tr></table></figure></p>
-<p><strong>16. &#x8FD4;&#x56DE;&#x6709;&#x5E8F;&#x96C6;&#x4E2D;&#x6307;&#x5B9A;&#x5206;&#x6570;&#x533A;&#x95F4;&#x5185;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x5206;&#x6570;&#x4ECE;&#x9AD8;&#x5230;&#x4F4E;&#x6392;&#x5E8F; <code>ZREVRANGEBYSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANGEBYSCORE key max min [WITHSCORES]</div></pre></td></tr></table></figure></p>
-<p><strong>17. &#x83B7;&#x53D6;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x6307;&#x5B9A;&#x6210;&#x5458;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x6709;&#x5E8F;&#x96C6;&#x6210;&#x5458;&#x6309;&#x5206;&#x6570;&#x503C;&#x9012;&#x51CF;(&#x4ECE;&#x5927;&#x5230;&#x5C0F;)&#x6392;&#x5E8F; <code>ZREVRANK</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZREVRANK key member</div></pre></td></tr></table></figure></p>
-<p><strong>18. &#x83B7;&#x53D6;&#x6210;&#x5458;&#x7684;&#x5206;&#x6570;&#x503C; <code>ZSCORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZSCORE key member</div></pre></td></tr></table></figure></p>
-<p><strong>19. &#x7ED9;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6709;&#x5E8F;&#x96C6;&#x7684;&#x5E76;&#x96C6;&#xFF0C;&#x5E76;&#x5B58;&#x50A8;&#x5728;&#x65B0;&#x7684; key &#x4E2D; <code>ZUNIONSTORE</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZUNIONSTORE destination numkeys key [key1 ...]</div></pre></td></tr></table></figure></p>
-<p><strong>20. &#x8FED;&#x4EE3;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#xFF08;&#x5305;&#x62EC;&#x5143;&#x7D20;&#x6210;&#x5458;&#x548C;&#x5143;&#x7D20;&#x5206;&#x503C;&#xFF09;<code>ZSCAN</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZSCAN key cursor [MATCH pattern] [COUNT count]</div></pre></td></tr></table></figure></p>
+<h1 id="Laravel&#x4E4B;&#x8DEF;&#x7531;&#x521B;&#x5EFA;"><a href="#Laravel&#x4E4B;&#x8DEF;&#x7531;&#x521B;&#x5EFA;" class="headerlink" title="Laravel&#x4E4B;&#x8DEF;&#x7531;&#x521B;&#x5EFA;"></a>Laravel&#x4E4B;&#x8DEF;&#x7531;&#x521B;&#x5EFA;</h1><p>&#x5173;&#x4E8E;&#x600E;&#x4E48;&#x4E66;&#x5199;&#x8DEF;&#x7531;&#x4EE5;&#x53CA;&#x5176;&#x4E66;&#x5199;&#x89C4;&#x5219;&#xFF0C; &#x5C31;&#x4E0D;&#x5570;&#x55E6;&#x4E86;&#xFF0C; &#x5B98;&#x65B9;&#x6587;&#x6863;&#x5199;&#x7684;&#x7070;&#x5E38;&#x6E05;&#x695A;&#x4E86;&#xFF01; &#x8FD9;&#x91CC;&#x6211;&#x8BB2;&#x4E0B;&#x521B;&#x5EFA;&#x4E0D;&#x540C;&#x7684;&#x8DEF;&#x7531;&#x6587;&#x4EF6;&#xFF01;</p>
+<h2 id="&#x60C5;&#x666F;&#xFF1A;"><a href="#&#x60C5;&#x666F;&#xFF1A;" class="headerlink" title="&#x60C5;&#x666F;&#xFF1A;"></a>&#x60C5;&#x666F;&#xFF1A;</h2><p>&#x540C;&#x4E00;&#x5957;Laravel&#x6846;&#x67B6;&#x4E0B;&#xFF0C; &#x642D;&#x5EFA;API&#x63A5;&#x53E3;&#xFF0F;Web&#x7F51;&#x7AD9;&#xFF0F;&#x7BA1;&#x7406;&#x540E;&#x53F0;&#xFF0C;&#x7531;&#x4E8E;Laravel&#x6846;&#x67B6;&#x5DF2;&#x7ECF;&#x81EA;&#x5E26;&#x4E86;routes&#xFF0F;web.php&#x548C;routes/api.php, &#x6240;&#x4EE5;&#x73B0;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;routes/admin.php&#x7684;&#x8DEF;&#x7531;&#x6587;&#x4EF6;;</p>
+<h2 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;:"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;:</h2><ol>
+<li>&#x62F7;&#x8D1D;routes/web.php,&#x5E76;&#x91CD;&#x547D;&#x540D;&#x4E3A;admin.php</li>
+<li>&#x5728;<code>&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x8005;</code>&#x4E2D;<code>&#x8DEF;&#x7531;&#x670D;&#x52A1;&#x63D0;&#x4F9B;</code>&#x6DFB;&#x52A0;&#x5173;&#x4E8E;admin&#x7684;&#x8DEF;&#x7531;; <blockquote>
+<p>&#x5728;app/Providers/RouteServiceProvider.php&#x4E2D;, &#x590D;&#x5236;&#x4E00;&#x4EFD; <code>function mapApiRoutes(){...}</code>, &#x5E76;&#x4FEE;&#x6539;&#x76F8;&#x5E94;&#x7684;<code>api</code>&#x4E3A;<code>admin</code><br>&#x5E76;&#x5728;<code>map</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;<code>$this-&gt;mapAdminRoutes();</code></p>
+</blockquote>
+</li>
+<li><p>&#x5728;<code>config/auth.php</code>&#x4E2D;, &#x590D;&#x5236;&#x4E00;&#x4EFD; &#x5E76;:&#x4FEE;&#x6539;&#x5982;&#x4E0B;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="string">&apos;guards&apos;</span> =&gt; [</div><div class="line">    <span class="string">&apos;web&apos;</span> =&gt; [</div><div class="line">        <span class="string">&apos;driver&apos;</span> =&gt; <span class="string">&apos;session&apos;</span>,</div><div class="line">        <span class="string">&apos;provider&apos;</span> =&gt; <span class="string">&apos;users&apos;</span>,</div><div class="line">    ],</div><div class="line">    <span class="string">&apos;api&apos;</span> =&gt; [</div><div class="line">        <span class="string">&apos;driver&apos;</span> =&gt; <span class="string">&apos;token&apos;</span>,</div><div class="line">        <span class="string">&apos;provider&apos;</span> =&gt; <span class="string">&apos;users&apos;</span>,</div><div class="line">    ],</div><div class="line">    <span class="string">&apos;admin&apos;</span> =&gt; [</div><div class="line">        <span class="string">&apos;driver&apos;</span> =&gt; <span class="string">&apos;session&apos;</span>,</div><div class="line">        <span class="string">&apos;provider&apos;</span> =&gt; <span class="string">&apos;users&apos;</span>,</div><div class="line">    ],</div><div class="line">],</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x7531;&#x4E8E;&#x4F7F;&#x7528;&#x5230;&#x4E86;<code>&#x4E2D;&#x95F4;&#x4EF6;</code>, &#x6240;&#x4EE5;&#x8981;&#x5728;<code>app/Http/Kernel.php</code>&#x4E2D;&#x65B0;&#x589E;&#x4E00;&#x7EC4;<code>&#x4E2D;&#x95F4;&#x4EF6;&#x7EC4;</code>, &#x4EE3;&#x7801;&#x5982;&#x4E0B;:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> $middlewareGroups = [</div><div class="line">    <span class="string">&apos;web&apos;</span> =&gt; [</div><div class="line">        \App\Http\Middleware\EncryptCookies::class,</div><div class="line">        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,</div><div class="line">        \Illuminate\Session\Middleware\StartSession::class,</div><div class="line">        <span class="comment">// \Illuminate\Session\Middleware\AuthenticateSession::class,</span></div><div class="line">        \Illuminate\View\Middleware\ShareErrorsFromSession::class,</div><div class="line">        \App\Http\Middleware\VerifyCsrfToken::class,</div><div class="line">        \Illuminate\Routing\Middleware\SubstituteBindings::class,</div><div class="line">    ],</div><div class="line">    <span class="string">&apos;api&apos;</span> =&gt; [</div><div class="line">        <span class="string">&apos;throttle:60,1&apos;</span>,</div><div class="line">        <span class="string">&apos;bindings&apos;</span>,</div><div class="line">    ],</div><div class="line">    <span class="string">&apos;admin&apos;</span> =&gt; [</div><div class="line">        \App\Http\Middleware\EncryptCookies::class,</div><div class="line">        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,</div><div class="line">        \Illuminate\Session\Middleware\StartSession::class,</div><div class="line">        <span class="comment">// \Illuminate\Session\Middleware\AuthenticateSession::class,</span></div><div class="line">        \Illuminate\View\Middleware\ShareErrorsFromSession::class,</div><div class="line">        \App\Http\Middleware\VerifyCsrfToken::class,</div><div class="line">        \Illuminate\Routing\Middleware\SubstituteBindings::class,</div><div class="line">    ],</div><div class="line">];</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&#x8FD9;&#x6837;&#x57FA;&#x672C;&#x4E0A;&#x5C31;&#x89E3;&#x51B3;&#x4E86;&#x5F53;&#x524D;&#x60C5;&#x666F;, &#x4F46;&#x662F;, &#x53EF;&#x80FD;&#x4F1A;&#x9047;&#x5230;&#x5176;&#x4ED6;&#x60C5;&#x51B5;, &#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x6210;&#x529F;.</p>
+<h2 id="&#x89E3;&#x51B3;&#x5176;&#x4ED6;&#x95EE;&#x9898;"><a href="#&#x89E3;&#x51B3;&#x5176;&#x4ED6;&#x95EE;&#x9898;" class="headerlink" title="&#x89E3;&#x51B3;&#x5176;&#x4ED6;&#x95EE;&#x9898;"></a>&#x89E3;&#x51B3;&#x5176;&#x4ED6;&#x95EE;&#x9898;</h2><blockquote>
+<p>&#x4F7F;&#x7528;Route::prefix()&#x4E0D;&#x80FD;&#x6210;&#x529F;&#x7684;&#x4F7F;&#x7528;&#x524D;&#x7F00;: &#x6700;&#x5927;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x662F;storage&#x76EE;&#x5F55;&#x4E0D;&#x5177;&#x6709;&#x53EF;&#x5199;&#x6743;&#x9650;, &#x6B64;&#x65F6;:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod -R 755 ./storage # &#x5982;&#x679C;&#x8FD8;&#x4E0D;&#x884C;, &#x6362;&#x6210;777 &#x5C1D;&#x8BD5;</div></pre></td></tr></table></figure></p>
+<p>&#x9664; <code>/</code>&#x8DEF;&#x7531;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5916;&#x5176;&#x4ED6;&#x8DEF;&#x7531;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;, &#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x662F;apache&#x6216;&#x8005;Nginx&#x914D;&#x7F6E;&#x95EE;&#x9898;, &#x4EE5;Nginx&#x4E3A;&#x4F8B;:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location / {</div><div class="line">    try_files $uri $uri/ /index.php?$query_string;</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x53C2;&#x8003;: <a href="https://docs.golaravel.com/docs/5.4/installation/#web-server-configuration" target="_blank" rel="external">https://docs.golaravel.com/docs/5.4/installation/#web-server-configuration</a></p>
+</blockquote>
 <p>Author <a href="http://www.sharedsea.com" target="_blank" rel="external">@Snaker95</a></p>
 
       
@@ -339,7 +339,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis/" rel="tag">#Redis</a>
+            <a href="/tags/Laravel/" rel="tag">#Laravel</a>
           
         </div>
       
@@ -348,17 +348,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Redis/Redis/Redis-数据类型-列表/" rel="next" title="Redis-数据类型-列表">
-                <i class="fa fa-chevron-left"></i> Redis-数据类型-列表
+              <a href="/技巧/技巧/命令行CPU满载/" rel="next" title="命令行使CPU满载">
+                <i class="fa fa-chevron-left"></i> 命令行使CPU满载
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Redis/Redis/Redis-数据类型-集合/" rel="prev" title="Redis-数据类型-集合">
-                Redis-数据类型-集合 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +506,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-数据类型-有序集合"><span class="nav-text">Redis-数据类型-有序集合</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Laravel之路由创建"><span class="nav-text">Laravel之路由创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#情景："><span class="nav-text">情景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-text">解决方案:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决其他问题"><span class="nav-text">解决其他问题</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
