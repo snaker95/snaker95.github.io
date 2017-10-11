@@ -1,0 +1,652 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试,基础知识,内存泄漏,PHP" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="C语言实现PHP弱类型语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP5.3-内存泄漏">
+<meta property="og:url" content="http://yoursite.com/面试/面试宝/2017-PHP5.3之前版本内存泄漏问题/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="C语言实现PHP弱类型语言">
+<meta property="og:image" content="http://yoursite.com/面试/面试宝/2017-PHP5.3之前版本内存泄漏问题/resources/DDF49FB4D73D660C3975350D2671AEA0.jpg =1060x492">
+<meta property="og:image" content="http://yoursite.com/面试/面试宝/2017-PHP5.3之前版本内存泄漏问题/resources/7B93DD265AE197B7921D981D4A2FB214.jpg =1203x608">
+<meta property="og:updated_time" content="2017-09-12T05:56:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP5.3-内存泄漏">
+<meta name="twitter:description" content="C语言实现PHP弱类型语言">
+<meta name="twitter:image" content="http://yoursite.com/面试/面试宝/2017-PHP5.3之前版本内存泄漏问题/resources/DDF49FB4D73D660C3975350D2671AEA0.jpg =1060x492">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> PHP5.3-内存泄漏 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP5.3-内存泄漏
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-12T13:56:04+08:00" content="2017-09-12">
+              2017-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h1 id="PHP5-3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;"><a href="#PHP5-3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;" class="headerlink" title="PHP5.3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;"></a>PHP5.3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;</h1><p>  &#x5BF9;&#x4E8E;&#x4E00;&#x822C;&#x7684;php&#x811A;&#x672C;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x4E0D;&#x7528;&#x8003;&#x8651;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x548C;&#x5783;&#x573E;&#x56DE;&#x6536;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x4E3A;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x4F60;&#x7684;&#x811A;&#x672C;&#x5F88;&#x5FEB;&#x5C31;&#x6267;&#x884C;&#x5B8C;&#x9000;&#x51FA;&#x4E86;,&#x4F46;&#x662F;&#x5982;&#x679C;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#x7684;php&#x811A;&#x672C;&#x6216;&#x8005;&#x4E0D;&#x5408;&#x7406;&#x7F16;&#x7A0B;&#x7684;&#x786E;&#x4F1A;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x95EE;&#x9898;; &#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x662F;&#x6307;&#x8FDB;&#x79F0;&#x5728;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5185;&#x5B58;&#x7684;&#x5360;&#x6709;&#x7387;&#x9010;&#x6B65;&#x5347;&#x9AD8;&#xFF0C;&#x4E0D;&#x91CA;&#x653E;&#xFF0C; &#x7CFB;&#x7EDF;&#x6240;&#x62E5;&#x6709;&#x7684;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x8D8A;&#x6765;&#x8D8A;&#x5C11;&#x7684;&#x73B0;&#x8C61;&#x3002;&#xFF08;PHP Fatal error: Allowed memory size of 134217728 bytes exhausted&#xFF09;</p>
+<h2 id="PHP&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;"><a href="#PHP&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;" class="headerlink" title="PHP&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;"></a>PHP&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;</h2><p>  &#x5BF9;&#x4E8E;Phper&#x6765;&#x8BF4;, &#x5783;&#x573E;&#x56DE;&#x6536;&#x771F;&#x7684;&#x4E0D;&#x4F1A;&#x53BB;&#x6CE8;&#x610F;&#x5230;, &#x56E0;&#x4E3A;php&#x662F;&#x9AD8;&#x7EA7;&#x8BED;&#x8A00;, &#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#x5783;&#x573E;&#x56DE;&#x6536;, &#x4F46;&#x662F;&#x4E5F;&#x662F;&#x542C;&#x8FC7;&#x5E95;&#x5C42;&#x6765;&#x5B9E;&#x73B0;&#x800C;&#x51FA;&#x53D1;&#x5783;&#x573E;&#x56DE;&#x6536;, &#x6240;&#x4EE5;&#x4F1A;&#x5B58;&#x5728;&#x95EE;&#x9898;</p>
+<blockquote>
+<p>php 5.3&#x4E4B;&#x524D;&#x4F7F;&#x7528;&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x662F;&#x5355;&#x7EAF;&#x7684;&#x201C;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x201D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6BCF;&#x4E2A;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x90FD;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x5F53;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x88AB;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x65F6;&#xFF0C;&#x8BA1;&#x6570;&#x5668;+1&#xFF1B;&#x5F53;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x64A4;&#x6389;&#x540E;&#xFF0C;&#x8BA1;&#x6570;&#x5668;-1&#xFF1B;&#x5F53;&#x8BA1;&#x6570;&#x5668;=0&#x65F6;&#xFF0C;&#x8868;&#x660E;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;&#x8BE5;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x5219;&#x8FDB;&#x884C;&#x9500;&#x6BC1;&#xFF0C;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x201C;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x201D;&#x5B58;&#x5728;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x662F;&#x5F53;&#x4E24;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x4E92;&#x76F8;&#x5F15;&#x7528;&#x5F62;&#x6210;&#x73AF;&#x72B6;&#x540E;&#xFF0C;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x7684;&#x8BA1;&#x6570;&#x5668;&#x5219;&#x4E0D;&#x4F1A;&#x6D88;&#x51CF;&#x4E3A;0&#xFF1B;&#x8FD9;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x4E00;&#x7EC4;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x5DF2;&#x7ECF;&#x6CA1;&#x7528;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x56DE;&#x6536;&#xFF0C;&#x4ECE;&#x800C;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x3002;</p>
+<p>php5.3&#x5F00;&#x59CB;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;&#x65B0;&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#xFF0C;&#x5728;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x79CD;&#x590D;&#x6742;&#x7684;&#x7B97;&#x6CD5;&#xFF0C;&#x6765;&#x68C0;&#x6D4B;&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x4E2D;&#x5F15;&#x7528;&#x73AF;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x9732;, &#x53EF;&#x53C2;&#x8003;<a href="http://blog.csdn.net/ty_hf/article/details/52906258" target="_blank" rel="external">PHP&#x5185;&#x6838;&#x2013;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x4E0E;&#x65B0;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;</a></p>
+<p><img src="/&#x9762;&#x8BD5;/&#x9762;&#x8BD5;&#x5B9D;/2017-PHP5.3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;/resources/DDF49FB4D73D660C3975350D2671AEA0.jpg =1060x492" alt="IMAGE"><br><img src="/&#x9762;&#x8BD5;/&#x9762;&#x8BD5;&#x5B9D;/2017-PHP5.3&#x4E4B;&#x524D;&#x7248;&#x672C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;/resources/7B93DD265AE197B7921D981D4A2FB214.jpg =1203x608" alt="IMAGE"></p>
+</blockquote>
+<h2 id="&#x5F71;&#x54CD;PHP&#x5783;&#x573E;&#x56DE;&#x6536;"><a href="#&#x5F71;&#x54CD;PHP&#x5783;&#x573E;&#x56DE;&#x6536;" class="headerlink" title="&#x5F71;&#x54CD;PHP&#x5783;&#x573E;&#x56DE;&#x6536;"></a>&#x5F71;&#x54CD;PHP&#x5783;&#x573E;&#x56DE;&#x6536;</h2><ol>
+<li><strong>&#x5783;&#x573E;&#x56DE;&#x6536;&#x7684;&#x65F6;&#x673A;</strong><br>PHP&#x4E2D;&#xFF0C;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E3A;0&#xFF0C;&#x5219;&#x5185;&#x5B58;&#x7ACB;&#x523B;&#x91CA;&#x653E;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x73AF;&#x72B6;&#x5F15;&#x7528;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x79BB;&#x5F00;&#x53D8;&#x91CF;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5185;&#x5B58;&#x88AB;&#x7ACB;&#x523B;&#x91CA;&#x653E;&#x3002;&#x73AF;&#x72B6;&#x5F15;&#x7528;&#x68C0;&#x6D4B;&#x5219;&#x662F;&#x5728;&#x6EE1;&#x8DB3;&#x4E00;&#x5B9A;&#x6761;&#x4EF6;&#x4E0B;&#x89E6;&#x53D1;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4F1A;&#x770B;&#x5230;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x6709;&#x5927;&#x5E45;&#x5EA6;&#x7684;&#x6CE2;&#x52A8;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; gc_collect_cycles &#x51FD;&#x6570;&#x6765;&#x4E3B;&#x52A8;&#x8FDB;&#x884C;&#x73AF;&#x72B6;&#x5F15;&#x7528;&#x68C0;&#x6D4B;&#x3002;</li>
+<li><strong>&amp;&#x7B26;&#x53F7;(&#x5F15;&#x7528;)&#x7684;&#x5F71;&#x54CD;</strong><br>&#x663E;&#x5F0F;&#x5F15;&#x7528;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x4F1A;&#x589E;&#x52A0;&#x8BE5;&#x5185;&#x5B58;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF1A;<br>$a = &#x201C;something&#x201D;;<br>$b = &amp;$a;<br>&#x6B64;&#x65F6;unset($a), &#x4F46;&#x662F;&#x4ECD;&#x6709;$b&#x6307;&#x5411;&#x8BE5;&#x5185;&#x5B58;&#x533A;&#x57DF;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x5185;&#x5B58;&#x4E0D;&#x4F1A;&#x91CA;&#x653E;&#x3002;  </li>
+<li><strong>unset&#x51FD;&#x6570;&#x7684;&#x5F71;&#x54CD;</strong><br>unset&#x53EA;&#x662F;&#x65AD;&#x5F00;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5230;&#x4E00;&#x5757;&#x5185;&#x5B58;&#x533A;&#x57DF;&#x7684;&#x8FDE;&#x63A5;&#xFF0C;&#x540C;&#x65F6;&#x5C06;&#x8BE5;&#x5185;&#x5B58;&#x533A;&#x57DF;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;-1&#xFF1B;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x5FAA;&#x73AF;&#x4F53;&#x5185;&#x90E8;&#xFF0C;$a=new A(); unset($a);&#x5E76;&#x4E0D;&#x4F1A;&#x5C06;$a&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x51CF;&#x5230;&#x96F6;&#xFF1B;</li>
+<li><strong>&#x8D4B;&#x503C;null&#x64CD;&#x4F5C;&#x7684;&#x5F71;&#x54CD;</strong><br>$a = null &#x662F;&#x76F4;&#x63A5;&#x5C06;$a &#x6307;&#x5411;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7F6E;&#x7A7A;&#xFF0C;&#x540C;&#x65F6;&#x5C06;&#x5176;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5F52;0&#x3002;</li>
+<li><p><strong>&#x811A;&#x672C;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x7684;&#x5F71;&#x54CD;</strong><br>&#x811A;&#x672C;&#x6267;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x8BE5;&#x811A;&#x672C;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x6240;&#x6709;&#x5185;&#x5B58;&#x90FD;&#x4F1A;&#x88AB;&#x91CA;&#x653E;&#xFF0C;&#x4E0D;&#x8BBA;&#x662F;&#x5426;&#x6709;&#x5F15;&#x7528;&#x73AF;</p>
+<p><strong>&#x53C2;&#x8003;</strong><br><a href="http://www.nowamagic.net/librarys/veda/detail/1377" target="_blank" rel="external">PHP&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x95EE;&#x9898;&#x4E0E;&#x5783;&#x573E;&#x56DE;&#x6536;</a><br><a href="http://www.cnblogs.com/agang-php/p/5520489.html" target="_blank" rel="external">php &#x5185;&#x5B58;&#x6CC4;&#x6F0F;</a><br><a href="http://blog.csdn.net/ty_hf/article/details/52906258" target="_blank" rel="external">PHP&#x5185;&#x6838;&#x2013;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x4E0E;&#x65B0;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag">#面试</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/面试/面试宝/2017-PHP Zend引擎/" rel="next" title="PHP Zend引擎">
+                <i class="fa fa-chevron-left"></i> PHP Zend引擎
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/面试/面试宝/2017-RestFul接口标准/" rel="prev" title="RestFul接口标准">
+                RestFul接口标准 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">101</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP5-3之前版本内存泄漏问题"><span class="nav-text">PHP5.3之前版本内存泄漏问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP的垃圾回收机制"><span class="nav-text">PHP的垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响PHP垃圾回收"><span class="nav-text">影响PHP垃圾回收</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+  <script type="text/javascript" alpha="0.2" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+  <script type="text/javascript" alpha="0.1" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试,基础知识,PHP,变量,魔术" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="PHP基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超全局变量、魔术常量和魔术方法">
+<meta property="og:url" content="http://yoursite.com/面试/面试宝/2017-魔术常量和魔术方法/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="PHP基础知识">
+<meta property="og:updated_time" content="2017-09-12T05:56:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="超全局变量、魔术常量和魔术方法">
+<meta name="twitter:description" content="PHP基础知识">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 超全局变量、魔术常量和魔术方法 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                超全局变量、魔术常量和魔术方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-12T13:56:04+08:00" content="2017-09-12">
+              2017-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h1 id="&#x8D85;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3001;&#x9B54;&#x672F;&#x5E38;&#x91CF;&#x548C;&#x9B54;&#x672F;&#x65B9;&#x6CD5;"><a href="#&#x8D85;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3001;&#x9B54;&#x672F;&#x5E38;&#x91CF;&#x548C;&#x9B54;&#x672F;&#x65B9;&#x6CD5;" class="headerlink" title="&#x8D85;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3001;&#x9B54;&#x672F;&#x5E38;&#x91CF;&#x548C;&#x9B54;&#x672F;&#x65B9;&#x6CD5;"></a>&#x8D85;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3001;&#x9B54;&#x672F;&#x5E38;&#x91CF;&#x548C;&#x9B54;&#x672F;&#x65B9;&#x6CD5;</h1><p>  &#x5728;&#x9762;&#x8BD5;&#x8FC7;&#x7A0B;&#x4E2D;, &#x57FA;&#x7840;&#x77E5;&#x8BC6;&#x8FD8;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;, &#x73B0;&#x5728;&#x4E00;&#x8D77;&#x56DE;&#x987E;&#x548C;&#x590D;&#x4E60;&#x4E00;&#x4E0B;&#x6700;&#x5E38;&#x7528;&#x7684;9&#x4E2A;&#x8D85;&#x7EA7;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3001;8&#x4E2A;&#x9B54;&#x672F;&#x5E38;&#x91CF;&#x548C;16&#x9B54;&#x672F;&#x51FD;&#x6570;; </p>
+<h2 id="PHP&#x8D85;&#x7EA7;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF08;9&#x4E2A;&#xFF09;"><a href="#PHP&#x8D85;&#x7EA7;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF08;9&#x4E2A;&#xFF09;" class="headerlink" title="PHP&#x8D85;&#x7EA7;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF08;9&#x4E2A;&#xFF09;"></a>PHP&#x8D85;&#x7EA7;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF08;9&#x4E2A;&#xFF09;</h2><ul>
+<li><strong><code>$GLOBALS</code></strong> &#x2013; &#x5F15;&#x7528;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53EF;&#x7528;&#x7684;&#x5168;&#x90E8;&#x53D8;&#x91CF;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.globals.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-GLOBALS</a></li>
+<li><strong><code>$_SERVER</code></strong> &#x2013; &#x670D;&#x52A1;&#x5668;&#x548C;&#x6267;&#x884C;&#x73AF;&#x5883;&#x4FE1;&#x606F;, &#x4E00;&#x4E2A;&#x5305;&#x542B;&#x4E86;&#x8BF8;&#x5982;&#x5934;&#x4FE1;&#x606F;(header)&#x3001;&#x8DEF;&#x5F84;(path)&#x3001;&#x4EE5;&#x53CA;&#x811A;&#x672C;&#x4F4D;&#x7F6E;(script locations)&#x7B49;&#x7B49;&#x4FE1;&#x606F;&#x7684;&#x6570;&#x7EC4;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.server.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-SERVER</a></li>
+<li><strong><code>$_GET</code></strong> &#x2013; &#x83B7;&#x53D6;&#x8868;&#x5355;&#x7684;GET&#x8BF7;&#x6C42;&#x53C2;&#x6570;,&#x901A;&#x8FC7; URL &#x53C2;&#x6570;&#x4F20;&#x9012;&#x7ED9;&#x5F53;&#x524D;&#x811A;&#x672C;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x7EC4;&#x3002; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.get.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-GET</a></li>
+<li><strong><code>$_POST</code></strong> &#x2013; &#x83B7;&#x53D6;&#x8868;&#x5355;&#x7684;POST&#x8BF7;&#x6C42;&#x53C2;&#x6570;, &#x5F53; HTTP POST &#x8BF7;&#x6C42;&#x7684; Content-Type &#x662F; application/x-www-form-urlencoded &#x6216; multipart/form-data &#x65F6;&#xFF0C;&#x4F1A;&#x5C06;&#x53D8;&#x91CF;&#x4EE5;&#x5173;&#x8054;&#x6570;&#x7EC4;&#x5F62;&#x5F0F;&#x4F20;&#x5165;&#x5F53;&#x524D;&#x811A;&#x672C;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.post.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-POST</a>;</li>
+<li><strong><code>$_FILES</code></strong> &#x2013; &#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x53D8;&#x91CF;,&#x901A;&#x8FC7; HTTP POST &#x65B9;&#x5F0F;&#x4E0A;&#x4F20;&#x5230;&#x5F53;&#x524D;&#x811A;&#x672C;&#x7684;&#x9879;&#x76EE;&#x7684;&#x6570;&#x7EC4;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.files.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-FILES</a>;</li>
+<li><strong><code>$_REQUEST</code></strong> &#x2013; &#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x5305;&#x542B;&#x4E86; <code>$_GET</code>&#xFF0C;<code>$_POST</code> &#x548C; <code>$_COOKIE</code> &#x7684;&#x6570;&#x7EC4;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.request.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-REQUEST</a>;</li>
+<li><strong><code>$_SESSION</code></strong> &#x2013; &#x670D;&#x52A1;&#x7AEF;session&#x7684;&#x64CD;&#x4F5C;<ul>
+<li>&#x4F7F;&#x7528;session&#x524D;&#x4E00;&#x5B9A;&#x8981;session_start()&#x542F;&#x52A8;session</li>
+<li>&#x50A8;&#x5B58;session&#xFF1A;$_SESSION[&#x201C;name&#x201D;]=&#x201D;King&#x201D;;//&#x6570;&#x7EC4;&#x64CD;&#x4F5C;</li>
+<li>&#x9500;&#x6BC1;session&#xFF1A;unset($_SESSION[&#x201C;name&#x201D;]);//&#x9500;&#x6BC1;&#x4E00;&#x4E2A;</li>
+<li>session_destroy()&#x548C;unset($_SESSION);//&#x9500;&#x6BC1;&#x6240;&#x6709;&#x7684;session</li>
+<li><em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.session.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-SESSION</a></li>
+</ul>
+</li>
+<li><strong><code>$_ENV</code></strong> &#x2013; &#x901A;&#x8FC7;&#x73AF;&#x5883;&#x65B9;&#x5F0F;&#x4F20;&#x9012;&#x7ED9;&#x5F53;&#x524D;&#x811A;&#x672C;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x7EC4;, &#x8FD9;&#x4E9B;&#x53D8;&#x91CF;&#x88AB;&#x4ECE; PHP &#x89E3;&#x6790;&#x5668;&#x7684;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x5BFC;&#x5165;&#x5230; PHP &#x7684;&#x5168;&#x5C40;&#x547D;&#x540D;&#x7A7A;&#x95F4;; <em>&#x53C2;&#x8003;</em><a href="http://php.net/manual/zh/reserved.variables.environment.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-ENV</a>;</li>
+<li><strong><code>$_COOKIE</code></strong> &#x2013; &#x901A;&#x8FC7; HTTP Cookies &#x65B9;&#x5F0F;&#x4F20;&#x9012;&#x7ED9;&#x5F53;&#x524D;&#x811A;&#x672C;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x7EC4;, &#x53C2;&#x8003;<a href="http://php.net/manual/zh/reserved.variables.cookies.php" target="_blank" rel="external">PHP&#x624B;&#x518C;</a>;</li>
+<li>&#x5176;&#x4ED6; <strong><code>$php_errormsg</code></strong> &#x524D;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x4FE1;&#x606F;(7.2.0+), <strong><code>$HTTP_RAW_POST_DATA</code></strong> &#x539F;&#x58F0;POST&#x6570;&#x636E;(5.6&#x6DFB;&#x52A0;, 7.0+&#x88AB;&#x79FB;&#x9664;), <strong>$http_response_header</strong> HTTP&#x54CD;&#x5E94;&#x5934;, <strong><code>$argc</code></strong> &#x4F20;&#x9012;&#x7ED9;&#x811A;&#x672C;&#x7684;&#x53C2;&#x6570;&#x6570;&#x76EE;, <strong><code>$argv</code></strong> &#x4F20;&#x9012;&#x7ED9;&#x811A;&#x672C;&#x7684;&#x53C2;&#x6570;&#x6570;&#x7EC4;</li>
+</ul>
+<h2 id="PHP&#x9B54;&#x672F;&#x5E38;&#x91CF;-8&#x4E2A;"><a href="#PHP&#x9B54;&#x672F;&#x5E38;&#x91CF;-8&#x4E2A;" class="headerlink" title="PHP&#x9B54;&#x672F;&#x5E38;&#x91CF; (8&#x4E2A;)"></a>PHP&#x9B54;&#x672F;&#x5E38;&#x91CF; (8&#x4E2A;)</h2><ul>
+<li><strong><code>__LINE__</code></strong> &#x2013; &#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5F53;&#x524D;&#x884C;&#x53F7;</li>
+<li><strong><code>__FILE__</code></strong> &#x2013; &#x6587;&#x4EF6;&#x7684;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#x548C;&#x6587;&#x4EF6;&#x540D;&#x3002;&#x5982;&#x679C;&#x7528;&#x5728;&#x88AB;&#x5305;&#x542B;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x88AB;&#x5305;&#x542B;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x3002;&#x81EA; PHP 4.0.2 &#x8D77;&#xFF0C;<strong>FILE</strong> &#x603B;&#x662F;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x5982;&#x679C;&#x662F;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#xFF0C;&#x5219;&#x662F;&#x89E3;&#x6790;&#x540E;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF09;&#xFF0C;&#x800C;&#x5728;&#x6B64;&#x4E4B;&#x524D;&#x7684;&#x7248;&#x672C;&#x6709;&#x65F6;&#x4F1A;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#x3002;</li>
+<li><strong><code>__DIR__</code></strong> &#x2013; &#x6587;&#x4EF6;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;&#x3002;&#x5982;&#x679C;&#x7528;&#x5728;&#x88AB;&#x5305;&#x62EC;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x88AB;&#x5305;&#x62EC;&#x7684;&#x6587;&#x4EF6;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;&#x3002;&#x5B83;&#x7B49;&#x4EF7;&#x4E8E; dirname(<strong>FILE</strong>)&#x3002;&#x9664;&#x975E;&#x662F;&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x5426;&#x5219;&#x76EE;&#x5F55;&#x4E2D;&#x540D;&#x4E0D;&#x5305;&#x62EC;&#x672B;&#x5C3E;&#x7684;&#x659C;&#x6760;&#x3002;&#xFF08;PHP 5.3.0&#x4E2D;&#x65B0;&#x589E;&#xFF09;</li>
+<li><strong><code>__FUNCTION__</code></strong> &#x2013; &#x5F53;&#x524D;&#x51FD;&#x6570;&#x540D;&#x79F0;&#xFF08;PHP 4.3.0 &#x65B0;&#x52A0;&#xFF09;&#x3002;&#x81EA; PHP 5 &#x8D77;&#x672C;&#x5E38;&#x91CF;&#x8FD4;&#x56DE;&#x8BE5;&#x51FD;&#x6570;&#x88AB;&#x5B9A;&#x4E49;&#x65F6;&#x7684;&#x540D;&#x5B57;&#xFF08;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;&#x5728; PHP 4 &#x4E2D;&#x8BE5;&#x503C;&#x603B;&#x662F;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x7684;;</li>
+<li><strong><code>__CLASS__</code></strong> &#x2013; &#x5F53;&#x524D;&#x7C7B;&#x7684;&#x540D;&#x79F0;&#xFF08;PHP 4.3.0 &#x65B0;&#x52A0;&#xFF09;&#x3002;&#x81EA; PHP 5 &#x8D77;&#x672C;&#x5E38;&#x91CF;&#x8FD4;&#x56DE;&#x8BE5;&#x7C7B;&#x88AB;&#x5B9A;&#x4E49;&#x65F6;&#x7684;&#x540D;&#x5B57;&#xFF08;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;&#x5728; PHP 4 &#x4E2D;&#x8BE5;&#x503C;&#x603B;&#x662F;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x7684;&#x3002;&#x7C7B;&#x540D;&#x5305;&#x62EC;&#x5176;&#x88AB;&#x58F0;&#x660E;&#x7684;&#x4F5C;&#x7528;&#x533A;&#x57DF;&#xFF08;&#x4F8B;&#x5982; Foo\Bar&#xFF09;&#x3002;&#x6CE8;&#x610F;&#x81EA; PHP 5.4 &#x8D77; <strong>CLASS</strong> &#x5BF9; trait &#x4E5F;&#x8D77;&#x4F5C;&#x7528;&#x3002;&#x5F53;&#x7528;&#x5728; trait &#x65B9;&#x6CD5;&#x4E2D;&#x65F6;&#xFF0C;<strong>CLASS</strong> &#x662F;&#x8C03;&#x7528; trait &#x65B9;&#x6CD5;&#x7684;&#x7C7B;&#x7684;&#x540D;&#x5B57;&#x3002;</li>
+<li><strong><code>__TRAIT__</code></strong> &#x2013; Trait &#x7684;&#x540D;&#x5B57;&#xFF08;PHP 5.4.0 &#x65B0;&#x52A0;&#xFF09;&#x3002;&#x81EA; PHP 5.4 &#x8D77;&#x6B64;&#x5E38;&#x91CF;&#x8FD4;&#x56DE; trait &#x88AB;&#x5B9A;&#x4E49;&#x65F6;&#x7684;&#x540D;&#x5B57;&#xFF08;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;Trait &#x540D;&#x5305;&#x62EC;&#x5176;&#x88AB;&#x58F0;&#x660E;&#x7684;&#x4F5C;&#x7528;&#x533A;&#x57DF;&#xFF08;&#x4F8B;&#x5982; Foo\Bar&#xFF09;&#x3002;</li>
+<li><strong><code>__METHOD__</code></strong> &#x2013; &#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#xFF08;PHP 5.0.0 &#x65B0;&#x52A0;&#xFF09;&#x3002;&#x8FD4;&#x56DE;&#x8BE5;&#x65B9;&#x6CD5;&#x88AB;&#x5B9A;&#x4E49;&#x65F6;&#x7684;&#x540D;&#x5B57;&#xFF08;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;</li>
+<li><strong><code>__NAMESPACE__</code></strong> &#x2013; &#x5F53;&#x524D;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x540D;&#x79F0;&#xFF08;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;&#x6B64;&#x5E38;&#x91CF;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x5B9A;&#x4E49;&#x7684;&#xFF08;PHP 5.3.0 &#x65B0;&#x589E;)</li>
+<li><em>&#x53C2;&#x8003;</em><a href="http://www.php.net/manual/zh/language.constants.predefined.php" target="_blank" rel="external">PHP&#x624B;&#x518C;-&#x9B54;&#x672F;&#x5E38;&#x91CF;</a></li>
+</ul>
+<h2 id="PHP&#x9B54;&#x672F;&#x65B9;&#x6CD5;-16&#x4E2A;"><a href="#PHP&#x9B54;&#x672F;&#x65B9;&#x6CD5;-16&#x4E2A;" class="headerlink" title="PHP&#x9B54;&#x672F;&#x65B9;&#x6CD5; (16&#x4E2A;)"></a>PHP&#x9B54;&#x672F;&#x65B9;&#x6CD5; (16&#x4E2A;)</h2><ul>
+<li><strong><code>__construct([ mixed $args [, $... ]])</code></strong> &#x2013; &#x6784;&#x9020;&#x51FD;&#x6570;, &#x5728;&#x6BCF;&#x6B21;&#x521B;&#x5EFA;&#x65B0;&#x5BF9;&#x8C61;&#x65F6;&#x5148;&#x8C03;&#x7528;&#x6B64;&#x65B9;&#x6CD5;, &#x4F7F;&#x7528;&#x5BF9;&#x8C61;&#x4E4B;&#x524D;&#x505A;&#x4E00;&#x4E9B;&#x521D;&#x59CB;&#x5316;&#x5DE5;&#x4F5C;; <em>&#x53C2;&#x8003;</em><a href="https://secure.php.net/manual/zh/language.oop5.decon.php#object.construct" target="_blank" rel="external">PHP&#x624B;&#x518C;-construct</a></li>
+<li><strong><code>__destruct ( void )</code></strong> &#x2013; &#x6790;&#x6784;&#x51FD;&#x6570;, &#x5728;&#x5230;&#x67D0;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x5F15;&#x7528;&#x90FD;&#x88AB;&#x5220;&#x9664;&#x6216;&#x8005;&#x5F53;&#x5BF9;&#x8C61;&#x88AB;&#x663E;&#x5F0F;&#x9500;&#x6BC1;&#x65F6;&#x6267;&#x884C;&#x3002; <em>&#x53C2;&#x8003;</em><a href="https://secure.php.net/manual/zh/language.oop5.decon.php#object.destruct" target="_blank" rel="external">PHP&#x624B;&#x518C;-destruct</a></li>
+<li><strong><code>__call ( string $name , array $arguments )</code></strong> &#x2013; &#x5728;&#x5BF9;&#x8C61;&#x4E2D;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;_<em>call() &#x4F1A;&#x88AB;&#x8C03;&#x7528;; </em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.call" target="_blank" rel="external">PHP&#x624B;&#x518C;-call</a></li>
+<li><strong><code>__callStatic ( string $name , array $arguments )</code></strong> &#x2013; &#x5728;&#x9759;&#x6001;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;_<em>callStatic() &#x4F1A;&#x88AB;&#x8C03;&#x7528;; </em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.callstatic" target="_blank" rel="external">PHP&#x624B;&#x518C;-callstatic</a></li>
+<li><strong><code>__get($str)</code></strong> &#x2013; &#x8BFB;&#x53D6;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x65F6;&#xFF0C;_<em>get() &#x4F1A;&#x88AB;&#x8C03;&#x7528;; </em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.get" target="_blank" rel="external">PHP&#x624B;&#x518C;-get</a></li>
+<li><strong><code>__set($str)</code></strong> &#x2013; &#x5728;&#x7ED9;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x65F6;&#xFF0C;_<em>set() &#x4F1A;&#x88AB;&#x8C03;;</em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.set" target="_blank" rel="external">PHP&#x624B;&#x518C;-set</a></li>
+<li><strong><code>__unset($str)</code></strong> &#x2013; &#x5F53;&#x5BF9;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x5C5E;&#x6027;&#x8C03;&#x7528; unset() &#x65F6;&#xFF0C;_<em>unset() &#x4F1A;&#x88AB;&#x8C03;&#x7528;;</em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.unset" target="_blank" rel="external">PHP&#x624B;&#x518C;-unset</a></li>
+<li><strong><code>__isset($str)</code></strong> &#x2013; &#x5F53;&#x5BF9;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#x5C5E;&#x6027;&#x8C03;&#x7528; isset() &#x6216; empty() &#x65F6;&#xFF0C;_<em>isset() &#x4F1A;&#x88AB;&#x8C03;&#x7528;; </em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.overloading.php#object.isset" target="_blank" rel="external">PHP&#x624B;&#x518C;-isset</a></li>
+<li><strong><code>__sleep()</code></strong> &#x2013; serialize() &#x51FD;&#x6570;&#x4F1A;&#x68C0;&#x67E5;&#x7C7B;&#x4E2D;&#x662F;&#x5426;&#x5B58;&#x5728;&#x8BE5;&#x9B54;&#x672F;&#x65B9;&#x6CD5; __sleep()&#x3002;&#x5982;&#x679C;&#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x5148;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x6267;&#x884C;&#x5E8F;&#x5217;&#x5316;&#x64CD;&#x4F5C;&#x3002;&#x6B64;&#x529F;&#x80FD;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x6E05;&#x7406;&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x5BF9;&#x8C61;&#x4E2D;&#x6240;&#x6709;&#x5E94;&#x88AB;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x53D8;&#x91CF;&#x540D;&#x79F0;&#x7684;&#x6570;&#x7EC4;&#x3002;&#x5982;&#x679C;&#x8BE5;&#x65B9;&#x6CD5;&#x672A;&#x8FD4;&#x56DE;&#x4EFB;&#x4F55;&#x5185;&#x5BB9;&#xFF0C;&#x5219; NULL &#x88AB;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x5E76;&#x4EA7;&#x751F;&#x4E00;&#x4E2A; E<em>NOTICE &#x7EA7;&#x522B;&#x7684;&#x9519;&#x8BEF;&#x3002;</em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.magic.php#object.sleep" target="_blank" rel="external">PHP&#x624B;&#x518C;-sleep</a></li>
+<li><strong><code>__wakeup()</code></strong> &#x2013; unserialize() &#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4E00;&#x4E2A; <strong>wakeup() &#x65B9;&#x6CD5;&#x3002;&#x5982;&#x679C;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x4F1A;&#x5148;&#x8C03;&#x7528; </strong>wakeup &#x65B9;&#x6CD5;&#xFF0C;&#x9884;&#x5148;&#x51C6;&#x5907;&#x5BF9;&#x8C61;&#x9700;&#x8981;&#x7684;&#x8D44;&#x6E90;; <em>&#x53C2;&#x8003;</em><a href="https://secure.php.net/manual/zh/language.oop5.magic.php#object.wakeup" target="_blank" rel="external">PHP&#x624B;&#x518C;-wakeup</a></li>
+<li><p><strong><code>__toString</code></strong> &#x2013; &#x7528;&#x4E8E;&#x4E00;&#x4E2A;&#x7C7B;&#x88AB;&#x5F53;&#x6210;&#x5B57;&#x7B26;&#x4E32;&#x65F6;&#x5E94;&#x600E;&#x6837;&#x56DE;&#x5E94;; &#x6BD4;&#x5982;: <code>echo</code>, &#x6B64;&#x65B9;&#x6CD5;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x53D1;&#x51FA;&#x4E00;&#x6761; E_RECOVERABLE_ERROR &#x7EA7;&#x522B;&#x7684;&#x81F4;&#x547D;&#x9519;&#x8BEF;&#x3002;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Declare a simple class</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></div><div class="line">{</div><div class="line">    <span class="keyword">public</span> $foo;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($foo)</span> </span></div><div class="line">    {</div><div class="line">        <span class="keyword">$this</span>-&gt;foo = $foo;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;foo;</div><div class="line">    }</div><div class="line">}</div><div class="line">  </div><div class="line">$class = <span class="keyword">new</span> TestClass(<span class="string">&apos;Hello&apos;</span>);</div><div class="line"><span class="keyword">echo</span> $class; <span class="comment">// Hello</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>__invoke([$...])</code></strong> &#x2013; &#x5F53;&#x5C1D;&#x8BD5;&#x4EE5;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x7684;&#x65B9;&#x5F0F;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x65F6;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CallableClass</span> </span></div><div class="line">{</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span><span class="params">($x)</span> </span>{</div><div class="line">        var_dump($x);</div><div class="line">    }</div><div class="line">}</div><div class="line">$obj = <span class="keyword">new</span> CallableClass;</div><div class="line">$obj(<span class="number">5</span>); <span class="comment">// &#x4EE5;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x7684;&#x65B9;&#x5F0F;&#x8C03;&#x7528;&#x5BF9;&#x8C61; // 5</span></div><div class="line">var_dump(is_callable($obj)); <span class="comment">// bool(true)</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>__set_state ( array $properties )</code></strong> &#x2013; &#x81EA; PHP 5.1.0 &#x8D77;&#x5F53;&#x8C03;&#x7528; var_export() &#x5BFC;&#x51FA;&#x7C7B;&#x65F6;&#xFF0C;&#x6B64;&#x9759;&#x6001; &#x65B9;&#x6CD5;&#x4F1A;&#x88AB;&#x8C03;&#x7528;; &#x552F;&#x4E00;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;&#x6309; array(&#x2018;property&#x2019; =&gt; value, &#x2026;) &#x683C;&#x5F0F;&#x6392;&#x5217;&#x7684;&#x7C7B;&#x5C5E;&#x6027;;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></div><div class="line">{</div><div class="line">    <span class="keyword">public</span> $var1;</div><div class="line">    <span class="keyword">public</span> $var2;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__set_state</span><span class="params">($an_array)</span> // <span class="title">As</span> <span class="title">of</span> <span class="title">PHP</span> 5.1.0</span></div><div class="line">    {</div><div class="line">        $obj = <span class="keyword">new</span> A;</div><div class="line">        $obj-&gt;var1 = $an_array[<span class="string">&apos;var1&apos;</span>];</div><div class="line">        $obj-&gt;var2 = $an_array[<span class="string">&apos;var2&apos;</span>];</div><div class="line">        <span class="keyword">return</span> $obj;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line">$a = <span class="keyword">new</span> A;</div><div class="line">$a-&gt;var1 = <span class="number">5</span>;</div><div class="line">$a-&gt;var2 = <span class="string">&apos;foo&apos;</span>;</div><div class="line"></div><div class="line"><span class="keyword">eval</span>(<span class="string">&apos;$b = &apos;</span> . var_export($a, <span class="keyword">true</span>) . <span class="string">&apos;;&apos;</span>); <span class="comment">// $b = A::__set_state(array(</span></div><div class="line">                                            <span class="comment">//    &apos;var1&apos; =&gt; 5,</span></div><div class="line">                                            <span class="comment">//    &apos;var2&apos; =&gt; &apos;foo&apos;,</span></div><div class="line">                                            <span class="comment">// ));</span></div><div class="line">var_dump($b);</div><div class="line"><span class="comment">// object(A)#2 (2) {</span></div><div class="line"><span class="comment">//   [&quot;var1&quot;]=&gt;</span></div><div class="line"><span class="comment">//   int(5)</span></div><div class="line"><span class="comment">//   [&quot;var2&quot;]=&gt;</span></div><div class="line"><span class="comment">//   string(3) &quot;foo&quot;</span></div><div class="line"><span class="comment">// }</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>__clone()</code></strong> &#x2013; &#x5F53;&#x590D;&#x5236;&#x5B8C;&#x6210;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x4E86; <strong>clone() &#x65B9;&#x6CD5;&#xFF0C;&#x5219;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x590D;&#x5236;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#xFF09;&#x4E2D;&#x7684; </strong>clone() &#x65B9;&#x6CD5;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x7528;&#x4E8E;&#x4FEE;&#x6539;&#x5C5E;&#x6027;&#x7684;&#x503C;&#xFF08;&#x5982;&#x679C;&#x6709;&#x5FC5;&#x8981;&#x7684;&#x8BDD;&#xFF09;&#x3002; <em>&#x53C2;&#x8003;</em> <a href="https://secure.php.net/manual/zh/language.oop5.cloning.php#object.clone" target="_blank" rel="external">PHP&#x624B;&#x518C;-clone</a></p>
+</li>
+<li><strong><code>__debugInfo()</code></strong> &#x2013; &#x7531;var<em>dump&#xFF08;&#xFF09;&#x6253;&#x5370;&#x5BF9;&#x8C61;&#x5C5E;&#x76F8;&#x65F6;&#x3002;&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x672A;&#x5728;&#x5BF9;&#x8C61;&#x4E0A;&#x5B9A;&#x4E49;&#xFF0C;&#x90A3;&#x4E48;&#x5C06;&#x663E;&#x793A;&#x6240;&#x6709;public&#xFF0C;protected&#x548C;private&#x5C5E;&#x6027;, &#x5B9A;&#x4E49;&#x540E;&#x5219;&#x503C;&#x663E;&#x793A;&#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027;; </em>&#x53C2;&#x8003;_<a href="https://secure.php.net/manual/zh/language.oop5.magic.php#object.debuginfo" target="_blank" rel="external">PHP&#x624B;&#x518C;-debugInfo</a></li>
+<li><strong><code>__autoload()</code></strong> &#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x8BE5;&#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#x3002;</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag">#面试</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/面试宝/2017- Nginx做负载均衡时, 如何避免单点故障/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/面试宝/2017- Lavarel的各个模块认识/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">101</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#超全局变量、魔术常量和魔术方法"><span class="nav-text">超全局变量、魔术常量和魔术方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP超级全局变量（9个）"><span class="nav-text">PHP超级全局变量（9个）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP魔术常量-8个"><span class="nav-text">PHP魔术常量 (8个)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP魔术方法-16个"><span class="nav-text">PHP魔术方法 (16个)</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+  <script type="text/javascript" alpha="0.2" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+  <script type="text/javascript" alpha="0.1" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+</body>
+</html>

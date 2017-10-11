@@ -1,0 +1,675 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vim,基本操作" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Vim基本操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim基本操作">
+<meta property="og:url" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/index.html">
+<meta property="og:site_name" content="Snaker95">
+<meta property="og:description" content="Vim基本操作">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/0474D57177C8491CF249F860C5F1BD9A.jpg =791x367">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/6BF4A1C3610320AEF2BA8146D9EB75DA.jpg =755x364">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/6ECCAD81B7E532F1DDF95CE9B36CF7D4.jpg =788x159">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/5FA5BCA18B632630005EFD7758A3C3FF.jpg =795x362">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/9A7D79438E26E24A2CD1E27E3216F871.jpg =786x176">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/777BF3A46596F822AE48143A44EC0F75.jpg =737x329">
+<meta property="og:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/4523BDC14A25F3C6D30F828248D14F84.jpg =684x107">
+<meta property="og:updated_time" content="2017-09-12T05:55:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim基本操作">
+<meta name="twitter:description" content="Vim基本操作">
+<meta name="twitter:image" content="http://yoursite.com/Vim/Vim/01. Vim基本操作/resources/0474D57177C8491CF249F860C5F1BD9A.jpg =791x367">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Vim基本操作 | Snaker95 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Snaker95</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vim基本操作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-12T13:55:52+08:00" content="2017-09-12">
+              2017-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Vim/" itemprop="url" rel="index">
+                    <span itemprop="name">Vim</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h1 id="Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;"><a href="#Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;</h1><h2 id="&#x5B66;&#x4E60;Vim"><a href="#&#x5B66;&#x4E60;Vim" class="headerlink" title="&#x5B66;&#x4E60;Vim"></a>&#x5B66;&#x4E60;Vim</h2><ul>
+<li>&#x76EE;&#x7684;1: &#x63D0;&#x9AD8;&#x6548;&#x7387;(&#x6682;&#x672A;&#x611F;&#x89C9;)</li>
+<li>&#x76EE;&#x7684;2: &#x88C5;&#x9177;(&#x771F;&#x6B63;&#x76EE;&#x7684;)</li>
+<li>&#x63A8;&#x8350;&#x7EC3;&#x4E60;&#x6E38;&#x620F;:</li>
+<li><ul>
+<li><a href="https://vim-adventures.com" target="_blank" rel="external">Vim Adventures</a> &#x8FD9;&#x662F;&#x4E00;&#x6B3E;&#x5728;&#x7EBF;&#x6E38;&#x620F;&#xFF0C;&#x73A9;&#x6CD5;&#x8D85;&#x7EA7;&#x7B80;&#x5355;&#xFF0C;&#x63A7;&#x5236;&#x952E;&#x90FD;&#x662F; Vim &#x7684;&#x79FB;&#x52A8;&#x6307;&#x4EE4;&#x3002;&#x4F60;&#x6240;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#x628A;&#x952E;&#x76D8;&#x5F53;&#x6210;&#x624B;&#x67C4;&#xFF0C;&#x79FB;&#x52A8;&#x4E00;&#x4E2A;&#x9634;&#x5F71;&#x6765;&#x5BFB;&#x627E;&#x5B57;&#x6BCD;&#x3001;&#x4EBA;&#x7269;&#x3001;&#x5B9D;&#x85CF;&#x3001;&#x94A5;&#x5319;&#x7B49;&#x7B49;&#x3002;&#x5982;&#x679C;&#x4F60;&#x65E0;&#x6CD5;&#x8FC7;&#x5173;&#x4E5F;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#xFF0C;&#x91CD;&#x8981;&#x7684;&#x662F;&#x63A7;&#x5236;&#x65B9;&#x5411;&#x8FD9;&#x4E2A;&#x73AF;&#x8282;&#x80FD;&#x591F;&#x628A;&#x5B83;&#x7EC3;&#x4E60;&#x5230;&#x65E0;&#x9700;&#x601D;&#x8003;&#x4E14;&#x4E0D;&#x4F1A;&#x72AF;&#x9519;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</li>
+</ul>
+</li>
+<li><ul>
+<li><a href="http://www.vimsnake.com/" target="_blank" rel="external">Vim Snake</a> &#x5982;&#x679C;&#x4F60;&#x89C9;&#x5F97;&#x4E0A;&#x4E00;&#x4E2A;&#x6E38;&#x620F;&#x6709;&#x70B9;&#x96BE;&#xFF0C;&#x56E0;&#x4E3A;&#x65E0;&#x6CD5;&#x8FC7;&#x5173;&#x8BA9;&#x4F60;&#x6709;&#x632B;&#x6298;&#x611F;&#x7684;&#x8BDD;&#xFF0C;&#x8FD9;&#x4E2A;&#x6E38;&#x620F;&#x5C31;&#x7B80;&#x5355;&#x591A;&#x4E86;&#x2014;&#x2014;&#x8D2A;&#x5403;&#x86C7;&#xFF0C;&#x8C01;&#x4E0D;&#x4F1A;&#x73A9;&#xFF1F;&#x53EA;&#x4E0D;&#x8FC7;&#x4F60;&#x53EA;&#x80FD;&#x7528; h j k l &#x6765;&#x63A7;&#x5236;&#x65B9;&#x5411;&#x800C;&#x5DF2;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x63D2;&#x5165;&#x6A21;&#x5F0F;&#xFF08;i&#xFF09;&#x624D;&#x80FD;&#x5403;&#x5230;&#x4E1C;&#x897F;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x5E38;&#x89C4;&#x6A21;&#x5F0F;&#xFF08;ESC&#xFF09;&#x624D;&#x80FD;&#x79FB;&#x52A8;&#x65B9;&#x5411;&#x3002;&#x5B8C;&#x6574;&#x7684;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;&#x79FB;&#x52A8; -&gt; &#x5BF9;&#x51C6;&#x76EE;&#x6807; -&gt; &#x6309;&#x4E0B; i &#x76F4;&#x5230;&#x5403;&#x5230;&#x76EE;&#x6807; -&gt; &#x8FC5;&#x901F;&#x6309;&#x4E0B; ESC -&gt; &#x79FB;&#x52A8;&#x3002;&#x5173;&#x4E8E;&#x6A21;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x4E0B;&#x6B21;&#x89E3;&#x91CA;&#x3002;</li>
+</ul>
+</li>
+<li><ul>
+<li><a href="http://www.openvim.com/tutorial.html" target="_blank" rel="external">Open Vim Tutorials</a> &#x5982;&#x679C;&#x4EE5;&#x4E0A;&#x4E24;&#x6B3E;&#x6E38;&#x620F;&#x90FD;&#x8BA9;&#x4F60;&#x4E3A;&#x96BE;&#x7684;&#x8BDD;&#xFF08;&#x5582;&#xFF0C;&#x4F60;&#x4E0D;&#x662F;&#x5427;&#xFF1F;&#xFF01;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x5C31;&#x662F;&#x4F60;&#x7684;&#x6551;&#x661F;&#x5566;&#x3002;&#x8BF7;&#x76F4;&#x63A5;&#x8DF3;&#x5230;&#x7B2C;&#x4E09;&#x7AE0;&#x7EC3;&#x4E60;&#x56DB;&#x65B9;&#x5411;&#x79FB;&#x52A8;&#xFF0C;&#x7B49;&#x5230;&#x5F00;&#x59CB;&#x4E60;&#x60EF;&#x8FD9;&#x79CD;&#x611F;&#x89C9;&#x4E86;&#x518D;&#x7EE7;&#x7EED;&#x6311;&#x6218;&#x6E38;&#x620F;&#x3002;</li>
+</ul>
+</li>
+<li><ul>
+<li><a href="http://www.vimgenius.com/" target="_blank" rel="external">Vim Genius</a> &#x8FD9;&#x4E5F;&#x662F;&#x597D;&#x4E1C;&#x897F;&#xFF0C;&#x5B83;&#x6BD4;&#x4E0A;&#x4E00;&#x4E2A;&#x66F4;&#x8D34;&#x8FD1; Vim &#x7684;&#x54F2;&#x5B66;&#x3002;&#x5B83;&#x4E0D;&#x8BA9;&#x4F60;&#x770B;&#x5230;&#x8981;&#x6309;&#x54EA;&#x4E2A;&#x952E;&#xFF0C;&#x800C;&#x662F;&#x7ED9;&#x4F60;&#x6587;&#x5B57;&#x63D0;&#x793A;&#x8BA9;&#x4F60;&#x76F2;&#x6253;&#x5BF9;&#x5E94;&#x7684;&#x952E;&#xFF0C;&#x5176;&#x597D;&#x5904;&#x662F;&#x953B;&#x70BC;&#x81EA;&#x5DF1;&#x7684;&#x808C;&#x8089;&#x8BB0;&#x5FC6;&#x548C;&#x6761;&#x4EF6;&#x53CD;&#x5C04;&#x601D;&#x7EF4;&#x3002;&#x7136;&#x800C;&#x5B83;&#x6BD4;&#x8F83;&#x4F9D;&#x9760;&#x4F60;&#x7684;&#x81EA;&#x63A7;&#x80FD;&#x529B;&#x4E0E;&#x8010;&#x5FC3;&#xFF0C;&#x53E6;&#x5916;&#x82F1;&#x6587;&#x4E0D;&#x597D;&#x4E5F;&#x4F1A;&#x6709;&#x70B9;&#x62D6;&#x7D2F;</li>
+</ul>
+</li>
+<li><ul>
+<li>&#x53C2;&#x8003;: <a href="https://segmentfault.com/a/1190000000445598" target="_blank" rel="external">Vim&#x54F2;&#x5B66;</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x57FA;&#x672C;&#x64CD;&#x4F5C;"><a href="#&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x57FA;&#x672C;&#x64CD;&#x4F5C;</h2><ul>
+<li>level1: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/0474D57177C8491CF249F860C5F1BD9A.jpg =791x367" alt="IMAGE"></li>
+<li>level2: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/6BF4A1C3610320AEF2BA8146D9EB75DA.jpg =755x364" alt="IMAGE"></li>
+<li>leve3: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/6ECCAD81B7E532F1DDF95CE9B36CF7D4.jpg =788x159" alt="IMAGE"></li>
+<li>&#x5907;&#x6CE8;: cw/C/dw/D&#x7684;&#x533A;&#x522B;: cw/C&#x4F1A;&#x8FDB;&#x5165;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;, dw/D&#x4E0D;&#x4F1A;&#x8FDB;&#x5165;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;</li>
+<li>level4: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/5FA5BCA18B632630005EFD7758A3C3FF.jpg =795x362" alt="IMAGE"></li>
+<li>level5: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/9A7D79438E26E24A2CD1E27E3216F871.jpg =786x176" alt="IMAGE"></li>
+<li>level6: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/777BF3A46596F822AE48143A44EC0F75.jpg =737x329" alt="IMAGE"></li>
+<li>level7: <img src="/Vim/Vim/01. Vim&#x57FA;&#x672C;&#x64CD;&#x4F5C;/resources/4523BDC14A25F3C6D30F828248D14F84.jpg =684x107" alt="IMAGE"></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vim/" rel="tag">#Vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Vim/Vim/02. Vim操作分类/" rel="next" title="Vim操作分类">
+                <i class="fa fa-chevron-left"></i> Vim操作分类
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/面试宝/2017- Linux下统计的相关命令/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Snaker95" />
+          <p class="site-author-name" itemprop="name">Snaker95</p>
+          <p class="site-description motion-element" itemprop="description">人生点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">101</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sharedsea.com/" target="_blank" title="snaker95's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  snaker95's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://liu2lin600.github.io/" target="_blank" title="liu2lin600's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  liu2lin600's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.qiuxiaochao.com/" target="_blank" title="超超's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  超超's Blob
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sszgr.com/" target="_blank" title="sszgr's Blob">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  sszgr's Blob
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim基本操作"><span class="nav-text">Vim基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习Vim"><span class="nav-text">学习Vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-text">基本操作</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-linux"></i>
+    <i class="fa fa-windows"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snaker95</span>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="/js/src/busuanzi.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>  人生<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>  顿悟<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+  <script type="text/javascript" alpha="0.2" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+  <script type="text/javascript" alpha="0.1" src="http://cdn.atool.org/res/ribbon.min.js"></script>
+</body>
+</html>
